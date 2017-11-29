@@ -4,7 +4,7 @@
 *The first cryptocurrency to implement the BalloonHash password hashing function*
 
 
-* Hardfork to new codebase occurs at block 1,165,000, however Mooncoin 0.10 and 0.13 wallets will be compatible until this point.
+* Hardfork to new codebase occurs at block 1,250,000, however Mooncoin 0.10 and 0.13 wallets will be compatible until this point.
 
 * PoW algorithm will switch from Scrypt to BalloonHash (https://github.com/henrycg/balloon).
 
