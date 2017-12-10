@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/mooncoin-project/mooncoin-detached-sigs.git"
+- "url": "https://github.com/mooncoincore/wallet-detached-sigs.git"
   "dir": "signature"
 files:
 - "mooncoin-osx-unsigned.tar.gz"

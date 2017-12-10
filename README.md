@@ -1,4 +1,4 @@
-## Mooncoin Core 0.13.3-segwit
+## Mooncoin Core 0.13.9-segwit
 
 
 *The first cryptocurrency to implement the BalloonHash password hashing function*
@@ -25,5 +25,5 @@ barrystyle / 2DaMooNeT5PDPxwupTFiKoS7KZsFrsWJwd
 
 ### RPC PORT 44663 / P2P PORT 44664
 
-#### Mooncoin started as an early Dogecoin fork (0.6), was upgraded over time to the Litecoin codebase (0.8), since progressing through to a much more modern Litecoin 0.10 codebase - and finally to current platform of Litecoin 0.13.3 with segwit. Built with tomorrow in mind.
+#### Mooncoin started as an early Dogecoin fork (0.6), was upgraded over time to the Litecoin codebase (0.8), since progressing through to a much more modern Litecoin 0.10 codebase - and finally to current platform of Litecoin 0.13.9 with segwit. Built with tomorrow in mind.
 

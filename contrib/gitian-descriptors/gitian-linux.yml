@@ -28,7 +28,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/mooncoin-project/mooncoin.git"
+- "url": "https://github.com/mooncoincore/wallet.git"
   "dir": "mooncoin"
 files: []
 script: |

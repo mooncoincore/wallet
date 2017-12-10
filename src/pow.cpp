@@ -383,7 +383,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
    if (pindexLast->nHeight+1 >= 1100000) { DiffMode = 3; }
    if ((pindexLast->nHeight+1 >= AlgoForkHeight) && 
        (pindexLast->nHeight+1 < AlgoForkHeight + AlgoSmoothingPeriod)) { 
-       AlgoSwitch = true;
+       //AlgoSwitch = true;
        DiffMode = 4; 
    }
    if (pindexLast->nHeight+1 >= AlgoForkHeight + AlgoSmoothingPeriod) { 

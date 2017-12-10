@@ -481,7 +481,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/mooncoin-project/mooncoin>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/mooncoincore/wallet>";
     const std::string URL_WEBSITE = "<https://mooncoin.org>";
     // todo: remove urls from translations on next change
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2011, COPYRIGHT_YEAR) + " ") + "\n" +

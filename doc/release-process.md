@@ -22,9 +22,9 @@ Check out the source code in the following directory hierarchy.
 
     cd /path/to/your/toplevel/build
     git clone https://github.com/mooncoin-project/gitian.sigs.moon.git
-    git clone https://github.com/mooncoin-project/mooncoin-detached-sigs.git
+    git clone https://github.com/mooncoincore/wallet-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
-    git clone https://github.com/mooncoin-project/mooncoin.git
+    git clone https://github.com/mooncoincore/wallet.git
 
 ### Mooncoin maintainers/release engineers, update version in sources
 
@@ -165,7 +165,7 @@ Commit your signature to gitian.sigs.moon:
 Wait for Windows/OS X detached signatures:
 
 - Once the Windows/OS X builds each have 3 matching signatures, they will be signed with their respective release keys.
-- Detached signatures will then be committed to the [mooncoin-detached-sigs](https://github.com/mooncoin-project/mooncoin-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
+- Detached signatures will then be committed to the [mooncoin-detached-sigs](https://github.com/mooncoincore/wallet-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
 
 Create (and optionally verify) the signed OS X binary:
 

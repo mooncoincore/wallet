@@ -172,6 +172,18 @@ void WalletView::gotoHistoryPage()
     setCurrentWidget(transactionsPage);
 }
 
+void WalletView::toggleMinerConsole(bool visible)
+{
+    setCurrentWidget(overviewPage);
+    overviewPage->toggleMinerConsole(visible);
+}
+
+void WalletView::updateMinerConsole(QString output)
+{
+    setCurrentWidget(overviewPage);
+    overviewPage->updateMinerConsole(output);
+}
+
 void WalletView::gotoReceiveCoinsPage()
 {
     setCurrentWidget(receiveCoinsPage);

@@ -45,6 +45,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QMimeData>
+#include <QProcess>
 #include <QProgressBar>
 #include <QProgressDialog>
 #include <QSettings>
@@ -99,6 +100,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
     verifyMessageAction(0),
     aboutAction(0),
     receiveCoinsAction(0),
+    miningAction(0),
     receiveCoinsMenuAction(0),
     optionsAction(0),
     toggleHideAction(0),
@@ -241,7 +243,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
     // darkPalette.setColor(QPalette::HighlightedText, Qt::black);
     // QApplication::setPalette(darkPalette);
     // setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
-    setWindowFlags(Qt::FramelessWindowHint);
+    // setWindowFlags(Qt::FramelessWindowHint);
 
     if(curStyle == "QWindowsStyle" || curStyle == "QWindowsXPStyle")
     {
@@ -319,6 +321,13 @@ void BitcoinGUI::createActions()
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
+    miningAction = new QAction(platformStyle->SingleColorIcon(":/icons/tx_mined"), tr("&Start Mining"), this);
+    miningAction->setStatusTip(tr("Mining through wallet"));
+    miningAction->setToolTip(miningAction->statusTip());
+    miningAction->setCheckable(false);
+    miningAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
+    tabGroup->addAction(miningAction);
+
 #ifdef ENABLE_WALLET
     // These showNormalIfMinimized are needed because Send Coins and Receive Coins
     // can be triggered from the tray menu, and need to show the GUI to be useful.
@@ -334,6 +343,8 @@ void BitcoinGUI::createActions()
     connect(receiveCoinsMenuAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
+    connect(miningAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(miningAction, SIGNAL(triggered()), this, SLOT(gotoMiningAction()));
 #endif // ENABLE_WALLET
 
     quitAction = new QAction(platformStyle->TextColorIcon(":/icons/quit"), tr("E&xit"), this);
@@ -467,6 +478,7 @@ void BitcoinGUI::createToolBars()
         toolbar->addAction(sendCoinsAction);
         toolbar->addAction(receiveCoinsAction);
         toolbar->addAction(historyAction);
+        toolbar->addAction(miningAction);
 		toolbar->setContextMenuPolicy(Qt::PreventContextMenu);  //baz
         overviewAction->setChecked(true);
     }
@@ -560,6 +572,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     sendCoinsAction->setEnabled(enabled);
     sendCoinsMenuAction->setEnabled(enabled);
     receiveCoinsAction->setEnabled(enabled);
+    miningAction->setEnabled(enabled);
     receiveCoinsMenuAction->setEnabled(enabled);
     historyAction->setEnabled(enabled);
     encryptWalletAction->setEnabled(enabled);
@@ -578,7 +591,7 @@ void BitcoinGUI::createTrayIcon(const NetworkStyle *networkStyle)
     trayIcon = new QSystemTrayIcon(this);
     QString toolTip = tr("%1 client").arg(tr(PACKAGE_NAME)) + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
-    //trayIcon->setIcon(networkStyle->getTrayAndWindowIcon());
+    trayIcon->setIcon(networkStyle->getAppIcon());
     trayIcon->hide();
 #endif
 
@@ -699,6 +712,92 @@ void BitcoinGUI::gotoHistoryPage()
 {
     historyAction->setChecked(true);
     if (walletFrame) walletFrame->gotoHistoryPage();
+}
+ 
+void BitcoinGUI::gotoMiningAction()
+{
+    //if (minerProcess->state() == QProcess::NotRunning) 
+    //{
+        //LogPrintf("Try to start miner... \n");
+        minerProcess = new QProcess(this);
+        minerProcess->setProcessChannelMode(QProcess::MergedChannels);
+        QString minerCmd = "./miner/minerd.exe  -a scrypt -o stratum+tcp://5.45.105.66:9664 -u yourwalletaddress";
+        connect( minerProcess, SIGNAL( stateChanged(QProcess::ProcessState) ), this, SLOT( minerProcess_stateChanged(QProcess::ProcessState) ) );
+        connect( minerProcess, SIGNAL( finished(int, QProcess::ExitStatus) ), this, SLOT( minerProcess_finished(int, QProcess::ExitStatus) ) );
+        connect( minerProcess, SIGNAL( error(QProcess::ProcessError) ), this, SLOT( minerProcess_error(QProcess::ProcessError) ) );
+        connect( minerProcess, SIGNAL( readAll() ), SLOT( minerProcess_readyReadStandardOutput() ) );
+        //connect( minerProcess, SIGNAL( readyReadStandardError() ), this, SLOT( minerProcess_readyReadStandardError() ) );
+
+        minerProcess->start(minerCmd);
+/*
+        if (!minerProcess->waitForFinished()) {
+            QString output(minerProcess->errorString());
+            LogPrintf(output.toUtf8().constData());
+            if (walletFrame) walletFrame->updateMinerConsole(output);
+        }
+        else {
+            QString output(minerProcess->readAll());
+            LogPrintf(output.toUtf8().constData());
+            if (walletFrame) walletFrame->updateMinerConsole(output);
+        }
+        */
+    //}
+    
+}
+
+void BitcoinGUI::minerProcess_stateChanged(QProcess::ProcessState state)
+{
+    if (state == QProcess::NotRunning) {
+        if (walletFrame) walletFrame->toggleMinerConsole(false);
+        miningAction->setText(tr("&Start Mining"));
+        miningAction->setStatusTip(tr("Mining through wallet"));
+        miningAction->setToolTip(miningAction->statusTip());
+        LogPrintf("MINER: Stopped \n");
+    }
+    else if (state == QProcess::Starting) {
+        LogPrintf("MINER: Starting... \n");
+    }
+    else {
+        if (walletFrame) walletFrame->toggleMinerConsole(true);
+        miningAction->setText(tr("&Stop Mining"));
+        miningAction->setStatusTip(tr("Mining..."));
+        miningAction->setToolTip(miningAction->statusTip());
+        LogPrintf("MINER: Running \n");
+    }
+}
+
+void BitcoinGUI::minerProcess_finished(int exitCode, QProcess::ExitStatus status)
+{
+    LogPrintf("MINER: exitCode: %i \n", exitCode);
+}
+
+void BitcoinGUI::minerProcess_error(QProcess::ProcessError error)
+{
+    if (error == QProcess::FailedToStart)
+        LogPrintf("MINER: Error: Failed to start \n");
+    else if (error == QProcess::Crashed)
+        LogPrintf("MINER: Error: Crashed \n");
+    else if (error == QProcess::Timedout)
+        LogPrintf("MINER: Error: Timeout \n");
+    else if (error == QProcess::WriteError)
+        LogPrintf("MINER: Error: On attempt to write \n");
+    else if (error == QProcess::ReadError)
+        LogPrintf("MINER: Error: On attempt to read \n");
+    else
+        LogPrintf("MINER: Error: Unknown error \n");
+}
+
+void BitcoinGUI::minerProcess_readyReadStandardOutput(){
+
+    if (walletFrame) {
+        LogPrintf("fffffffffffffffffffffffffffffffffffffffffffffffff!!!!!!!");
+        LogPrintf(QString(minerProcess->readAllStandardOutput()).toUtf8().constData());
+        walletFrame->updateMinerConsole(QString(minerProcess->readAllStandardOutput()));
+    }
+}
+
+void BitcoinGUI::minerProcess_readyReadStandardError(){
+    ///qDebug() << minerProcess.readAllStandardError();
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()

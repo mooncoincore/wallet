@@ -1879,23 +1879,23 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
     int syncheight = GetHeight();
     if (syncheight > 1112500) { WarpSync=1; }
     if (syncheight % WarpSync == 0) {
-      // Check proof of work matches claimed amount
-      if (!CheckProofOfWork(block.GetPoWHash(AlgoSwitch), block.nBits, consensusParams, true)){
-          if(WarpSync!=1){ LogPrintf("** HALTNG WarpSync DUE TO ERRORS ENCOUNTERED\n"); }
-          if(AlgoSwitch){
-             LogPrintf("** FAILED ON BALLOON (unrecoverable)\n");
-             return error("ReadBlockFromDisk: Errors in block header at %s (balloon pow)", pos.ToString());
-          } else {
-             // could be failed balloon block
-             if (!CheckProofOfWork(block.GetPoWHash(true), block.nBits, consensusParams, false)){
-                 LogPrintf("** FAILED ON SCRYPT\n");
-                 return error("ReadBlockFromDisk: Errors in block header at %s (scrypt pow)", pos.ToString());
-             } else {
-                 LogPrintf("** ALGO SWITCHED TO BALLOON\n");
-                 AlgoSwitch=true;
-	     }
-          }
-       }
+        // Check proof of work matches claimed amount
+        if (!CheckProofOfWork(block.GetPoWHash(AlgoSwitch), block.nBits, consensusParams, true)){
+            if(WarpSync!=1){ LogPrintf("** HALTNG WarpSync DUE TO ERRORS ENCOUNTERED\n"); }
+            //if(AlgoSwitch){
+                //LogPrintf("** FAILED ON BALLOON (unrecoverable)\n");
+                //return error("ReadBlockFromDisk: Errors in block header at %s (balloon pow)", pos.ToString());
+            //} else {
+                // could be failed balloon block
+                //if (!CheckProofOfWork(block.GetPoWHash(true), block.nBits, consensusParams, false)){
+                    LogPrintf("** FAILED ON SCRYPT\n");
+                    return error("ReadBlockFromDisk: Errors in block header at %s (scrypt pow)", pos.ToString());
+                //} else {
+                    //LogPrintf("** ALGO SWITCHED TO BALLOON\n");
+                    //AlgoSwitch=true;
+                //}
+	        //}
+        }
     }
     return true;
 }
@@ -1952,7 +1952,12 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
 
 	// cases for block 1100000+
 	if (nHeight > 1099999) {
-				nSubsidy = floor( (0.29531 * 19697202017) / (floor(nHeight/100000)*100000) ) * COIN;
+				nSubsidy = floor( 19697202017 / (floor(nHeight/100000)*100000) ) * COIN;
+    }
+    
+	// cases for block 1250000+
+	if (nHeight > 1249999) {
+				nSubsidy = floor( floor(0.29531 * 19697202017) / (floor(nHeight/100000)*100000) ) * COIN;
 	}
 
 	// case for block 5432100000 onwards
@@ -2999,8 +3004,8 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
     }
     
     // debug for algo switcher
-    if(AlgoSwitch)
-       algoName="balloon";
+    //if(AlgoSwitch)
+       //algoName="balloon";
     
     if((chainActive.Height() % 250 == 0 && chainActive.Height() < 1125000) || (chainActive.Height() > 1125000)){
      LogPrintf("%s: hash=%s.. height=%d diff=%08x algo=%s ver=0x%08x log2_work=%.8g tx=%lu date='%s' prog=%f cache=%.1fMiB(%utx)", __func__,
@@ -3641,23 +3646,23 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, const 
     int syncheight = GetHeight();
     if (syncheight > 1112500) { WarpSync=1; }
     if (syncheight % WarpSync == 0) {
-      // Check proof of work matches claimed amount
-      if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(AlgoSwitch), block.nBits, consensusParams, true)){
-          if(WarpSync!=1){ LogPrintf("** HALTNG WarpSync DUE TO ERRORS ENCOUNTERED\n"); }
-          if(AlgoSwitch){
-             LogPrintf("** FAILED ON BALLOON (unrecoverable)\n");
-             return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed (balloon pow)");
-          } else {
-             // could be failed balloon block
-             if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(true), block.nBits, consensusParams, false)){
-                 LogPrintf("** FAILED ON SCRYPT\n");
-                 return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed (scrypt pow)");
-             } else {
-                 LogPrintf("** ALGO SWITCHED TO BALLOON\n");
-                 AlgoSwitch=true;				
-             }
-          }
-      }
+        // Check proof of work matches claimed amount
+        if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(AlgoSwitch), block.nBits, consensusParams, true)){
+            if(WarpSync!=1){ LogPrintf("** HALTNG WarpSync DUE TO ERRORS ENCOUNTERED\n"); }
+            //if(AlgoSwitch){
+                //LogPrintf("** FAILED ON BALLOON (unrecoverable)\n");
+                //return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed (balloon pow)");
+            //} else {
+                // could be failed balloon block
+                //if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(true), block.nBits, consensusParams, false)){
+                    LogPrintf("** FAILED ON SCRYPT\n");
+                    return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed (scrypt pow)");
+                //} else {
+                    //LogPrintf("** ALGO SWITCHED TO BALLOON\n");
+                    //AlgoSwitch=true;				
+                //}
+            //}
+        }
     }
     return true;
 }

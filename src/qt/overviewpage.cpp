@@ -264,3 +264,16 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
     ui->labelWalletStatus->setVisible(fShow);
     ui->labelTransactionsStatus->setVisible(fShow);
 }
+
+void OverviewPage::toggleMinerConsole(bool visible)
+{
+    ui->minerConsoleLabel->setVisible(visible);
+    ui->minerConsole->setVisible(visible);
+}
+
+void OverviewPage::updateMinerConsole(QString output) {
+    //QTextCursor text_cursor = QTextCursor(ui->minerConsole->document());
+    //text_cursor.movePosition(QTextCursor::End);
+    //text_cursor.insertText("string to append. ");
+    ui->minerConsole->append("kalimera!!!!!!");
+}

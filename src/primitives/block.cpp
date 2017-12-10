@@ -21,11 +21,11 @@ uint256 CBlockHeader::GetHash() const
 uint256 CBlockHeader::GetPoWHash(bool algoswitch) const
 {
     uint256 thash;
-    if(algoswitch==false){
+    //if(algoswitch==false){
       scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
-    } else {
-      balloonpow_hash(BEGIN(nVersion), BEGIN(thash));
-    }
+    //} else {
+      //balloonpow_hash(BEGIN(nVersion), BEGIN(thash));
+    //}
     return thash;
 }
 

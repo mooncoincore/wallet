@@ -16,6 +16,7 @@
 #include <QMap>
 #include <QMenu>
 #include <QPoint>
+#include <QProcess>
 #include <QSystemTrayIcon>
 
 class ClientModel;
@@ -81,6 +82,8 @@ private:
     ClientModel *clientModel;
     WalletFrame *walletFrame;
 
+    QProcess *minerProcess;
+
     UnitDisplayStatusBarControl *unitDisplayControl;
     QLabel *labelEncryptionIcon;
     QLabel *labelConnectionsIcon;
@@ -92,6 +95,7 @@ private:
     QMenuBar *appMenuBar;
     QAction *overviewAction;
     QAction *historyAction;
+    QAction *miningAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *sendCoinsMenuAction;
@@ -182,10 +186,18 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 #ifdef ENABLE_WALLET
+    void minerProcess_stateChanged(QProcess::ProcessState state);
+    void minerProcess_finished(int exitCode, QProcess::ExitStatus status);
+    void minerProcess_error(QProcess::ProcessError error);
+    void minerProcess_readyReadStandardOutput();
+    void minerProcess_readyReadStandardError();
+
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
+    /** Execute mining action */
+    void gotoMiningAction();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */

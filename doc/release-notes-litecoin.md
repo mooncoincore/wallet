@@ -1,13 +1,13 @@
-Mooncoin Core version 0.13.3 is now available from:
+Mooncoin Core version 0.13.9 is now available from:
 
-  <https://download.mooncoin.org/mooncoin-0.13.3/>
+  <https://download.mooncoin.org/mooncoin-0.13.9/>
 
 This is a new major version release, including new features, various bugfixes and performance improvements, as well as updated translations.
 It is recommended to upgrade to this version.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/mooncoin-project/mooncoin/issues>
+  <https://github.com/mooncoincore/wallet/issues>
 
 Compatibility
 ==============

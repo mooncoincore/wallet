@@ -25,7 +25,7 @@ Build Mooncoin Core
 
 1. Clone the mooncoin source code and cd into `mooncoin`
 
-        git clone https://github.com/mooncoin-project/mooncoin
+        git clone https://github.com/mooncoincore/wallet
         cd mooncoin
 
 2.  Build mooncoin-core:

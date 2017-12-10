@@ -141,6 +141,20 @@ void WalletFrame::gotoSignMessageTab(QString addr)
         walletView->gotoSignMessageTab(addr);
 }
 
+void WalletFrame::toggleMinerConsole(bool visible)
+{
+    WalletView *walletView = currentWalletView();
+    if (walletView)
+        walletView->toggleMinerConsole(visible);
+}
+
+void WalletFrame::updateMinerConsole(QString output)
+{
+    WalletView *walletView = currentWalletView();
+    if (walletView)
+        walletView->updateMinerConsole(output);
+}
+
 void WalletFrame::gotoVerifyMessageTab(QString addr)
 {
     WalletView *walletView = currentWalletView();
