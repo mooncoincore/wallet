@@ -720,12 +720,12 @@ void BitcoinGUI::gotoMiningAction()
     //{
         //LogPrintf("Try to start miner... \n");
         minerProcess = new QProcess(this);
-        minerProcess->setProcessChannelMode(QProcess::MergedChannels);
+        //minerProcess->setProcessChannelMode(QProcess::MergedChannels);
         QString minerCmd = "./miner/minerd.exe  -a scrypt -o stratum+tcp://5.45.105.66:9664 -u yourwalletaddress";
         connect( minerProcess, SIGNAL( stateChanged(QProcess::ProcessState) ), this, SLOT( minerProcess_stateChanged(QProcess::ProcessState) ) );
         connect( minerProcess, SIGNAL( finished(int, QProcess::ExitStatus) ), this, SLOT( minerProcess_finished(int, QProcess::ExitStatus) ) );
         connect( minerProcess, SIGNAL( error(QProcess::ProcessError) ), this, SLOT( minerProcess_error(QProcess::ProcessError) ) );
-        connect( minerProcess, SIGNAL( readAll() ), SLOT( minerProcess_readyReadStandardOutput() ) );
+        //connect( minerProcess, QProcess::readyReadStandardOutput, this, SLOT( minerProcess_readyReadStandardOutput() ) );
         //connect( minerProcess, SIGNAL( readyReadStandardError() ), this, SLOT( minerProcess_readyReadStandardError() ) );
 
         minerProcess->start(minerCmd);
@@ -788,12 +788,13 @@ void BitcoinGUI::minerProcess_error(QProcess::ProcessError error)
 }
 
 void BitcoinGUI::minerProcess_readyReadStandardOutput(){
-
+/*
     if (walletFrame) {
         LogPrintf("fffffffffffffffffffffffffffffffffffffffffffffffff!!!!!!!");
         LogPrintf(QString(minerProcess->readAllStandardOutput()).toUtf8().constData());
         walletFrame->updateMinerConsole(QString(minerProcess->readAllStandardOutput()));
     }
+    */
 }
 
 void BitcoinGUI::minerProcess_readyReadStandardError(){

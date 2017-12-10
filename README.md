@@ -1,12 +1,9 @@
 ## Mooncoin Core 0.13.9-segwit
 
 
-*The first cryptocurrency to implement the BalloonHash password hashing function*
-
-
 * Hardfork to new codebase occurs at block 1,250,000, however Mooncoin 0.10 and 0.13 wallets will be compatible until this point.
 
-* PoW algorithm will switch from Scrypt to BalloonHash (https://github.com/henrycg/balloon).
+* PoW algorithm is Scrypt.
 
 * Block retarget algorithm will switch to DUAL_KGW3 with Bitsend timeout; after which diff will lower dynamically if a block has not been found after 60 minutes.
 
@@ -15,13 +12,68 @@
 * Controlled lowering of coin emission via dynamic nSubsidy (schedule available at https://github.com/mooncoindev/moonschedule).
 
 * Features included to prevent devaluation/movement of the currency due to stolen funds.
+ 
+
+## Cross-compilation
+-------------------
+
+These steps can be performed on, for example, an Ubuntu VM. The depends system
+will also work on other Linux distributions, however the commands for
+installing the toolchain will be different.
+
+Make sure you install the build requirements mentioned in
+[build-unix.md](/doc/build-unix.md).
+Then, install the toolchains and curl:
+
+    sudo apt-get install g++-mingw-w64-i686 mingw-w64-i686-dev g++-mingw-w64-x86-64 mingw-w64-x86-64-dev curl
+
+To build executables for Windows 32-bit:
+
+    cd depends
+    make HOST=i686-w64-mingw32 -j4
+    cd ..
+    ./configure --prefix=`pwd`/depends/i686-w64-mingw32
+    make
+
+To build executables for Windows 64-bit:
+
+    cd depends
+    make HOST=x86_64-w64-mingw32 -j4
+    cd ..
+    ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
+    make
 
 
+### Usage
+
+To build dependencies for the current arch+OS:
+
+    make
+
+To build for another arch/OS:
+
+    make HOST=host-platform-triplet
+
+For example:
+
+    make HOST=x86_64-w64-mingw32 -j4
+
+A prefix will be generated that's suitable for plugging into Mooncoin's
+configure. In the above example, a dir named x86_64-w64-mingw32 will be
+created. To use it for Mooncoin:
+
+    ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
+
+Common `host-platform-triplets` for cross compilation are:
+
+- `i686-w64-mingw32` for Win32
+- `x86_64-w64-mingw32` for Win64
+- `x86_64-apple-darwin11` for MacOSX
+- `arm-linux-gnueabihf` for Linux ARM 32 bit
+- `aarch64-linux-gnu` for Linux ARM 64 bit
 _____
 
 
-Donate to support future Mooncoin development!
-barrystyle / 2DaMooNeT5PDPxwupTFiKoS7KZsFrsWJwd
 
 ### RPC PORT 44663 / P2P PORT 44664
 

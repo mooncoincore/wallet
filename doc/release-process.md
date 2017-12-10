@@ -21,7 +21,11 @@ Before every major release:
 Check out the source code in the following directory hierarchy.
 
     cd /path/to/your/toplevel/build
+<<<<<<< HEAD
+    git clone https://github.com/mooncoincore/gitian.sigs.moon.git
+=======
     git clone https://github.com/mooncoin-project/gitian.sigs.moon.git
+>>>>>>> 1st beta only source
     git clone https://github.com/mooncoincore/wallet-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     git clone https://github.com/mooncoincore/wallet.git

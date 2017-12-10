@@ -232,7 +232,11 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
+<<<<<<< HEAD
+    git clone https://github.com/mooncoincore/gitian.sigs.moon.git
+=======
     git clone https://github.com/mooncoin-project/gitian.sigs.moon.git
+>>>>>>> 1st beta only source
     git clone https://github.com/mooncoincore/wallet-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder

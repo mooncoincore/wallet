@@ -310,7 +310,11 @@ Clone the git repositories for mooncoin and Gitian.
 ```bash
 git clone https://github.com/devrandom/gitian-builder.git
 git clone https://github.com/mooncoincore/wallet
+<<<<<<< HEAD
+git clone https://github.com/mooncoincore/gitian.sigs.moon.git
+=======
 git clone https://github.com/mooncoin-project/gitian.sigs.moon.git
+>>>>>>> 1st beta only source
 ```
 
 Setting up the Gitian image
@@ -473,5 +477,5 @@ Uploading signatures
 ---------------------
 
 After building and signing you can push your signatures (both the `.assert` and `.assert.sig` files) to the
-[gitian.sigs.moon](https://github.com/mooncoin-project/gitian.sigs.moon/) repository, or if that's not possible create a pull
+[gitian.sigs.moon](https://github.com/mooncoincore/gitian.sigs.moon/) repository, or if that's not possible create a pull
 request. You can also mail the files to thrasher (thrasher@addictionsoftware.com) and he will commit them.
