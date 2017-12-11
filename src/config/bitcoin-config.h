@@ -320,7 +320,7 @@
 #define PACKAGE_TARNAME "mooncoin"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "https://mooncoin.org/"
+#define PACKAGE_URL "https://mooncoin.com/"
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "0.13.9"

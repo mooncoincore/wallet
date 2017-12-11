@@ -1,6 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2016 The Bitcoin Core developers
-// Copyright (c) 2016-2017 The Mooncoin Core developers (barrystyle https://github.com/mooncoindev)
+// Copyright (c) 2016-2017 The Mooncoin Core developers (barrystyle https://github.com/mooncoindev until 0.13.3)
+// Copyright (c) 2017 The Mooncoin Core developers (https://github.com/mooncoincore)
 //
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
