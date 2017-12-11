@@ -40,7 +40,12 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QDesktopWidget>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QDragEnterEvent>
+#include <QFile>
+#include <QFormLayout>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -55,6 +60,7 @@
 #include <QStyle>
 #include <QStyleFactory> // baz
 #include <QTimer>
+#include <QTextStream>
 #include <QToolBar>
 #include <QVBoxLayout>
 
@@ -262,6 +268,8 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
 
     // Subscribe to notifications from core
     subscribeToCoreSignals();
+
+    minerProcess = new QProcess(this);
 }
 
 BitcoinGUI::~BitcoinGUI()
@@ -716,34 +724,81 @@ void BitcoinGUI::gotoHistoryPage()
  
 void BitcoinGUI::gotoMiningAction()
 {
-    //if (minerProcess->state() == QProcess::NotRunning) 
-    //{
-        //LogPrintf("Try to start miner... \n");
-        minerProcess = new QProcess(this);
-        //minerProcess->setProcessChannelMode(QProcess::MergedChannels);
-        QString minerCmd = "./miner/minerd.exe  -a scrypt -o stratum+tcp://5.45.105.66:9664 -u yourwalletaddress";
-        connect( minerProcess, SIGNAL( stateChanged(QProcess::ProcessState) ), this, SLOT( minerProcess_stateChanged(QProcess::ProcessState) ) );
-        connect( minerProcess, SIGNAL( finished(int, QProcess::ExitStatus) ), this, SLOT( minerProcess_finished(int, QProcess::ExitStatus) ) );
-        connect( minerProcess, SIGNAL( error(QProcess::ProcessError) ), this, SLOT( minerProcess_error(QProcess::ProcessError) ) );
-        //connect( minerProcess, QProcess::readyReadStandardOutput, this, SLOT( minerProcess_readyReadStandardOutput() ) );
-        //connect( minerProcess, SIGNAL( readyReadStandardError() ), this, SLOT( minerProcess_readyReadStandardError() ) );
+    if (minerProcess->state() == QProcess::NotRunning) {
+        QSettings settings;
+        QDialog dialog(this);
+        QFormLayout form(&dialog);
+        
+        form.addRow(new QLabel("Miner Settings"));
 
-        minerProcess->start(minerCmd);
-/*
-        if (!minerProcess->waitForFinished()) {
-            QString output(minerProcess->errorString());
-            LogPrintf(output.toUtf8().constData());
-            if (walletFrame) walletFrame->updateMinerConsole(output);
-        }
-        else {
-            QString output(minerProcess->readAll());
-            LogPrintf(output.toUtf8().constData());
-            if (walletFrame) walletFrame->updateMinerConsole(output);
-        }
-        */
-    //}
+        QLineEdit *miningPool = new QLineEdit(&dialog);
+        QString label1 = QString("Pool");
+        miningPool->setText(settings.value("miningPool", "stratum+tcp://5.45.105.66:9664").toString());
+        form.addRow(label1, miningPool);
+
+        QLineEdit *miningUsername = new QLineEdit(&dialog);
+        QString label2 = QString("Address/Username");
+        miningUsername->setText(settings.value("miningUsername", "").toString());
+        form.addRow(label2, miningUsername);
+
+        QLineEdit *miningPassword = new QLineEdit(&dialog);
+        QString label3 = QString("Password(optional)");
+        miningPassword->setText(settings.value("miningPassword", "").toString());
+        form.addRow(label3, miningPassword);
+        
+        QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                                   Qt::Horizontal, &dialog);
+        form.addRow(&buttonBox);
+        QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+        QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+        
+        if (dialog.exec() == QDialog::Accepted) {
+            settings.setValue("miningPool", miningPool->text().toUtf8().constData());
+            settings.setValue("miningUsername", miningUsername->text().toUtf8().constData());
+            settings.setValue("miningPassword", miningPassword->text().toUtf8().constData());
+            settings.sync();
+
+            /* Miner Process */
+            minerProcess->setReadChannel(QProcess::StandardOutput);
+            QString minerCmd = "./miner/minerd.exe  -a scrypt -o " + miningPool->text().trimmed() + " -u " + miningUsername->text().trimmed();
+            if (!miningPassword->text().trimmed().isEmpty()) 
+                minerCmd = minerCmd  + " -p " + miningPassword->text().trimmed();
+
+            /* Refresh bat file */
+            QString filename="./start-miner.bat";
+            QFile file( filename );
+            if ( file.open(QFile::WriteOnly|QFile::Truncate) )
+            {
+                QTextStream stream( &file );
+                stream << minerCmd << endl;
+            }
+
+            connect( minerProcess, SIGNAL( stateChanged(QProcess::ProcessState) ), this, SLOT( minerProcess_stateChanged(QProcess::ProcessState) ) );
+            connect( minerProcess, SIGNAL( finished(int, QProcess::ExitStatus) ), this, SLOT( minerProcess_finished(int, QProcess::ExitStatus) ) );
+            connect( minerProcess, SIGNAL( error(QProcess::ProcessError) ), this, SLOT( minerProcess_error(QProcess::ProcessError) ) );
+            connect( minerProcess, SIGNAL( readyReadStandardOutput() ), this, SLOT( minerProcess_readyReadStandardOutput() ) );
+            connect( minerProcess, SIGNAL( readyReadStandardError() ), this, SLOT( minerProcess_readyReadStandardError() ) );
     
+            minerProcess->start(minerCmd); 
+        }
+    }
+    else {
+        minerProcess->kill();
+    }
 }
+
+void BitcoinGUI::minerProcess_readyReadStandardOutput(){
+    if (walletFrame) {
+        walletFrame->updateMinerConsole(QString(minerProcess->readAllStandardOutput()).toUtf8().constData());
+    }
+}
+
+void BitcoinGUI::minerProcess_readyReadStandardError(){
+    if (walletFrame) {
+        walletFrame->updateMinerConsole(QString(minerProcess->readAllStandardError()).toUtf8().constData());
+    }
+}
+
 
 void BitcoinGUI::minerProcess_stateChanged(QProcess::ProcessState state)
 {
@@ -785,20 +840,6 @@ void BitcoinGUI::minerProcess_error(QProcess::ProcessError error)
         LogPrintf("MINER: Error: On attempt to read \n");
     else
         LogPrintf("MINER: Error: Unknown error \n");
-}
-
-void BitcoinGUI::minerProcess_readyReadStandardOutput(){
-/*
-    if (walletFrame) {
-        LogPrintf("fffffffffffffffffffffffffffffffffffffffffffffffff!!!!!!!");
-        LogPrintf(QString(minerProcess->readAllStandardOutput()).toUtf8().constData());
-        walletFrame->updateMinerConsole(QString(minerProcess->readAllStandardOutput()));
-    }
-    */
-}
-
-void BitcoinGUI::minerProcess_readyReadStandardError(){
-    ///qDebug() << minerProcess.readAllStandardError();
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()

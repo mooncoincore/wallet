@@ -174,13 +174,11 @@ void WalletView::gotoHistoryPage()
 
 void WalletView::toggleMinerConsole(bool visible)
 {
-    setCurrentWidget(overviewPage);
     overviewPage->toggleMinerConsole(visible);
 }
 
 void WalletView::updateMinerConsole(QString output)
 {
-    setCurrentWidget(overviewPage);
     overviewPage->updateMinerConsole(output);
 }
 

@@ -9,7 +9,7 @@
 
 * Warpsync block speedup - meaning a full sync from scratch can be achieved in 34 minutes (tested to the point of obsession on a core2quad q8200, you will sync quicker).
 
-* Controlled lowering of coin emission via dynamic nSubsidy (schedule available at https://github.com/mooncoindev/moonschedule).
+* Controlled lowering of coin emission via dynamic nSubsidy (schedule available at https://github.com/mooncoincore/rewardSchedule).
 
 * Features included to prevent devaluation/movement of the currency due to stolen funds.
  

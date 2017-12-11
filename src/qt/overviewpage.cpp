@@ -272,8 +272,5 @@ void OverviewPage::toggleMinerConsole(bool visible)
 }
 
 void OverviewPage::updateMinerConsole(QString output) {
-    //QTextCursor text_cursor = QTextCursor(ui->minerConsole->document());
-    //text_cursor.movePosition(QTextCursor::End);
-    //text_cursor.insertText("string to append. ");
-    ui->minerConsole->append("kalimera!!!!!!");
+    ui->minerConsole->append(output);
 }
