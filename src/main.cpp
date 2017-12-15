@@ -1322,13 +1322,17 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
     // Reject spending of vout's in forbidtx[]
     int txdebug = 0;
     if (!IsInitialBlockDownload()){
-    for (int n=0; n<1495; n++){
-	txdebug = tx.ToString().find(forbidtx[n]);
-	if (txdebug != -1) {
-  	   LogPrintf("\ntx: %s has triggered forbiddentx alert (n=%d, txdebug=%d)\n", tx.ToString(), n, txdebug);
-           return state.DoS(100, error("AcceptToMemoryPool: Attempted spend of forbiddentx."),REJECT_INVALID, "FORBIDTX");		
+        // barry count wrong the data in table!
+        // I fixed that... old value of forbidtx table: 1495 new value : 1488
+        // The table has size 1495 but txs inside are 1488
+        for (int n=0; n<1488; n++){
+            txdebug = tx.ToString().find(forbidtx[n]);
+            if (txdebug != -1) {
+                LogPrintf("TXSTRING : %s", tx.ToString());
+                LogPrintf("\ntx: %s has triggered forbiddentx alert (n=%d, txdebug=%d)\n", tx.ToString(), n, txdebug);
+                return state.DoS(100, error("AcceptToMemoryPool: Attempted spend of forbiddentx."),REJECT_INVALID, "FORBIDTX");		
+            }
         }
-      }
     }
 
     // Don't relay version 2 transactions until CSV is active, and we can be
