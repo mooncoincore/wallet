@@ -3,7 +3,7 @@
 
 * Hardfork to new codebase occurs at block 1,250,000, however Mooncoin 0.10 and 0.13 wallets will be compatible until this point.
 
-* PoW algorithm is Scrypt.
+* PoW algorithm is Scrypt, not BalloonHash. Pools and lightning network (in the future) support Scrypt, Balloon is exotic.
 
 * Block retarget algorithm will switch to DUAL_KGW3 with Bitsend timeout; after which diff will lower dynamically if a block has not been found after 60 minutes.
 
@@ -11,7 +11,7 @@
 
 * Controlled lowering of coin emission via dynamic nSubsidy (schedule available at https://github.com/mooncoincore/rewardSchedule).
 
-* Features included to prevent devaluation/movement of the currency due to stolen funds.
+* Top Mooncoin addresses are unspendable and contain more than 77 billion frozen MOONcoins, which were not delivered (till March, 2017) by the Cryptsy exchange to the Florida court and were not returned to legitimate owners
  
 
 ## Cross-compilation
@@ -41,6 +41,13 @@ To build executables for Windows 64-bit:
     make HOST=x86_64-w64-mingw32 -j4
     cd ..
     ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
+    make
+    
+To build executables for Linux:
+
+    ./autogen.sh
+    ./configure
+    if is for server environment add parameters --disable-wallet --without-gui --without-miniupnpc
     make
 
 

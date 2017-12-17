@@ -22,6 +22,8 @@
 #include "txmempool.h"
 #include "wallet/wallet.h"
 
+
+
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QSettings>
@@ -29,6 +31,8 @@
 #include <QTimer>
 
 #define SEND_CONFIRM_DELAY   3
+
+
 
 SendCoinsDialog::SendCoinsDialog(const PlatformStyle *platformStyle, QWidget *parent) :
     QDialog(parent),
@@ -46,9 +50,9 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *platformStyle, QWidget *pa
         ui->clearButton->setIcon(QIcon());
         ui->sendButton->setIcon(QIcon());
     } else {
-        ui->addButton->setIcon(platformStyle->SingleColorIcon(":/icons/add"));
-        ui->clearButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-        ui->sendButton->setIcon(platformStyle->SingleColorIcon(":/icons/send"));
+        ui->addButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/add")));
+        ui->clearButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+        ui->sendButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/send")));
     }
 
     GUIUtil::setupAddressWidget(ui->lineEditCoinControlChange, this);

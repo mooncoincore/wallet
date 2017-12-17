@@ -21,6 +21,8 @@
 
 #include "ui_interface.h"
 
+
+
 #include <QAction>
 #include <QActionGroup>
 #include <QFileDialog>
@@ -28,6 +30,8 @@
 #include <QProgressDialog>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+
 
 WalletView::WalletView(const PlatformStyle *platformStyle, QWidget *parent):
     QStackedWidget(parent),
@@ -46,7 +50,7 @@ WalletView::WalletView(const PlatformStyle *platformStyle, QWidget *parent):
     QPushButton *exportButton = new QPushButton(tr("&Export"), this);
     exportButton->setToolTip(tr("Export the data in the current tab to a file"));
     if (platformStyle->getImagesOnButtons()) {
-        exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
+        exportButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/export")));
     }
     hbox_buttons->addStretch();
     hbox_buttons->addWidget(exportButton);

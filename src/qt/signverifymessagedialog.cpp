@@ -15,10 +15,14 @@
 #include "main.h" // For strMessageMagic
 #include "wallet/wallet.h"
 
+
+
 #include <string>
 #include <vector>
 
 #include <QClipboard>
+
+
 
 SignVerifyMessageDialog::SignVerifyMessageDialog(const PlatformStyle *platformStyle, QWidget *parent) :
     QDialog(parent),
@@ -28,14 +32,14 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(const PlatformStyle *platformSt
 {
     ui->setupUi(this);
 
-    ui->addressBookButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/address-book"));
-    ui->pasteButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/editpaste"));
-    ui->copySignatureButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/editcopy"));
-    ui->signMessageButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/edit"));
-    ui->clearButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-    ui->addressBookButton_VM->setIcon(platformStyle->SingleColorIcon(":/icons/address-book"));
-    ui->verifyMessageButton_VM->setIcon(platformStyle->SingleColorIcon(":/icons/transaction_0"));
-    ui->clearButton_VM->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
+    ui->addressBookButton_SM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/address-book")));
+    ui->pasteButton_SM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/editpaste")));
+    ui->copySignatureButton_SM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/editcopy")));
+    ui->signMessageButton_SM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/edit")));
+    ui->clearButton_SM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+    ui->addressBookButton_VM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/address-book")));
+    ui->verifyMessageButton_VM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/transaction_0")));
+    ui->clearButton_VM->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
 
 #if QT_VERSION >= 0x040700
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));

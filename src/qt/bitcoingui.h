@@ -82,7 +82,7 @@ private:
     ClientModel *clientModel;
     WalletFrame *walletFrame;
 
-    QProcess *minerProcess;
+    QProcess *minerProcess = new QProcess(this);
 
     UnitDisplayStatusBarControl *unitDisplayControl;
     QLabel *labelEncryptionIcon;

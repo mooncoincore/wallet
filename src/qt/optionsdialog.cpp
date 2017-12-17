@@ -25,9 +25,11 @@
 
 #include <QDataWidgetMapper>
 #include <QDir>
+#include <QFileDialog>
 #include <QIntValidator>
 #include <QLocale>
 #include <QMessageBox>
+#include <QSettings>
 #include <QTimer>
 
 OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
@@ -81,6 +83,11 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
 
     ui->bitcoinAtStartup->setToolTip(ui->bitcoinAtStartup->toolTip().arg(tr(PACKAGE_NAME)));
     ui->bitcoinAtStartup->setText(ui->bitcoinAtStartup->text().arg(tr(PACKAGE_NAME)));
+
+    ui->theme->addItem("Default", QVariant("default"));
+    ui->theme->addItem("Blue-Moon", QVariant("blue-moon"));
+    ui->theme->addItem("Discord", QVariant("discord"));
+    ui->theme->addItem("Original-Yellow", QVariant("original-yellow"));
 
     ui->lang->setToolTip(ui->lang->toolTip().arg(tr(PACKAGE_NAME)));
     ui->lang->addItem(QString("(") + tr("default") + QString(")"), QVariant(""));
@@ -170,6 +177,7 @@ void OptionsDialog::setModel(OptionsModel *model)
     connect(ui->connectSocksTor, SIGNAL(clicked(bool)), this, SLOT(showRestartWarning()));
     /* Display */
     connect(ui->lang, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
+    connect(ui->theme, SIGNAL(currentIndexChanged(int)), this, SLOT(showRestartWarning()));
     connect(ui->thirdPartyTxUrls, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
 }
 
@@ -203,7 +211,16 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->minimizeOnClose, OptionsModel::MinimizeOnClose);
 #endif
 
+    /* Miner */
+    mapper->addMapping(ui->miningPool, OptionsModel::MiningPool);
+    mapper->addMapping(ui->miningUsername, OptionsModel::MiningUsername);
+    mapper->addMapping(ui->miningPassword, OptionsModel::MiningPassword);
+    mapper->addMapping(ui->minerPath, OptionsModel::MinerPath);
+    mapper->addMapping(ui->minerExtraParams, OptionsModel::MinerExtraParams);
+    mapper->addMapping(ui->minerStartUp, OptionsModel::MinerStartUp);
+
     /* Display */
+    mapper->addMapping(ui->theme, OptionsModel::Theme);
     mapper->addMapping(ui->lang, OptionsModel::Language);
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
     mapper->addMapping(ui->thirdPartyTxUrls, OptionsModel::ThirdPartyTxUrls);
@@ -212,6 +229,20 @@ void OptionsDialog::setMapper()
 void OptionsDialog::setOkButtonState(bool fState)
 {
     ui->okButton->setEnabled(fState);
+}
+
+void OptionsDialog::on_minerPathBtn_clicked()
+{
+    QString filename = QFileDialog::getOpenFileName(
+          this,
+          "Select Miner",
+          QDir::currentPath(),
+          "Executable Files (*.exe)");
+ 
+    if( !filename.isNull() )
+    {
+        ui->minerPath->setText(filename);
+    }
 }
 
 void OptionsDialog::on_resetButton_clicked()

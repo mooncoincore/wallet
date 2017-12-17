@@ -15,12 +15,18 @@
 #include "recentrequeststablemodel.h"
 #include "walletmodel.h"
 
+
+
+
+
 #include <QAction>
 #include <QCursor>
 #include <QItemSelection>
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QTextDocument>
+
+
 
 ReceiveCoinsDialog::ReceiveCoinsDialog(const PlatformStyle *platformStyle, QWidget *parent) :
     QDialog(parent),
@@ -37,10 +43,10 @@ ReceiveCoinsDialog::ReceiveCoinsDialog(const PlatformStyle *platformStyle, QWidg
         ui->showRequestButton->setIcon(QIcon());
         ui->removeRequestButton->setIcon(QIcon());
     } else {
-        ui->clearButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-        ui->receiveButton->setIcon(platformStyle->SingleColorIcon(":/icons/receiving_addresses"));
-        ui->showRequestButton->setIcon(platformStyle->SingleColorIcon(":/icons/edit"));
-        ui->removeRequestButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
+        ui->clearButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+        ui->receiveButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/receiving_addresses")));
+        ui->showRequestButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/edit")));
+        ui->removeRequestButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
     }
 
     // context menu actions

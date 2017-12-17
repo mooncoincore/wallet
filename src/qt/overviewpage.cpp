@@ -15,11 +15,16 @@
 #include "transactiontablemodel.h"
 #include "walletmodel.h"
 
+
+
 #include <QAbstractItemDelegate>
 #include <QPainter>
+#include <QSettings>
 
 #define DECORATION_SIZE 54
 #define NUM_ITEMS 5
+
+
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
@@ -124,7 +129,7 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     ui->setupUi(this);
 
     // use a SingleColorIcon for the "out of sync warning" icon
-    QIcon icon = platformStyle->SingleColorIcon(":/icons/warning");
+    QIcon icon = platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/warning"));
     icon.addPixmap(icon.pixmap(QSize(64,64), QIcon::Normal), QIcon::Disabled); // also set the disabled icon because we are using a disabled QPushButton to work around missing HiDPI support of QLabel (https://bugreports.qt.io/browse/QTBUG-42503)
     ui->labelTransactionsStatus->setIcon(icon);
     ui->labelWalletStatus->setIcon(icon);
@@ -139,6 +144,10 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
+
+    QSettings settings;
+    if (settings.value("minerStartUp").toBool())
+        toggleMinerConsole(true);
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)

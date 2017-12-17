@@ -20,6 +20,8 @@
 #include "rpc/client.h"
 #include "util.h"
 
+
+
 #include <openssl/crypto.h>
 
 #include <univalue.h>
@@ -42,6 +44,8 @@
 #include <QUrl>
 #endif
 
+
+
 // TODO: add a scrollback limit, as there is currently none
 // TODO: make it possible to filter out categories (esp debug messages when implemented)
 // TODO: receive errors and debug messages through ClientModel
@@ -55,10 +59,10 @@ const struct {
     const char *url;
     const char *source;
 } ICON_MAPPING[] = {
-    {"cmd-request", ":/icons/tx_input"},
-    {"cmd-reply", ":/icons/tx_output"},
-    {"cmd-error", ":/icons/tx_output"},
-    {"misc", ":/icons/tx_inout"},
+    {"cmd-request", GUIUtil::setIcon("icons/tx_input").toUtf8().constData()},
+    {"cmd-reply", GUIUtil::setIcon("icons/tx_output").toUtf8().constData()},
+    {"cmd-error", GUIUtil::setIcon("icons/tx_output").toUtf8().constData()},
+    {"misc", GUIUtil::setIcon("icons/tx_inout").toUtf8().constData()},
     {NULL, NULL}
 };
 
@@ -260,11 +264,11 @@ RPCConsole::RPCConsole(const PlatformStyle *platformStyle, QWidget *parent) :
     ui->openDebugLogfileButton->setToolTip(ui->openDebugLogfileButton->toolTip().arg(tr(PACKAGE_NAME)));
 
     if (platformStyle->getImagesOnButtons()) {
-        ui->openDebugLogfileButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
+        ui->openDebugLogfileButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/export")));
     }
-    ui->clearButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-    ui->fontBiggerButton->setIcon(platformStyle->SingleColorIcon(":/icons/fontbigger"));
-    ui->fontSmallerButton->setIcon(platformStyle->SingleColorIcon(":/icons/fontsmaller"));
+    ui->clearButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+    ui->fontBiggerButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/fontbigger")));
+    ui->fontSmallerButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/fontsmaller")));
 
     // Install event filter for up and down arrow
     ui->lineEdit->installEventFilter(this);
@@ -534,6 +538,7 @@ void RPCConsole::clear(bool clearHistory)
 
     // Add smoothly scaled icon images.
     // (when using width/height on an img, Qt uses nearest instead of linear interpolation)
+    /*
     for(int i=0; ICON_MAPPING[i].url; ++i)
     {
         ui->messagesWidget->document()->addResource(
@@ -541,6 +546,7 @@ void RPCConsole::clear(bool clearHistory)
                     QUrl(ICON_MAPPING[i].url),
                     platformStyle->SingleColorImage(ICON_MAPPING[i].source).scaled(QSize(consoleFontSize*2, consoleFontSize*2), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     }
+    */
 
     // Set default style sheet
     QFontInfo fixedFontInfo(GUIUtil::fixedPitchFont());

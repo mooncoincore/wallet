@@ -16,10 +16,15 @@
 #include "guiutil.h"
 #include "platformstyle.h"
 
+
+
+
 #include <QIcon>
 #include <QMenu>
 #include <QMessageBox>
 #include <QSortFilterProxyModel>
+
+
 
 AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode mode, Tabs tab, QWidget *parent) :
     QDialog(parent),
@@ -36,10 +41,10 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode mode, 
         ui->deleteAddress->setIcon(QIcon());
         ui->exportButton->setIcon(QIcon());
     } else {
-        ui->newAddress->setIcon(platformStyle->SingleColorIcon(":/icons/add"));
-        ui->copyAddress->setIcon(platformStyle->SingleColorIcon(":/icons/editcopy"));
-        ui->deleteAddress->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-        ui->exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
+        ui->newAddress->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/add")));
+        ui->copyAddress->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/editcopy")));
+        ui->deleteAddress->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+        ui->exportButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/export")));
     }
 
     switch(mode)

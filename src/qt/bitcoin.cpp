@@ -201,6 +201,7 @@ public:
     /// Create payment server
     void createPaymentServer();
 #endif
+
     /// parameter interaction/setup based on rules
     void parameterSetup();
     /// Create options model
@@ -614,10 +615,12 @@ int main(int argc, char *argv[])
     }
 #ifdef ENABLE_WALLET
     // Parse URIs on command line -- this can affect Params()
-    PaymentServer::ipcParseCommandLine(argc, argv);
+    PaymentServer::ipcParseCommandLine(argc, argv); 
 #endif
 
-    QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(QString::fromStdString(Params().NetworkIDString())));
+    QSettings settings;
+     
+    QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(settings.value("theme","Default").toString())); // QString::fromStdString(Params().NetworkIDString())
     assert(!networkStyle.isNull());
     // Allow for separate UI settings for testnets
     QApplication::setApplicationName(networkStyle->getAppName());

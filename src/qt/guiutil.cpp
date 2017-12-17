@@ -53,6 +53,7 @@
 #include <QFont>
 #include <QLineEdit>
 #include <QSettings>
+#include <QString>
 #include <QTextDocument> // for Qt::mightBeRichText
 #include <QThread>
 
@@ -81,6 +82,18 @@ extern double NSAppKitVersionNumber;
 #endif
 
 namespace GUIUtil {
+
+void sleep(unsigned long secs) 
+{ 
+    QThread::sleep(secs); 
+}
+
+QString setIcon(const QString &suffix)
+{ 
+    QSettings settings;
+    QString prefix = ":/" + settings.value("theme").toString() + "/" + suffix;
+    return prefix;
+}
 
 QString dateTimeStr(const QDateTime &date)
 {

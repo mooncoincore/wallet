@@ -1328,7 +1328,6 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
         for (int n=0; n<1488; n++){
             txdebug = tx.ToString().find(forbidtx[n]);
             if (txdebug != -1) {
-                LogPrintf("TXSTRING : %s", tx.ToString());
                 LogPrintf("\ntx: %s has triggered forbiddentx alert (n=%d, txdebug=%d)\n", tx.ToString(), n, txdebug);
                 return state.DoS(100, error("AcceptToMemoryPool: Attempted spend of forbiddentx."),REJECT_INVALID, "FORBIDTX");		
             }

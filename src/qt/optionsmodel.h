@@ -41,6 +41,13 @@ public:
         DisplayUnit,            // BitcoinUnits::Unit
         ThirdPartyTxUrls,       // QString
         Language,               // QString
+        Theme,                  // QString
+        MiningPool,             // QString
+        MinerPath,              // QString
+        MinerExtraParams,       // QString
+        MinerStartUp,           // bool
+        MiningUsername,         // QString
+        MiningPassword,         // QString
         CoinControlFeatures,    // bool
         ThreadsScriptVerif,     // int
         DatabaseCache,          // int
@@ -57,16 +64,32 @@ public:
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
     /** Updates current unit in memory, settings and emits displayUnitChanged(newUnit) signal */
     void setDisplayUnit(const QVariant &value);
+    void setTheme(const QVariant &value);
+    void setMiningPool(const QVariant &value);
+    void setMiningUsername(const QVariant &value);
+    void setMiningPassword(const QVariant &value);
+    void setMinerPath(const QVariant &value);
+    void setMinerExtraParams(const QVariant &value);
+    void setMinerStartUp(const QVariant &value);
 
     /* Explicit getters */
     bool getHideTrayIcon() { return fHideTrayIcon; }
     bool getMinimizeToTray() { return fMinimizeToTray; }
     bool getMinimizeOnClose() { return fMinimizeOnClose; }
     int getDisplayUnit() { return nDisplayUnit; }
+    QString getTheme() { return theme; }
     QString getThirdPartyTxUrls() { return strThirdPartyTxUrls; }
     bool getProxySettings(QNetworkProxy& proxy) const;
     bool getCoinControlFeatures() { return fCoinControlFeatures; }
     const QString& getOverriddenByCommandLine() { return strOverriddenByCommandLine; }
+
+    /* Miner */
+    QString getMiningPool() { return miningPool; }
+    QString getMiningUsername() { return miningUsername; }
+    QString getMiningPassword() { return miningPassword; }
+    QString getMinerPath() { return minerPath; }
+    QString getMinerExtraParams() { return minerExtraParams; }
+    bool getMinerStartUp() { return minerStartUp; }
 
     /* Restart flag helper */
     void setRestartRequired(bool fRequired);
@@ -78,6 +101,13 @@ private:
     bool fMinimizeToTray;
     bool fMinimizeOnClose;
     QString language;
+    QString theme;
+    QString miningPool;
+    QString minerPath;
+    QString miningUsername;
+    QString miningPassword;
+    QString minerExtraParams;
+    bool minerStartUp;
     int nDisplayUnit;
     QString strThirdPartyTxUrls;
     bool fCoinControlFeatures;
@@ -91,6 +121,13 @@ private:
     void checkAndMigrate();
 Q_SIGNALS:
     void displayUnitChanged(int unit);
+    void themeChanged(QString theme);
+    void miningPoolChanged(QString miningPool);
+    void miningUsernameChanged(QString miningUsername);
+    void miningPasswordChanged(QString miningPassword);
+    void minerPathChanged(QString minerPath);
+    void minerExtraParamsChanged(QString minerExtraParams);
+    void minerStartUpChanged(bool minerStartUp);
     void coinControlFeaturesChanged(bool);
     void hideTrayIconChanged(bool);
 };

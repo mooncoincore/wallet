@@ -23,7 +23,6 @@
 SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) :
     QWidget(0, Qt::FramelessWindowHint), curAlignment(0)
 {
-
     float fontFactor        = 1.0;
     QString font            = QApplication::font().toString();
     pixmap     = networkStyle->getSplashImage();
@@ -32,7 +31,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     pixPaint.setFont(QFont(font, 8*fontFactor));
     QFontMetrics fm = pixPaint.fontMetrics();
     pixPaint.end();
-	
+    
     // Resize window and move to center of desktop, disallow resizing
     QRect r(QPoint(), pixmap.size());
     resize(r.size());

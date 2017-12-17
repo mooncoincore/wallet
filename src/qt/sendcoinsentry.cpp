@@ -12,8 +12,12 @@
 #include "platformstyle.h"
 #include "walletmodel.h"
 
+
+
 #include <QApplication>
 #include <QClipboard>
+
+
 
 SendCoinsEntry::SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *parent) :
     QStackedWidget(parent),
@@ -23,11 +27,11 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *pare
 {
     ui->setupUi(this);
 
-    ui->addressBookButton->setIcon(platformStyle->SingleColorIcon(":/icons/address-book"));
-    ui->pasteButton->setIcon(platformStyle->SingleColorIcon(":/icons/editpaste"));
-    ui->deleteButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-    ui->deleteButton_is->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-    ui->deleteButton_s->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
+    ui->addressBookButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/address-book")));
+    ui->pasteButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/editpaste")));
+    ui->deleteButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+    ui->deleteButton_is->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+    ui->deleteButton_s->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
 
     setCurrentWidget(ui->SendCoins);
 

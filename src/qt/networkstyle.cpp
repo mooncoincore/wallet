@@ -14,8 +14,11 @@ static const struct {
     const char *appIcon;
     const char *titleAddText;
     const char *splashImage;
-} network_styles[] = {
-    {"main", QAPP_APP_NAME_DEFAULT, ":/icons/bitcoin", "", ":/images/splash"},
+} network_styles[] = { 
+    {"Default", QAPP_APP_NAME_DEFAULT, ":/Default/icons/bitcoin", "", ":/Default/images/splash"},
+    {"Discord", QAPP_APP_NAME_DEFAULT, ":/Discord/icons/bitcoin", "", ":/Discord/images/splash"},
+    {"Blue-Moon", QAPP_APP_NAME_DEFAULT, ":/Blue-Moon/icons/bitcoin", "", ":/Blue-Moon/images/splash"},
+    {"Original-Yellow", QAPP_APP_NAME_DEFAULT, ":/Original-Yellow/icons/bitcoin", "", ":/Original-Yellow/images/splash"},
     {"test", QAPP_APP_NAME_TESTNET, ":/icons/bitcoin_testnet", QT_TRANSLATE_NOOP("SplashScreen", "[testnet]"), ":/images/splash_testnet"},
     {"regtest", QAPP_APP_NAME_TESTNET, ":/icons/bitcoin_testnet", "[regtest]", ":/images/splash_testnet"}
 };
