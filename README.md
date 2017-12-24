@@ -12,7 +12,15 @@
 * Controlled lowering of coin emission via dynamic nSubsidy (schedule available at https://github.com/mooncoincore/rewardSchedule).
 
 * Top Mooncoin addresses are unspendable and contain more than 77 billion frozen MOONcoins, which were not delivered (till March, 2017) by the Cryptsy exchange to the Florida court and were not returned to legitimate owners
- 
+
+
+## For Miner Configuration
+-------------------
+
+If you use the miner setup change the username to your wallet address.
+Go to Menu Settings > Options > Miner tab
+Be sure you have setup correctly the username/address with your wallet address and the Miner path is correct!
+
 
 ## Cross-compilation
 -------------------
