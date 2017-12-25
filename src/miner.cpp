@@ -509,7 +509,7 @@ void BlockAssembler::addPackageTxs()
 }
 
 void BlockAssembler::addPriorityTxs()
-{
+{ 
     // How much of the block should be dedicated to high-priority transactions,
     // included regardless of the fees they pay
     unsigned int nBlockPrioritySize = GetArg("-blockprioritysize", DEFAULT_BLOCK_PRIORITY_SIZE);
