@@ -2,7 +2,7 @@
 ## DO NOT EDIT - This file generated from ./build-aux/ltmain.in
 ##               by inline-source v2016-02-21.11
 
-# libtool (GNU libtool) 2.4.6.40-6ca5
+# libtool (GNU libtool) 2.4.6.40-6ca5-dirty
 # Provide generalized library-building support services.
 # Written by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 
@@ -31,7 +31,7 @@
 
 PROGRAM=libtool
 PACKAGE=libtool
-VERSION=2.4.6.40-6ca5
+VERSION=2.4.6.40-6ca5-dirty
 package_revision=2.4.6.40
 
 
@@ -2176,7 +2176,7 @@ func_version ()
 # End:
 
 # Set a version string.
-scriptversion='(GNU libtool) 2.4.6.40-6ca5'
+scriptversion='(GNU libtool) 2.4.6.40-6ca5-dirty'
 
 
 # func_echo ARG...
@@ -2267,7 +2267,7 @@ include the following information:
        compiler:       $LTCC
        compiler flags: $LTCFLAGS
        linker:         $LD (gnu? $with_gnu_ld)
-       version:        $progname (GNU libtool) 2.4.6.40-6ca5
+       version:        $progname (GNU libtool) 2.4.6.40-6ca5-dirty
        automake:       `($AUTOMAKE --version) 2>/dev/null |$SED 1q`
        autoconf:       `($AUTOCONF --version) 2>/dev/null |$SED 1q`
 

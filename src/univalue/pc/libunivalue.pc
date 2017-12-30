@@ -1,4 +1,4 @@
-prefix=/run/media/billos/burstcoin/mooncoin/mooncoincore/mooncoinRepo/depends/i686-w64-mingw32
+prefix=/run/media/billos/burstcoin/mooncoin/mooncoincore/wallet/depends/x86_64-w64-mingw32
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

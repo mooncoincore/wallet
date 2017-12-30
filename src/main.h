@@ -43,7 +43,7 @@ struct PrecomputedTransactionData;
 struct CNodeStateStats;
 struct LockPoints;
 
-/** Default for DEFAULT_WHITELISTRELAY. */
+/** Default for DEFAULT_WHITELISTRELAY. */ 
 static const bool DEFAULT_WHITELISTRELAY = true;
 /** Default for DEFAULT_WHITELISTFORCERELAY. */
 static const bool DEFAULT_WHITELISTFORCERELAY = true;

@@ -187,8 +187,8 @@ unsigned int GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const CBlockH
 
 unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
-    CBigNum bnProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
-    unsigned int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
+    const arith_uint256 bnProofOfWorkLimit = UintToArith256(params.powLimit);
+    const unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
     // DigiShield difficulty retarget system
     bool fTestNet = false;
     int blockstogoback = 0;
@@ -234,7 +234,7 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     LogPrintf("  nActualTimespan = %g before bounds\n", nActualTimespan);
 
-    CBigNum bnNew;
+    arith_uint256 bnNew;
     bnNew.SetCompact(pindexLast->nBits);
 
     if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
@@ -248,7 +248,7 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
     LogPrintf("DigiShield RETARGET \n");
     LogPrintf("retargetTimespan = %g    nActualTimespan = %g \n", retargetTimespan, nActualTimespan);
     LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
-    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString().c_str());
 
     if (bnNew > bnProofOfWorkLimit)
         bnNew = bnProofOfWorkLimit;

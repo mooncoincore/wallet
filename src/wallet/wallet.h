@@ -48,9 +48,9 @@ static const CAmount DEFAULT_TRANSACTION_MINFEE = 100000;
 //! minimum change amount
 static const CAmount MIN_CHANGE = CENT;
 //! Default for -spendzeroconfchange
-static const bool DEFAULT_SPEND_ZEROCONF_CHANGE = true;
+static const bool DEFAULT_SPEND_ZEROCONF_CHANGE = false;
 //! Default for -sendfreetransactions
-static const bool DEFAULT_SEND_FREE_TRANSACTIONS = false;
+static const bool DEFAULT_SEND_FREE_TRANSACTIONS = true; 
 //! Default for -walletrejectlongchains
 static const bool DEFAULT_WALLET_REJECT_LONG_CHAINS = false;
 //! -txconfirmtarget default
