@@ -33,7 +33,7 @@ Make sure you install the build requirements mentioned in
 [build-unix.md](/doc/build-unix.md).
 Then, install the toolchains and curl:
 
-    sudo apt-get install g++-mingw-w64-i686 mingw-w64-i686-dev g++-mingw-w64-x86-64 mingw-w64-x86-64-dev curl
+    sudo apt-get install g++-mingw-w64-i686 mingw-w64-i686-dev g++-mingw-w64-x86-64 mingw-w64-x86-64-dev curl libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
 
 To build executables for Windows 32-bit:
 
