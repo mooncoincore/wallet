@@ -112,12 +112,10 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0xbd687cbbac4842724d4b1dfd2e1a6ce35d765db05635b3ebd3810ba66ac5aee9"));
         assert(genesis.hashMerkleRoot == uint256S("0xb3aaaed7565d0594128fffa5f5dee01df8eb24de4245365cb8df7ad0c6e93266"));
 
-        // primaries
-        vSeeds.push_back(CDNSSeedData("bazco.in", "node0.bazco.in", true));
-        vSeeds.push_back(CDNSSeedData("bazco.in", "node1.bazco.in", true));
-
-        // failover
-        vSeeds.push_back(CDNSSeedData("bazco.in", "bazco.in", true));
+        // primaries dnsseeds 
+        vSeeds.push_back(CDNSSeedData("dnsseed01.moonypool.com", "dnsseed01.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("dnsseed02.moonypool.com", "dnsseed02.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("dnsseed03.moonypool.com", "dnsseed03.moonypool.com", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,3);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,22);
