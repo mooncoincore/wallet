@@ -1,4 +1,4 @@
-## Mooncoin Core 0.13.9-segwit
+## Mooncoin Core 0.13.9.1-segwit
 
 
 * Hardfork to new codebase occurs at block 1,250,000, however Mooncoin 0.10 and 0.13 wallets will be compatible until this point.
