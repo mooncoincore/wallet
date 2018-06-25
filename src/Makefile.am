@@ -249,18 +249,8 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   lyra2m/Lyra2.c \
   lyra2m/Lyra2.h \
   lyra2m/Sponge.c \
-  lyra2m/Sponge.h \
-  balloon/bitstream.c \
-  balloon/bitstream.h \
-  balloon/compress.c \
-  balloon/compress.h \
-  balloon/constants.h \
-  balloon/encode.c \
-  balloon/encode.h \
-  balloon/hash_state.c \
-  balloon/hash_state.h \
-  balloon/balloonpow.c \
-  balloon/balloonpow.h
+  lyra2m/Sponge.h 
+
 
 # consensus: shared between all executables that validate any consensus rules.
 libbitcoin_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
