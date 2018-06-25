@@ -34,6 +34,10 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.vtx.push_back(txNew);
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
+    // printf("genesis.nTime = %u \n", genesis.nTime);
+    // printf("genesis.nNonce = %u \n", genesis.nNonce); genesis.hashMerkleRoot
+    // printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+    // printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
     return genesis;
 }
 
@@ -139,8 +143,8 @@ public:
 			(  66618, uint256S("0x1bf88ab406ff6ea9f43d8fff61ada69189443de12d143f2ebb7ddb019b54dee2"))
 			(1000000, uint256S("0xd806ec36632672626e7a8e764948ea09ff69cf0360edc427008accf68b8fcf6d"))
 			(1100000, uint256S("0x6988ca75c6bcba6253f4f775788785e71e1efae72c05d678386c3053b2c15863"))
-            (1110000, uint256S("0x084bb5c11d303ad2e061c81921fbde3f07197898e63a59836399218bf97eabc1"))
-            (1112500, uint256S("0xe78124b931c6628967b756a1200bf9b5917693536eaac520f876dfe2b35e6637")),
+                        (1110000, uint256S("0x084bb5c11d303ad2e061c81921fbde3f07197898e63a59836399218bf97eabc1"))
+                        (1112500, uint256S("0xe78124b931c6628967b756a1200bf9b5917693536eaac520f876dfe2b35e6637")),
 			1495626117, // * UNIX timestamp of last checkpoint block
 			1893671,    // * total number of transactions between genesis and last checkpoint
 			            //   (the tx=... number in the SetBestChain debug.log lines)
@@ -187,14 +191,14 @@ public:
         pchMessageStart[1] = 0xd2;
         pchMessageStart[2] = 0xc8;
         pchMessageStart[3] = 0xf1;
-        nDefaultPort = 19335;
+        nDefaultPort = 14665;
         nPruneAfterHeight = 1000;
 
-        //we dont use testnet.. yet
-        genesis = CreateGenesisBlock(1486949366, 293345, 0x1e0ffff0, 1, 50 * COIN);
+        // testnet
+        genesis = CreateGenesisBlock(1529920312, 293345, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        //assert(consensus.hashGenesisBlock == uint256S("0x4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+        assert(consensus.hashGenesisBlock == uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30"));
+        assert(genesis.hashMerkleRoot == uint256S("0xae1ba87578c665151696e8f8556447b0263d11c5f3f22935e76b159bca32b5a8"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -216,10 +220,10 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 2056, uint256S("0x17748a31ba97afdc9a4f86837a39d287e3e7c7290a08a1d816c5969c78a83289")),
-            1487036370,
-            2057,
-            576
+            ( 0, uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30")),
+            1529920312,
+            0,
+            900
         };
 
     }
@@ -258,15 +262,15 @@ public:
         pchMessageStart[1] = 0xbf;
         pchMessageStart[2] = 0xb5;
         pchMessageStart[3] = 0xda;
-        nDefaultPort = 19444;
+        nDefaultPort = 13665;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1296688602, 0, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
-        //we dont use regtest
-        //assert(consensus.hashGenesisBlock == uint256S("0x530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+        //we dont use regtest but the hash and merkle are right
+        //assert(consensus.hashGenesisBlock == uint256S("0xe3b0c535133c29c4ba20a968ed71f50dd1bfa1155ae03780ab64053fe76347e5"));
+        //assert(genesis.hashMerkleRoot == uint256S("0xae1ba87578c665151696e8f8556447b0263d11c5f3f22935e76b159bca32b5a8"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
@@ -279,10 +283,10 @@ public:
 
 	checkpointData = (CCheckpointData){
 		boost::assign::map_list_of
-			( 0, uint256S("0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206")),
+			( 0, uint256S("0xe3b0c535133c29c4ba20a968ed71f50dd1bfa1155ae03780ab64053fe76347e5")),
+			1296688602,
 			0,
-			0,
-			0
+			900
 	};
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
