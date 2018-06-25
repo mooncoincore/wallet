@@ -205,12 +205,7 @@ am_crypto_libbitcoin_crypto_a_OBJECTS =  \
 	crypto/crypto_libbitcoin_crypto_a-sha256.$(OBJEXT) \
 	crypto/crypto_libbitcoin_crypto_a-sha512.$(OBJEXT) \
 	lyra2m/crypto_libbitcoin_crypto_a-Lyra2.$(OBJEXT) \
-	lyra2m/crypto_libbitcoin_crypto_a-Sponge.$(OBJEXT) \
-	balloon/crypto_libbitcoin_crypto_a-bitstream.$(OBJEXT) \
-	balloon/crypto_libbitcoin_crypto_a-compress.$(OBJEXT) \
-	balloon/crypto_libbitcoin_crypto_a-encode.$(OBJEXT) \
-	balloon/crypto_libbitcoin_crypto_a-hash_state.$(OBJEXT) \
-	balloon/crypto_libbitcoin_crypto_a-balloonpow.$(OBJEXT)
+	lyra2m/crypto_libbitcoin_crypto_a-Sponge.$(OBJEXT) 
 crypto_libbitcoin_crypto_a_OBJECTS =  \
 	$(am_crypto_libbitcoin_crypto_a_OBJECTS)
 leveldb_libleveldb_a_AR = $(AR) $(ARFLAGS)
@@ -740,10 +735,7 @@ am__libbitcoinconsensus_la_SOURCES_DIST = crypto/aes.cpp crypto/aes.h \
 	crypto/scrypt.h crypto/sha1.cpp crypto/sha1.h \
 	crypto/sha256.cpp crypto/sha256.h crypto/sha512.cpp \
 	crypto/sha512.h lyra2m/Lyra2.c lyra2m/Lyra2.h lyra2m/Sponge.c \
-	lyra2m/Sponge.h balloon/bitstream.c balloon/bitstream.h \
-	balloon/compress.c balloon/compress.h balloon/constants.h \
-	balloon/encode.c balloon/encode.h balloon/hash_state.c \
-	balloon/hash_state.h balloon/balloonpow.c balloon/balloonpow.h \
+	lyra2m/Sponge.h \
 	amount.h arith_uint256.cpp arith_uint256.h \
 	consensus/merkle.cpp consensus/merkle.h consensus/params.h \
 	consensus/validation.h hash.cpp hash.h prevector.h \
@@ -763,12 +755,7 @@ am__objects_15 = crypto/libbitcoinconsensus_la-aes.lo \
 	crypto/libbitcoinconsensus_la-sha256.lo \
 	crypto/libbitcoinconsensus_la-sha512.lo \
 	lyra2m/libbitcoinconsensus_la-Lyra2.lo \
-	lyra2m/libbitcoinconsensus_la-Sponge.lo \
-	balloon/libbitcoinconsensus_la-bitstream.lo \
-	balloon/libbitcoinconsensus_la-compress.lo \
-	balloon/libbitcoinconsensus_la-encode.lo \
-	balloon/libbitcoinconsensus_la-hash_state.lo \
-	balloon/libbitcoinconsensus_la-balloonpow.lo
+	lyra2m/libbitcoinconsensus_la-Sponge.lo 
 am__objects_16 = libbitcoinconsensus_la-arith_uint256.lo \
 	consensus/libbitcoinconsensus_la-merkle.lo \
 	libbitcoinconsensus_la-hash.lo \
@@ -1749,18 +1736,7 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   lyra2m/Lyra2.c \
   lyra2m/Lyra2.h \
   lyra2m/Sponge.c \
-  lyra2m/Sponge.h \
-  balloon/bitstream.c \
-  balloon/bitstream.h \
-  balloon/compress.c \
-  balloon/compress.h \
-  balloon/constants.h \
-  balloon/encode.c \
-  balloon/encode.h \
-  balloon/hash_state.c \
-  balloon/hash_state.h \
-  balloon/balloonpow.c \
-  balloon/balloonpow.h
+  lyra2m/Sponge.h 
 
 
 # consensus: shared between all executables that validate any consensus rules.
@@ -2509,22 +2485,7 @@ lyra2m/crypto_libbitcoin_crypto_a-Lyra2.$(OBJEXT):  \
 	lyra2m/$(am__dirstamp) lyra2m/$(DEPDIR)/$(am__dirstamp)
 lyra2m/crypto_libbitcoin_crypto_a-Sponge.$(OBJEXT):  \
 	lyra2m/$(am__dirstamp) lyra2m/$(DEPDIR)/$(am__dirstamp)
-balloon/$(am__dirstamp):
-	@$(MKDIR_P) balloon
-	@: > balloon/$(am__dirstamp)
-balloon/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) balloon/$(DEPDIR)
-	@: > balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/crypto_libbitcoin_crypto_a-bitstream.$(OBJEXT):  \
-	balloon/$(am__dirstamp) balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/crypto_libbitcoin_crypto_a-compress.$(OBJEXT):  \
-	balloon/$(am__dirstamp) balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/crypto_libbitcoin_crypto_a-encode.$(OBJEXT):  \
-	balloon/$(am__dirstamp) balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/crypto_libbitcoin_crypto_a-hash_state.$(OBJEXT):  \
-	balloon/$(am__dirstamp) balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/crypto_libbitcoin_crypto_a-balloonpow.$(OBJEXT):  \
-	balloon/$(am__dirstamp) balloon/$(DEPDIR)/$(am__dirstamp)
+
 
 crypto/libbitcoin_crypto.a: $(crypto_libbitcoin_crypto_a_OBJECTS) $(crypto_libbitcoin_crypto_a_DEPENDENCIES) $(EXTRA_crypto_libbitcoin_crypto_a_DEPENDENCIES) crypto/$(am__dirstamp)
 	$(AM_V_at)-rm -f crypto/libbitcoin_crypto.a
@@ -3120,16 +3081,6 @@ lyra2m/libbitcoinconsensus_la-Lyra2.lo: lyra2m/$(am__dirstamp) \
 	lyra2m/$(DEPDIR)/$(am__dirstamp)
 lyra2m/libbitcoinconsensus_la-Sponge.lo: lyra2m/$(am__dirstamp) \
 	lyra2m/$(DEPDIR)/$(am__dirstamp)
-balloon/libbitcoinconsensus_la-bitstream.lo: balloon/$(am__dirstamp) \
-	balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/libbitcoinconsensus_la-compress.lo: balloon/$(am__dirstamp) \
-	balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/libbitcoinconsensus_la-encode.lo: balloon/$(am__dirstamp) \
-	balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/libbitcoinconsensus_la-hash_state.lo: balloon/$(am__dirstamp) \
-	balloon/$(DEPDIR)/$(am__dirstamp)
-balloon/libbitcoinconsensus_la-balloonpow.lo: balloon/$(am__dirstamp) \
-	balloon/$(DEPDIR)/$(am__dirstamp)
 consensus/libbitcoinconsensus_la-merkle.lo: consensus/$(am__dirstamp) \
 	consensus/$(DEPDIR)/$(am__dirstamp)
 primitives/libbitcoinconsensus_la-block.lo:  \
@@ -3279,8 +3230,6 @@ qt/test/test_mooncoin-qt$(EXEEXT): $(qt_test_test_mooncoin_qt_OBJECTS) $(qt_test
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f balloon/*.$(OBJEXT)
-	-rm -f balloon/*.lo
 	-rm -f bench/*.$(OBJEXT)
 	-rm -f compat/*.$(OBJEXT)
 	-rm -f compat/*.lo
@@ -3367,16 +3316,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mooncoin_cli-bitcoin-cli.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mooncoin_tx-bitcoin-tx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mooncoind-bitcoind.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-balloonpow.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-bitstream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-compress.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-encode.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-hash_state.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/libbitcoinconsensus_la-balloonpow.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/libbitcoinconsensus_la-bitstream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/libbitcoinconsensus_la-compress.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/libbitcoinconsensus_la-encode.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@balloon/$(DEPDIR)/libbitcoinconsensus_la-hash_state.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@bench/$(DEPDIR)/bench_bench_mooncoin-Examples.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@bench/$(DEPDIR)/bench_bench_mooncoin-base58.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@bench/$(DEPDIR)/bench_bench_mooncoin-bench.Po@am__quote@
@@ -3648,76 +3587,6 @@ lyra2m/crypto_libbitcoin_crypto_a-Sponge.obj: lyra2m/Sponge.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lyra2m/crypto_libbitcoin_crypto_a-Sponge.obj `if test -f 'lyra2m/Sponge.c'; then $(CYGPATH_W) 'lyra2m/Sponge.c'; else $(CYGPATH_W) '$(srcdir)/lyra2m/Sponge.c'; fi`
 
-balloon/crypto_libbitcoin_crypto_a-bitstream.o: balloon/bitstream.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-bitstream.o -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-bitstream.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-bitstream.o `test -f 'balloon/bitstream.c' || echo '$(srcdir)/'`balloon/bitstream.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-bitstream.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-bitstream.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/bitstream.c' object='balloon/crypto_libbitcoin_crypto_a-bitstream.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-bitstream.o `test -f 'balloon/bitstream.c' || echo '$(srcdir)/'`balloon/bitstream.c
-
-balloon/crypto_libbitcoin_crypto_a-bitstream.obj: balloon/bitstream.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-bitstream.obj -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-bitstream.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-bitstream.obj `if test -f 'balloon/bitstream.c'; then $(CYGPATH_W) 'balloon/bitstream.c'; else $(CYGPATH_W) '$(srcdir)/balloon/bitstream.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-bitstream.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-bitstream.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/bitstream.c' object='balloon/crypto_libbitcoin_crypto_a-bitstream.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-bitstream.obj `if test -f 'balloon/bitstream.c'; then $(CYGPATH_W) 'balloon/bitstream.c'; else $(CYGPATH_W) '$(srcdir)/balloon/bitstream.c'; fi`
-
-balloon/crypto_libbitcoin_crypto_a-compress.o: balloon/compress.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-compress.o -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-compress.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-compress.o `test -f 'balloon/compress.c' || echo '$(srcdir)/'`balloon/compress.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-compress.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-compress.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/compress.c' object='balloon/crypto_libbitcoin_crypto_a-compress.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-compress.o `test -f 'balloon/compress.c' || echo '$(srcdir)/'`balloon/compress.c
-
-balloon/crypto_libbitcoin_crypto_a-compress.obj: balloon/compress.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-compress.obj -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-compress.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-compress.obj `if test -f 'balloon/compress.c'; then $(CYGPATH_W) 'balloon/compress.c'; else $(CYGPATH_W) '$(srcdir)/balloon/compress.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-compress.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-compress.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/compress.c' object='balloon/crypto_libbitcoin_crypto_a-compress.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-compress.obj `if test -f 'balloon/compress.c'; then $(CYGPATH_W) 'balloon/compress.c'; else $(CYGPATH_W) '$(srcdir)/balloon/compress.c'; fi`
-
-balloon/crypto_libbitcoin_crypto_a-encode.o: balloon/encode.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-encode.o -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-encode.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-encode.o `test -f 'balloon/encode.c' || echo '$(srcdir)/'`balloon/encode.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-encode.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-encode.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/encode.c' object='balloon/crypto_libbitcoin_crypto_a-encode.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-encode.o `test -f 'balloon/encode.c' || echo '$(srcdir)/'`balloon/encode.c
-
-balloon/crypto_libbitcoin_crypto_a-encode.obj: balloon/encode.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-encode.obj -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-encode.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-encode.obj `if test -f 'balloon/encode.c'; then $(CYGPATH_W) 'balloon/encode.c'; else $(CYGPATH_W) '$(srcdir)/balloon/encode.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-encode.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-encode.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/encode.c' object='balloon/crypto_libbitcoin_crypto_a-encode.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-encode.obj `if test -f 'balloon/encode.c'; then $(CYGPATH_W) 'balloon/encode.c'; else $(CYGPATH_W) '$(srcdir)/balloon/encode.c'; fi`
-
-balloon/crypto_libbitcoin_crypto_a-hash_state.o: balloon/hash_state.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-hash_state.o -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-hash_state.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-hash_state.o `test -f 'balloon/hash_state.c' || echo '$(srcdir)/'`balloon/hash_state.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-hash_state.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-hash_state.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/hash_state.c' object='balloon/crypto_libbitcoin_crypto_a-hash_state.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-hash_state.o `test -f 'balloon/hash_state.c' || echo '$(srcdir)/'`balloon/hash_state.c
-
-balloon/crypto_libbitcoin_crypto_a-hash_state.obj: balloon/hash_state.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-hash_state.obj -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-hash_state.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-hash_state.obj `if test -f 'balloon/hash_state.c'; then $(CYGPATH_W) 'balloon/hash_state.c'; else $(CYGPATH_W) '$(srcdir)/balloon/hash_state.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-hash_state.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-hash_state.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/hash_state.c' object='balloon/crypto_libbitcoin_crypto_a-hash_state.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-hash_state.obj `if test -f 'balloon/hash_state.c'; then $(CYGPATH_W) 'balloon/hash_state.c'; else $(CYGPATH_W) '$(srcdir)/balloon/hash_state.c'; fi`
-
-balloon/crypto_libbitcoin_crypto_a-balloonpow.o: balloon/balloonpow.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-balloonpow.o -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-balloonpow.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-balloonpow.o `test -f 'balloon/balloonpow.c' || echo '$(srcdir)/'`balloon/balloonpow.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-balloonpow.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-balloonpow.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/balloonpow.c' object='balloon/crypto_libbitcoin_crypto_a-balloonpow.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-balloonpow.o `test -f 'balloon/balloonpow.c' || echo '$(srcdir)/'`balloon/balloonpow.c
-
-balloon/crypto_libbitcoin_crypto_a-balloonpow.obj: balloon/balloonpow.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/crypto_libbitcoin_crypto_a-balloonpow.obj -MD -MP -MF balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-balloonpow.Tpo -c -o balloon/crypto_libbitcoin_crypto_a-balloonpow.obj `if test -f 'balloon/balloonpow.c'; then $(CYGPATH_W) 'balloon/balloonpow.c'; else $(CYGPATH_W) '$(srcdir)/balloon/balloonpow.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-balloonpow.Tpo balloon/$(DEPDIR)/crypto_libbitcoin_crypto_a-balloonpow.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/balloonpow.c' object='balloon/crypto_libbitcoin_crypto_a-balloonpow.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(crypto_libbitcoin_crypto_a_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/crypto_libbitcoin_crypto_a-balloonpow.obj `if test -f 'balloon/balloonpow.c'; then $(CYGPATH_W) 'balloon/balloonpow.c'; else $(CYGPATH_W) '$(srcdir)/balloon/balloonpow.c'; fi`
-
 lyra2m/libbitcoinconsensus_la-Lyra2.lo: lyra2m/Lyra2.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lyra2m/libbitcoinconsensus_la-Lyra2.lo -MD -MP -MF lyra2m/$(DEPDIR)/libbitcoinconsensus_la-Lyra2.Tpo -c -o lyra2m/libbitcoinconsensus_la-Lyra2.lo `test -f 'lyra2m/Lyra2.c' || echo '$(srcdir)/'`lyra2m/Lyra2.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) lyra2m/$(DEPDIR)/libbitcoinconsensus_la-Lyra2.Tpo lyra2m/$(DEPDIR)/libbitcoinconsensus_la-Lyra2.Plo
@@ -3731,41 +3600,6 @@ lyra2m/libbitcoinconsensus_la-Sponge.lo: lyra2m/Sponge.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='lyra2m/Sponge.c' object='lyra2m/libbitcoinconsensus_la-Sponge.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lyra2m/libbitcoinconsensus_la-Sponge.lo `test -f 'lyra2m/Sponge.c' || echo '$(srcdir)/'`lyra2m/Sponge.c
-
-balloon/libbitcoinconsensus_la-bitstream.lo: balloon/bitstream.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/libbitcoinconsensus_la-bitstream.lo -MD -MP -MF balloon/$(DEPDIR)/libbitcoinconsensus_la-bitstream.Tpo -c -o balloon/libbitcoinconsensus_la-bitstream.lo `test -f 'balloon/bitstream.c' || echo '$(srcdir)/'`balloon/bitstream.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/libbitcoinconsensus_la-bitstream.Tpo balloon/$(DEPDIR)/libbitcoinconsensus_la-bitstream.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/bitstream.c' object='balloon/libbitcoinconsensus_la-bitstream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/libbitcoinconsensus_la-bitstream.lo `test -f 'balloon/bitstream.c' || echo '$(srcdir)/'`balloon/bitstream.c
-
-balloon/libbitcoinconsensus_la-compress.lo: balloon/compress.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/libbitcoinconsensus_la-compress.lo -MD -MP -MF balloon/$(DEPDIR)/libbitcoinconsensus_la-compress.Tpo -c -o balloon/libbitcoinconsensus_la-compress.lo `test -f 'balloon/compress.c' || echo '$(srcdir)/'`balloon/compress.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/libbitcoinconsensus_la-compress.Tpo balloon/$(DEPDIR)/libbitcoinconsensus_la-compress.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/compress.c' object='balloon/libbitcoinconsensus_la-compress.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/libbitcoinconsensus_la-compress.lo `test -f 'balloon/compress.c' || echo '$(srcdir)/'`balloon/compress.c
-
-balloon/libbitcoinconsensus_la-encode.lo: balloon/encode.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/libbitcoinconsensus_la-encode.lo -MD -MP -MF balloon/$(DEPDIR)/libbitcoinconsensus_la-encode.Tpo -c -o balloon/libbitcoinconsensus_la-encode.lo `test -f 'balloon/encode.c' || echo '$(srcdir)/'`balloon/encode.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/libbitcoinconsensus_la-encode.Tpo balloon/$(DEPDIR)/libbitcoinconsensus_la-encode.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/encode.c' object='balloon/libbitcoinconsensus_la-encode.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/libbitcoinconsensus_la-encode.lo `test -f 'balloon/encode.c' || echo '$(srcdir)/'`balloon/encode.c
-
-balloon/libbitcoinconsensus_la-hash_state.lo: balloon/hash_state.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/libbitcoinconsensus_la-hash_state.lo -MD -MP -MF balloon/$(DEPDIR)/libbitcoinconsensus_la-hash_state.Tpo -c -o balloon/libbitcoinconsensus_la-hash_state.lo `test -f 'balloon/hash_state.c' || echo '$(srcdir)/'`balloon/hash_state.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/libbitcoinconsensus_la-hash_state.Tpo balloon/$(DEPDIR)/libbitcoinconsensus_la-hash_state.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/hash_state.c' object='balloon/libbitcoinconsensus_la-hash_state.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/libbitcoinconsensus_la-hash_state.lo `test -f 'balloon/hash_state.c' || echo '$(srcdir)/'`balloon/hash_state.c
-
-balloon/libbitcoinconsensus_la-balloonpow.lo: balloon/balloonpow.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT balloon/libbitcoinconsensus_la-balloonpow.lo -MD -MP -MF balloon/$(DEPDIR)/libbitcoinconsensus_la-balloonpow.Tpo -c -o balloon/libbitcoinconsensus_la-balloonpow.lo `test -f 'balloon/balloonpow.c' || echo '$(srcdir)/'`balloon/balloonpow.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) balloon/$(DEPDIR)/libbitcoinconsensus_la-balloonpow.Tpo balloon/$(DEPDIR)/libbitcoinconsensus_la-balloonpow.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='balloon/balloonpow.c' object='balloon/libbitcoinconsensus_la-balloonpow.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o balloon/libbitcoinconsensus_la-balloonpow.lo `test -f 'balloon/balloonpow.c' || echo '$(srcdir)/'`balloon/balloonpow.c
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -7469,7 +7303,6 @@ mostlyclean-libtool:
 
 clean-libtool:
 	-rm -rf .libs _libs
-	-rm -rf balloon/.libs balloon/_libs
 	-rm -rf bench/.libs bench/_libs
 	-rm -rf compat/.libs compat/_libs
 	-rm -rf consensus/.libs consensus/_libs
@@ -7859,8 +7692,6 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
-	-rm -f balloon/$(DEPDIR)/$(am__dirstamp)
-	-rm -f balloon/$(am__dirstamp)
 	-rm -f bench/$(DEPDIR)/$(am__dirstamp)
 	-rm -f bench/$(am__dirstamp)
 	-rm -f compat/$(DEPDIR)/$(am__dirstamp)
@@ -7913,7 +7744,7 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 	clean-libtool clean-local mostlyclean-am
 
 distclean: distclean-recursive
-	-rm -rf ./$(DEPDIR) balloon/$(DEPDIR) bench/$(DEPDIR) compat/$(DEPDIR) consensus/$(DEPDIR) crypto/$(DEPDIR) leveldb/db/$(DEPDIR) leveldb/helpers/memenv/$(DEPDIR) leveldb/port/$(DEPDIR) leveldb/table/$(DEPDIR) leveldb/util/$(DEPDIR) lyra2m/$(DEPDIR) policy/$(DEPDIR) primitives/$(DEPDIR) qt/$(DEPDIR) qt/test/$(DEPDIR) rpc/$(DEPDIR) script/$(DEPDIR) support/$(DEPDIR) wallet/$(DEPDIR) zmq/$(DEPDIR)
+	-rm -rf ./$(DEPDIR)  bench/$(DEPDIR) compat/$(DEPDIR) consensus/$(DEPDIR) crypto/$(DEPDIR) leveldb/db/$(DEPDIR) leveldb/helpers/memenv/$(DEPDIR) leveldb/port/$(DEPDIR) leveldb/table/$(DEPDIR) leveldb/util/$(DEPDIR) lyra2m/$(DEPDIR) policy/$(DEPDIR) primitives/$(DEPDIR) qt/$(DEPDIR) qt/test/$(DEPDIR) rpc/$(DEPDIR) script/$(DEPDIR) support/$(DEPDIR) wallet/$(DEPDIR) zmq/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -7959,7 +7790,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-recursive
-	-rm -rf ./$(DEPDIR) balloon/$(DEPDIR) bench/$(DEPDIR) compat/$(DEPDIR) consensus/$(DEPDIR) crypto/$(DEPDIR) leveldb/db/$(DEPDIR) leveldb/helpers/memenv/$(DEPDIR) leveldb/port/$(DEPDIR) leveldb/table/$(DEPDIR) leveldb/util/$(DEPDIR) lyra2m/$(DEPDIR) policy/$(DEPDIR) primitives/$(DEPDIR) qt/$(DEPDIR) qt/test/$(DEPDIR) rpc/$(DEPDIR) script/$(DEPDIR) support/$(DEPDIR) wallet/$(DEPDIR) zmq/$(DEPDIR)
+	-rm -rf ./$(DEPDIR) bench/$(DEPDIR) compat/$(DEPDIR) consensus/$(DEPDIR) crypto/$(DEPDIR) leveldb/db/$(DEPDIR) leveldb/helpers/memenv/$(DEPDIR) leveldb/port/$(DEPDIR) leveldb/table/$(DEPDIR) leveldb/util/$(DEPDIR) lyra2m/$(DEPDIR) policy/$(DEPDIR) primitives/$(DEPDIR) qt/$(DEPDIR) qt/test/$(DEPDIR) rpc/$(DEPDIR) script/$(DEPDIR) support/$(DEPDIR) wallet/$(DEPDIR) zmq/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
