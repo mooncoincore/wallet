@@ -191,7 +191,7 @@ public:
         pchMessageStart[1] = 0xd2;
         pchMessageStart[2] = 0xc8;
         pchMessageStart[3] = 0xf1;
-        nDefaultPort = 14665;
+        nDefaultPort = 14664;
         nPruneAfterHeight = 1000;
 
         // testnet
