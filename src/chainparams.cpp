@@ -202,6 +202,10 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
+        //  testnet dnsseeds 
+        vSeeds.push_back(CDNSSeedData("testnet-seed01.moonypool.com", "testnet-seed01.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("testnet-seed02.moonypool.com", "testnet-seed02.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("testnet-seed03.moonypool.com", "testnet-seed03.moonypool.com", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
