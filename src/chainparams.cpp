@@ -35,7 +35,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
     // printf("genesis.nTime = %u \n", genesis.nTime);
-    // printf("genesis.nNonce = %u \n", genesis.nNonce); genesis.hashMerkleRoot
+    // printf("genesis.nNonce = %u \n", genesis.nNonce); 
     // printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
     // printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
     return genesis;
