@@ -186,6 +186,14 @@ CBlockTemplate* BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn)
     LogPrintf("CreateNewBlock(): total size: %u block weight: %u txs: %u fees: %ld sigops %d\n", nSerializeSize, GetBlockWeight(*pblock), nBlockTx, nFees, nBlockSigOpsCost);
 
     // Fill in header
+    //Logging Added .13.9.1
+    printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
+    printf("pindexPrev = %u \n", pindexPrev.ToString().c_str());
+    printf("chainparams.GetConsensus() = %u \n", chainparams.GetConsensus().ToString().c_str());
+    printf("pblock = %u \n", pblock);
+    printf("pindexPrev->GetBlockHash = %u \n", pindexPrev->GetBlockHash().ToString().c_str());
+    printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
+
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
     UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
     pblock->nBits          = GetNextWorkRequired(pindexPrev, pblock, chainparams.GetConsensus());

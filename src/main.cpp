@@ -2759,6 +2759,12 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     }
 
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, prevHash);
+     //Logging Added .13.9.1
+    printf("blockReward = %u \n", blockReward);
+    printf("nFees = %u \n", nFees);
+    printf("pindex->nHeight = %u \n", pindex->nHeight);
+    printf("prevHash = %u \n", prevHash.ToString().c_str());
+
     if (block.vtx[0].GetValueOut() > blockReward)
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
