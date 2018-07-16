@@ -2682,7 +2682,6 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     txdata.reserve(block.vtx.size()); // Required so that pointers to individual PrecomputedTransactionData don't get invalidated
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
-        printf(" block.vtx[i] = %u \n",  block.vtx[i]);
         const CTransaction &tx = block.vtx[i];
 
         nInputs += tx.vin.size();
