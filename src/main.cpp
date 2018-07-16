@@ -2682,6 +2682,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     txdata.reserve(block.vtx.size()); // Required so that pointers to individual PrecomputedTransactionData don't get invalidated
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
+        printf(" block.vtx[i] = %u \n",  block.vtx[i]);
         const CTransaction &tx = block.vtx[i];
 
         nInputs += tx.vin.size();
@@ -2757,14 +2758,23 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     {
         prevHash = pindex->pprev->GetBlockHash();
     }
-
+    if(pindex->nHeight == 1)
+    {
+        // this is the Genesis block
+        // there was not previous hash
+        prevHash = uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30");
+        //block.vtx[0] = 3106597888;
+    }
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, prevHash);
-     //Logging Added .13.9.1
+    //Logging Added .13.9.1
     printf("blockReward = %u \n", blockReward);
     printf("nFees = %u \n", nFees);
     printf("pindex->nHeight = %u \n", pindex->nHeight);
     printf("prevHash = %u \n", prevHash.ToString().c_str());
-
+    printf("block.vtx[0].GetValueOut() = %u \n", block.vtx[0].GetValueOut());
+    printf("block.vtx[0].ToString() = %u \n", block.vtx[0].ToString());
+    
+    
     if (block.vtx[0].GetValueOut() > blockReward)
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",

@@ -34,10 +34,10 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.vtx.push_back(txNew);
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
-    // printf("genesis.nTime = %u \n", genesis.nTime);
-    // printf("genesis.nNonce = %u \n", genesis.nNonce); 
-    // printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-    // printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
+     printf("genesis.nTime = %u \n", genesis.nTime);
+     printf("genesis.nNonce = %u \n", genesis.nNonce); 
+     printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+     printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
     return genesis;
 }
 
@@ -163,16 +163,16 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 840000;
-        consensus.nMajorityEnforceBlockUpgrade = 51;
-        consensus.nMajorityRejectBlockOutdated = 75;
-        consensus.nMajorityWindow = 100;
+        consensus.nMajorityEnforceBlockUpgrade = 750;
+        consensus.nMajorityRejectBlockOutdated = 950;
+        consensus.nMajorityWindow = 1000;
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // 3.5 days
-        consensus.nPowTargetSpacing = 2.5 * 60;
+        consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
+        consensus.nPowTargetSpacing = 1.5 * 60;   // 90 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
+        consensus.nRuleChangeActivationThreshold = 6048; // 75% for testchains
+        consensus.nMinerConfirmationWindow = 8064; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
@@ -195,7 +195,7 @@ public:
         nPruneAfterHeight = 1000;
 
         // testnet
-        genesis = CreateGenesisBlock(1529920312, 293345, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1529920312, 293345, 0x1e0ffff0, 1, 88 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30"));
         assert(genesis.hashMerkleRoot == uint256S("0xae1ba87578c665151696e8f8556447b0263d11c5f3f22935e76b159bca32b5a8"));

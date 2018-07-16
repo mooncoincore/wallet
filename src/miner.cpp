@@ -188,9 +188,14 @@ CBlockTemplate* BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn)
     // Fill in header
     //Logging Added .13.9.1
     printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
-    printf("pindexPrev = %u \n", pindexPrev.ToString().c_str());
-    printf("chainparams.GetConsensus() = %u \n", chainparams.GetConsensus().ToString().c_str());
-    printf("pblock = %u \n", pblock);
+    printf("pindexPrev.nVersion = %u \n", pindexPrev->nVersion);
+    //printf("pindexPrev.hashPrevBlock = %u \n", pindexPrev->hashPrevBlock);  //Does Not exist for genesis block 
+    printf("pindexPrev.hashMerkleRoot = %u \n", pindexPrev->hashMerkleRoot);
+    printf("pindexPrev.nTime  = %u \n", pindexPrev->nTime);
+    printf("pindexPrev.nBits = %u \n", pindexPrev->nBits);
+    printf("pindexPrev.nNonce = %u \n", pindexPrev->nNonce);
+    //printf("chainparams.GetConsensus() = %u \n", chainparams.GetConsensus().ToString().c_str());
+    //printf("pblock = %u \n", pblock);
     printf("pindexPrev->GetBlockHash = %u \n", pindexPrev->GetBlockHash().ToString().c_str());
     printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
 
