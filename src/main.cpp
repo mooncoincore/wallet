@@ -2762,8 +2762,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     {
         // this is the Genesis block
         // there was not previous hash
-        prevHash = uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30");
-        //block.vtx[0] = 3106597888;
+        prevHash = uint256S("0x79cd609708de620bed775c692dffb9e65d626acc3ada2cde65f1eee393068979");
+       //block.vtx[0] = 3106597888;
     }
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, prevHash);
     //Logging Added .13.9.1
