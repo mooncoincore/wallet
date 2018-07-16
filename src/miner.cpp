@@ -185,20 +185,18 @@ CBlockTemplate* BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn)
     uint64_t nSerializeSize = GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION);
     LogPrintf("CreateNewBlock(): total size: %u block weight: %u txs: %u fees: %ld sigops %d\n", nSerializeSize, GetBlockWeight(*pblock), nBlockTx, nFees, nBlockSigOpsCost);
 
-    // Fill in header
+    
     //Logging Added .13.9.1
-    printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
-    printf("pindexPrev.nVersion = %u \n", pindexPrev->nVersion);
-    //printf("pindexPrev.hashPrevBlock = %u \n", pindexPrev->hashPrevBlock);  //Does Not exist for genesis block 
-    printf("pindexPrev.hashMerkleRoot = %u \n", pindexPrev->hashMerkleRoot);
-    printf("pindexPrev.nTime  = %u \n", pindexPrev->nTime);
-    printf("pindexPrev.nBits = %u \n", pindexPrev->nBits);
-    printf("pindexPrev.nNonce = %u \n", pindexPrev->nNonce);
-    //printf("chainparams.GetConsensus() = %u \n", chainparams.GetConsensus().ToString().c_str());
-    //printf("pblock = %u \n", pblock);
-    printf("pindexPrev->GetBlockHash = %u \n", pindexPrev->GetBlockHash().ToString().c_str());
-    printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
+    //printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
+    //printf("pindexPrev.nVersion = %u \n", pindexPrev->nVersion);
+    //printf("pindexPrev.hashMerkleRoot = %u \n", pindexPrev->hashMerkleRoot);
+    //printf("pindexPrev.nTime  = %u \n", pindexPrev->nTime);
+    //printf("pindexPrev.nBits = %u \n", pindexPrev->nBits);
+    //printf("pindexPrev.nNonce = %u \n", pindexPrev->nNonce);
+    //printf("pindexPrev->GetBlockHash = %u \n", pindexPrev->GetBlockHash().ToString().c_str());
+    //printf("CBlockTemplate* BlockAssembler::CreateNewBlock\n");
 
+    // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
     UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
     pblock->nBits          = GetNextWorkRequired(pindexPrev, pblock, chainparams.GetConsensus());

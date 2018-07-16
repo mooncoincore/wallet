@@ -2758,21 +2758,15 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     {
         prevHash = pindex->pprev->GetBlockHash();
     }
-    if(pindex->nHeight == 1)
-    {
-        // this is the Genesis block
-        // there was not previous hash
-        prevHash = uint256S("0x79cd609708de620bed775c692dffb9e65d626acc3ada2cde65f1eee393068979");
-       //block.vtx[0] = 3106597888;
-    }
+   
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, prevHash);
     //Logging Added .13.9.1
-    printf("blockReward = %u \n", blockReward);
-    printf("nFees = %u \n", nFees);
-    printf("pindex->nHeight = %u \n", pindex->nHeight);
-    printf("prevHash = %u \n", prevHash.ToString().c_str());
-    printf("block.vtx[0].GetValueOut() = %u \n", block.vtx[0].GetValueOut());
-    printf("block.vtx[0].ToString() = %u \n", block.vtx[0].ToString());
+    //printf("blockReward = %u \n", blockReward);
+   // printf("nFees = %u \n", nFees);
+   // printf("pindex->nHeight = %u \n", pindex->nHeight);
+   // printf("prevHash = %u \n", prevHash.ToString().c_str());
+   // printf("block.vtx[0].GetValueOut() = %u \n", block.vtx[0].GetValueOut());
+   // printf("block.vtx[0].ToString() = %u \n", block.vtx[0].ToString());
     
     
     if (block.vtx[0].GetValueOut() > blockReward)
