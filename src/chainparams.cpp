@@ -79,8 +79,8 @@ public:
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
-        consensus.nPowTargetTimespan = 8 * 60 * 60;
-        consensus.nPowTargetSpacing = 1.5 * 60;
+        consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
+        consensus.nPowTargetSpacing = 1.5 * 60;  // 90 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
@@ -224,7 +224,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 0, uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30")),
+            ( 0, uint256S("0x79cd609708de620bed775c692dffb9e65d626acc3ada2cde65f1eee393068979")),
             1529920312, // * UNIX timestamp of last checkpoint block
             0,          // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
