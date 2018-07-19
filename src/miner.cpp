@@ -512,11 +512,31 @@ void BlockAssembler::addPriorityTxs()
 { 
     // How much of the block should be dedicated to high-priority transactions,
     // included regardless of the fees they pay
-    unsigned int nBlockPrioritySize = GetArg("-blockprioritysize", DEFAULT_BLOCK_PRIORITY_SIZE);
-    nBlockPrioritySize = std::min(nBlockMaxSize, nBlockPrioritySize);
-
+    unsigned int optionalBlockPrioritySize = 0;
+    unsigned int nBlockPrioritySize = DEFAULT_BLOCK_PRIORITY_SIZE;
+    
+    //establish block priority size to our default (currently 51000) unless a command line changes it.
+    
+    optionalBlockPrioritySize = GetArg("-blockprioritysize", DEFAULT_BLOCK_PRIORITY_SIZE);
+    
+    //if an argument is specified, assign it to nBlockPrioritySize.
+    //If not, it defaults to, well ... the default. 
+    
+    if (optionalBlockPrioritySize > 0)
+    {
+        //use the smaller of the two to limit wildly large values.
+        //Cap it at half the maximum block size.
+        nBlockPrioritySize = std::min((nBlockMaxSize/2),optionalBlockPrioritySize);
+    }
+   
+    
     if (nBlockPrioritySize == 0) {
-        return;
+        //return; 
+        //-no, let's add a check and use the default if it evals to 0.
+        //Right now miners have to add -blockprioritysize 51000 to their setups.
+        //We can change this back to a 'return' if for some reason we want to go back to allowing no low/zero fee tx's.
+        
+        nBlockPrioritySize = DEFAULT_BLOCK_PRIORITY_SIZE;
     }
 
     bool fSizeAccounting = fNeedSizeAccounting;
