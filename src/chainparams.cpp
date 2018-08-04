@@ -35,7 +35,6 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
     if(fDebug){
-    LogPrintf("NetworkID  = %u \n",  strNetworkID);
     LogPrintf("genesis.nTime = %u \n", genesis.nTime);
     LogPrintf("genesis.nNonce = %u \n", genesis.nNonce); 
     LogPrintf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
