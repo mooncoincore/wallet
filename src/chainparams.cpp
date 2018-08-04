@@ -34,10 +34,13 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.vtx.push_back(txNew);
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
-    // printf("genesis.nTime = %u \n", genesis.nTime);
-    // printf("genesis.nNonce = %u \n", genesis.nNonce); 
-    //  printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-    //  printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
+    if(fDebug){
+    LogPrintf("NetworkID  = %u \n",  strNetworkID);
+    LogPrintf("genesis.nTime = %u \n", genesis.nTime);
+    LogPrintf("genesis.nNonce = %u \n", genesis.nNonce); 
+    LogPrintf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+    LogPrintf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
+    }
     return genesis;
 }
 
@@ -78,7 +81,7 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
-        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
         consensus.nPowTargetSpacing = 1.5 * 60;  // 90 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -117,9 +120,9 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xb3aaaed7565d0594128fffa5f5dee01df8eb24de4245365cb8df7ad0c6e93266"));
 
         // primaries dnsseeds 
-        vSeeds.push_back(CDNSSeedData("dnsseed01.moonypool.com", "dnsseed01.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("dnsseed02.moonypool.com", "dnsseed02.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("dnsseed03.moonypool.com", "dnsseed03.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("moonypool.com", "dnsseed01.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("moonypool.com", "dnsseed02.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("moonypool.com", "dnsseed03.moonypool.com", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,3);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,22);
@@ -166,7 +169,7 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
-        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
         consensus.nPowTargetSpacing = 1.5 * 60;   // 90 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -187,7 +190,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1483228800; // January 1, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1517356801; // January 31st, 2018
 
-        pchMessageStart[0] = 0xfd;
+        pchMessageStart[0] = 0xf3;
         pchMessageStart[1] = 0xd2;
         pchMessageStart[2] = 0xc8;
         pchMessageStart[3] = 0xf1;
@@ -203,9 +206,9 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         //  testnet dnsseeds 
-        vSeeds.push_back(CDNSSeedData("testnet-seed01.moonypool.com", "testnet-seed01.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("testnet-seed02.moonypool.com", "testnet-seed02.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("testnet-seed03.moonypool.com", "testnet-seed03.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("moonypool.com", "testnet-seed01.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("moonypool.com", "testnet-seed02.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("moonypool.com", "testnet-seed03.moonypool.com", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -218,7 +221,7 @@ public:
 
         fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
-        fRequireStandard = true;
+        fRequireStandard = false;
         fMineBlocksOnDemand = false;
         fTestnetToBeDeprecatedFieldRPC = false;
 
