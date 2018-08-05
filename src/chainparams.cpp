@@ -34,7 +34,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.vtx.push_back(txNew);
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
-    
+    //Logging Added .13.9.1
     LogPrintf("CreateGenesisBlock () Start");
     LogPrintf("genesis.nTime = %u \n", genesis.nTime);
     LogPrintf("genesis.nNonce = %u \n", genesis.nNonce); 

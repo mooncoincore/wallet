@@ -1928,6 +1928,7 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
     std::string cseed_str = prevHash.ToString().substr(7,7);
     const char* cseed = cseed_str.c_str();
     long seed = hex2long(cseed);
+    //Logging Added .13.9.1
     if(fDebug){
     LogPrintf("GetBlockSubsidy() Start \n");
     LogPrintf("prevHash.ToString() = %u \n", prevHash.ToString());
