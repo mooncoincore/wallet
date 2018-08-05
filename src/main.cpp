@@ -1930,6 +1930,7 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
     long seed = hex2long(cseed);
     if(fDebug){
     LogPrintf("GetBlockSubsidy() Start \n");
+    LogPrintf("prevHash.ToString() = %u \n", prevHash.ToString());
     LogPrintf("prevHash.ToString().substr(7,7) = %u \n", prevHash.ToString().substr(7,7));
     LogPrintf("cseed_str.c_str() = %u \n", cseed_str.c_str());
     LogPrintf("seed = %u \n", seed);
