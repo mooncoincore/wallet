@@ -222,7 +222,7 @@ public:
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
         fMineBlocksOnDemand = false;
-        fTestnetToBeDeprecatedFieldRPC = false;
+        fTestnetToBeDeprecatedFieldRPC = true;
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of

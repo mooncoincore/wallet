@@ -1928,10 +1928,18 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
     std::string cseed_str = prevHash.ToString().substr(7,7);
     const char* cseed = cseed_str.c_str();
     long seed = hex2long(cseed);
+    if(fDebug){
+    LogPrintf("GetBlockSubsidy() Start \n");
+    LogPrintf("seed = %u \n", seed);
+    }
 
 	// cases for block 1 - 384400
 	if(nHeight <= 100000) {
                 nSubsidy = (1 + generateMTRandom(seed, 1999999)) * COIN;
+                if(fDebug){
+                LogPrintf("nSubsidy = %u \n", nSubsidy);
+                LogPrintf("GetBlockSubsidy() End  \n");
+                }
         } else if(nHeight > 193076 && nHeight < 203158) {
                 nSubsidy = 2519841 * COIN; // for _roughly_ one week, the cost of the Apollo program will be paid back -- 25.4bn MOON!
         } else if(nHeight <= 203518) {
