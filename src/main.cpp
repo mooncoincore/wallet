@@ -1981,7 +1981,7 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
 				nSubsidy = 0 * COIN;
 	}
        // case for genesis block
-       if (nHeight == 1) {             // 2147483647 (was 5432099999)
+       if (nHeight == 1 || seed == 0) {            
 				nSubsidy = 0 * COIN;
 	}
 	
