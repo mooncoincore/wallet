@@ -2775,13 +2775,17 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
    
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, prevHash);
     //Logging Added .13.9.1
-    //printf("blockReward = %u \n", blockReward);
-   // printf("nFees = %u \n", nFees);
-   // printf("pindex->nHeight = %u \n", pindex->nHeight);
-   // printf("prevHash = %u \n", prevHash.ToString().c_str());
-   // printf("block.vtx[0].GetValueOut() = %u \n", block.vtx[0].GetValueOut());
-   // printf("block.vtx[0].ToString() = %u \n", block.vtx[0].ToString());
-    
+    if(fDebug){
+    LogPrintf("CAmount blockReward Start \n");
+    LogPrintf("blockReward = %u \n", blockReward);
+    LogPrintf("nFees = %u \n", nFees);
+    LogPrintf("pindex->nHeight = %u \n", pindex->nHeight);
+    LogPrintf("prevHash = %u \n", prevHash.ToString().c_str());
+    LogPrintf("block.vtx[0].GetValueOut() = %u \n", block.vtx[0].GetValueOut());
+    LogPrintf("block.vtx[0].ToString() = %u \n", block.vtx[0].ToString());
+    LogPrintf("CAmount blockReward End \n");
+    }
+        
     
     if (block.vtx[0].GetValueOut() > blockReward)
         return state.DoS(100,
