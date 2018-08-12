@@ -1982,7 +1982,7 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
 	}
        // case for genesis block
        if (nHeight == 1 || seed == 0) {            
-				nSubsidy = 0 * COIN;
+				nSubsidy = 88;
 	}
 	
     return nSubsidy;
@@ -2786,7 +2786,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrintf("block.vtx[0].ToString() = %u \n", block.vtx[0].ToString());
     LogPrintf("CAmount blockReward End \n");
     }
-        
+    
+            
     
     if (block.vtx[0].GetValueOut() > blockReward)
         return state.DoS(100,
