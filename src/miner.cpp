@@ -187,14 +187,14 @@ CBlockTemplate* BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn)
 
     
     //Logging Added .13.9.1
-    //printf("CBlockTemplate* BlockAssembler::CreateNewBlock Start () \n");
-    //printf("pindexPrev.nVersion = %u \n", pindexPrev->nVersion);
-    //printf("pindexPrev.hashMerkleRoot = %u \n", pindexPrev->hashMerkleRoot);
-    //printf("pindexPrev.nTime  = %u \n", pindexPrev->nTime);
-    //printf("pindexPrev.nBits = %u \n", pindexPrev->nBits);
-    //printf("pindexPrev.nNonce = %u \n", pindexPrev->nNonce);
-    //printf("pindexPrev->GetBlockHash = %u \n", pindexPrev->GetBlockHash().ToString().c_str());
-    //printf("CBlockTemplate* BlockAssembler::CreateNewBlock End ()\n");
+    LogPrintf("CBlockTemplate* BlockAssembler::CreateNewBlock Start () \n");
+    LogPrintf("pindexPrev.nVersion = %u \n", pindexPrev->nVersion);
+    LogPrintf("pindexPrev.hashMerkleRoot = %u \n", pindexPrev->hashMerkleRoot);
+    LogPrintf("pindexPrev.nTime  = %u \n", pindexPrev->nTime);
+    LogPrintf("pindexPrev.nBits = %u \n", pindexPrev->nBits);
+    LogPrintf("pindexPrev.nNonce = %u \n", pindexPrev->nNonce);
+    LogPrintf("pindexPrev->GetBlockHash = %u \n", pindexPrev->GetBlockHash().ToString().c_str());
+    LogPrintf("CBlockTemplate* BlockAssembler::CreateNewBlock End ()\n");
 
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
