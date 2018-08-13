@@ -1935,6 +1935,7 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
     LogPrintf("prevHash.ToString().substr(7,7) = %u \n", prevHash.ToString().substr(7,7));
     LogPrintf("cseed_str.c_str() = %u \n", cseed_str.c_str());
     LogPrintf("seed = %u \n", seed);
+    LogPrintf("nHeight = %u \n", nHeight);
     }
 
 	// cases for block 1 - 384400
@@ -1981,7 +1982,7 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
 				nSubsidy = 0 * COIN;
 	}
        // case for genesis block
-       if (nHeight <= 1 ) {            
+       if (nHeight == 0 ) {            
 				nSubsidy = 88 * COIN;
 	}
 	
@@ -2788,8 +2789,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     }
     
             
-    
-    if (block.vtx[0].GetValueOut() > blockReward)
+    // && pindex->nHeight > 1099999 previous blocks varied in reward
+    // altered for testnet generation of valid blocks
+    if (block.vtx[0].GetValueOut() > blockReward && pindex->nHeight > 1099999) 
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
                                block.vtx[0].GetValueOut(), blockReward),
