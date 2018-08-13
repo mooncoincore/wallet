@@ -186,15 +186,6 @@ CBlockTemplate* BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn)
     LogPrintf("CreateNewBlock(): total size: %u block weight: %u txs: %u fees: %ld sigops %d\n", nSerializeSize, GetBlockWeight(*pblock), nBlockTx, nFees, nBlockSigOpsCost);
 
     
-    //Logging Added .13.9.1
-    LogPrintf("CBlockTemplate* BlockAssembler::CreateNewBlock Start () \n");
-    LogPrintf("pindexPrev.nVersion = %u \n", pindexPrev->nVersion);
-    LogPrintf("pindexPrev.hashMerkleRoot = %u \n", pindexPrev->hashMerkleRoot);
-    LogPrintf("pindexPrev.nTime  = %u \n", pindexPrev->nTime);
-    LogPrintf("pindexPrev.nBits = %u \n", pindexPrev->nBits);
-    LogPrintf("pindexPrev.nNonce = %u \n", pindexPrev->nNonce);
-    LogPrintf("pindexPrev->GetBlockHash = %u \n", pindexPrev->GetBlockHash().ToString().c_str());
-    LogPrintf("CBlockTemplate* BlockAssembler::CreateNewBlock End ()\n");
 
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
