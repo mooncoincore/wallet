@@ -35,12 +35,12 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
     //Logging Added .13.9.1
-    LogPrintf("CreateGenesisBlock () Start");
-    LogPrintf("genesis.nTime = %u \n", genesis.nTime);
-    LogPrintf("genesis.nNonce = %u \n", genesis.nNonce); 
-    LogPrintf("genesis.GetHash = %u \n", genesis.GetHash().ToString().c_str());
-    LogPrintf("genesis.hashMerkleRoot = %u \n", genesis.hashMerkleRoot.ToString().c_str());
-    LogPrintf("CreateGenesisBlock () End");
+    //LogPrintf("CreateGenesisBlock () Start");
+    //LogPrintf("genesis.nTime = %u \n", genesis.nTime);
+    //LogPrintf("genesis.nNonce = %u \n", genesis.nNonce); 
+    //LogPrintf("genesis.GetHash = %u \n", genesis.GetHash().ToString().c_str());
+    //LogPrintf("genesis.hashMerkleRoot = %u \n", genesis.hashMerkleRoot.ToString().c_str());
+    //LogPrintf("CreateGenesisBlock () End");
    
     return genesis;
 }
