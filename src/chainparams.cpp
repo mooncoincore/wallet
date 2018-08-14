@@ -121,9 +121,9 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xb3aaaed7565d0594128fffa5f5dee01df8eb24de4245365cb8df7ad0c6e93266"));
 
         // primaries dnsseeds 
-        vSeeds.push_back(CDNSSeedData("moonypool.com", "dnsseed01.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("moonypool.com", "dnsseed02.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("moonypool.com", "dnsseed03.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("dnsseed01.moonypool.com", "dnsseed01.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("dnsseed02.moonypool.com", "dnsseed02.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("dnsseed03.moonypool.com", "dnsseed03.moonypool.com", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,3);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,22);
@@ -170,7 +170,7 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
-        consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
         consensus.nPowTargetSpacing = 1.5 * 60;   // 90 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -207,9 +207,8 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         //  testnet dnsseeds 
-        vSeeds.push_back(CDNSSeedData("moonypool.com", "testnet-seed01.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("moonypool.com", "testnet-seed02.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("moonypool.com", "testnet-seed03.moonypool.com", true));
+        vSeeds.push_back(CDNSSeedData("testnet-seed01.moonypool.com", "testnet-seed01.moonypool.com", true));
+        
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
