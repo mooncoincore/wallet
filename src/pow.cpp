@@ -33,8 +33,15 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
             // Special difficulty rule for testnet:
             // If the new block's timestamp is more than 2* 10 minutes
             // then allow mining of a min-difficulty block.
+                            if(fDebug){
+		LogPrintf("Special difficulty rule for testnet Start() \n");
+		LogPrintf("pblock->GetBlockTime() = %d    \n", pblock->GetBlockTime());
+		LogPrintf("pindexLast->GetBlockTime() = %d \n", pindexLast->GetBlockTime());
+		LogPrintf("params.nPowTargetSpacing  %d \n", params.nPowTargetSpacing);
+                LogPrintf("Special difficulty rule for testnet End() \n");
+	                              }
             if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
-                return nProofOfWorkLimit;
+                  return nProofOfWorkLimit;
             else
             {
                 // Return the last non-special-min-difficulty-rules-block
