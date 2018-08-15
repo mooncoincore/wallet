@@ -24,8 +24,8 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
     // Genesis block
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
+    
     // testnet build chain fast
-    if(CTestNetParams().MineBlocksOnDemand())
         return nProofOfWorkLimit;
     
     if(fDebug){
@@ -127,11 +127,14 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
 
 unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader *pblock, uint64_t TargetBlocksSpacingSeconds, uint64_t PastBlocksMin, uint64_t PastBlocksMax, const Consensus::Params& params) {
 
-    // testnet build chain fast
-    if(CTestNetParams().MineBlocksOnDemand())
-        return nProofOfWorkLimit;
     
     CBigNum bnProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+    
+    
+    // testnet build chain fast
+    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+        return nProofOfWorkLimit;
+    
 
     /* current difficulty formula, megacoin - kimoto gravity well */
     const CBlockIndex  *BlockLastSolved                             = pindexLast;
@@ -198,7 +201,7 @@ unsigned int GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const CBlockH
 {
     
      // testnet build chain fast
-    if(CTestNetParams().MineBlocksOnDemand())
+    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
         return nProofOfWorkLimit;
     
     
@@ -215,8 +218,8 @@ unsigned int GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const CBlockH
 unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     
-     // testnet build chain fast
-    if(CTestNetParams().MineBlocksOnDemand())
+    // testnet build chain fast
+    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
         return nProofOfWorkLimit;
     
     

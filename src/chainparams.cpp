@@ -160,7 +160,7 @@ public:
 static CMainParams mainParams;
 
 /**
- * Testnet (v4)
+ * Testnet (v1)
  */
 class CTestNetParams : public CChainParams {
 public:
