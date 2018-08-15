@@ -62,14 +62,14 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
         return pindexLast->nBits;
     }
 
-    // Go back by what we want to be 14 days worth of blocks
+    // Go back by what we want to be DifficultyAdjustmentInterval worth of blocks
     // Mooncoin: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
     int blockstogoback = params.DifficultyAdjustmentInterval()-1;
     if ((pindexLast->nHeight+1) != params.DifficultyAdjustmentInterval())
         blockstogoback = params.DifficultyAdjustmentInterval();
 
-    // Go back by what we want to be 14 days worth of blocks
+    // Go back by what we want to be DifficultyAdjustmentInterval worth of blocks
     const CBlockIndex* pindexFirst = pindexLast;
     for (int i = 0; pindexFirst && i < blockstogoback; i++)
         pindexFirst = pindexFirst->pprev;
