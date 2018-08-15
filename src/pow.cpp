@@ -30,7 +30,7 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
 		LogPrintf("GetNextWorkRequired_V1 Start() \n");
 		LogPrintf("nProofOfWorkLimit = %d    \n", nProofOfWorkLimit);
 		LogPrintf("pindexLast->nHeight+1 = %d \n", pindexLast->nHeight+1);
-		LogPrintf("params.DifficultyAdjustmentInterval  %d \n", params.DifficultyAdjustmentInterval);
+		LogPrintf("params.DifficultyAdjustmentInterval  %d \n", params.DifficultyAdjustmentInterval());
                 LogPrintf("GetNextWorkRequired_V1 End() \n");
 	       }
     // Only change once per difficulty adjustment interval
