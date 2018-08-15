@@ -222,7 +222,7 @@ public:
         fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
-        fMineBlocksOnDemand = true;
+        fMineBlocksOnDemand = false;
         fTestnetToBeDeprecatedFieldRPC = true;
 
         checkpointData = (CCheckpointData) {
