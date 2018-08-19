@@ -183,13 +183,13 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1534719331; // August 19th 2018 3:55pm
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1534722985; // August 19th 2018 4:56pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1534728467; // August 19th 2018 6:28pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1534732092; // August 19th 2018 7:28pm
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1534719331; // August 19th 2018 3:55pm
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1534722985; // August 19th 2018 4:56pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1534728467; // August 19th 2018 6:28pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1534732092; // August 19th 2018 7:28pm
 
         pchMessageStart[0] = 0xf3;
         pchMessageStart[1] = 0xd2;
