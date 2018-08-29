@@ -25,6 +25,14 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
 
+    
+    if(fDebug){
+		LogPrintf("GetNextWorkRequired_V1 Start() \n");
+		LogPrintf("nProofOfWorkLimit = %d    \n", nProofOfWorkLimit);
+		LogPrintf("pindexLast->nHeight+1 = %d \n", pindexLast->nHeight+1);
+		LogPrintf("params.DifficultyAdjustmentInterval  %d \n", params.DifficultyAdjustmentInterval());
+                LogPrintf("GetNextWorkRequired_V1 End() \n");
+	       }
     // Only change once per difficulty adjustment interval
     if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
     {
@@ -33,8 +41,15 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
             // Special difficulty rule for testnet:
             // If the new block's timestamp is more than 2* 10 minutes
             // then allow mining of a min-difficulty block.
+                            if(fDebug){
+		LogPrintf("Special difficulty rule for testnet Start() \n");
+		LogPrintf("pblock->GetBlockTime() = %d    \n", pblock->GetBlockTime());
+		LogPrintf("pindexLast->GetBlockTime() = %d \n", pindexLast->GetBlockTime());
+		LogPrintf("params.nPowTargetSpacing  %d \n", params.nPowTargetSpacing);
+                LogPrintf("Special difficulty rule for testnet End() \n");
+	                              }
             if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
-                return nProofOfWorkLimit;
+                  return nProofOfWorkLimit;
             else
             {
                 // Return the last non-special-min-difficulty-rules-block
@@ -47,14 +62,14 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
         return pindexLast->nBits;
     }
 
-    // Go back by what we want to be 14 days worth of blocks
+    // Go back by what we want to be DifficultyAdjustmentInterval worth of blocks
     // Mooncoin: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
     int blockstogoback = params.DifficultyAdjustmentInterval()-1;
     if ((pindexLast->nHeight+1) != params.DifficultyAdjustmentInterval())
         blockstogoback = params.DifficultyAdjustmentInterval();
 
-    // Go back by what we want to be 14 days worth of blocks
+    // Go back by what we want to be DifficultyAdjustmentInterval worth of blocks
     const CBlockIndex* pindexFirst = pindexLast;
     for (int i = 0; pindexFirst && i < blockstogoback; i++)
         pindexFirst = pindexFirst->pprev;
@@ -110,7 +125,10 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
 
 unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader *pblock, uint64_t TargetBlocksSpacingSeconds, uint64_t PastBlocksMin, uint64_t PastBlocksMax, const Consensus::Params& params) {
 
+    
     CBigNum bnProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+    
+    
 
     /* current difficulty formula, megacoin - kimoto gravity well */
     const CBlockIndex  *BlockLastSolved                             = pindexLast;
@@ -175,6 +193,9 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader
 
 unsigned int GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
+
+    
+    
     static const int64_t        BlocksTargetSpacing                        = 90;
     unsigned int                TimeDaySeconds                             = 60 * 60 * 24;
     int64_t                     PastSecondsMin                             = TimeDaySeconds * 0.25;
@@ -187,6 +208,8 @@ unsigned int GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const CBlockH
 
 unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
+    
+
     const arith_uint256 bnProofOfWorkLimit = UintToArith256(params.powLimit);
     const unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
     // DigiShield difficulty retarget system

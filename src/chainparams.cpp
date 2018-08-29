@@ -34,10 +34,14 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     genesis.vtx.push_back(txNew);
     genesis.hashPrevBlock.SetNull();
     genesis.hashMerkleRoot = BlockMerkleRoot(genesis);
-    // printf("genesis.nTime = %u \n", genesis.nTime);
-    // printf("genesis.nNonce = %u \n", genesis.nNonce); genesis.hashMerkleRoot
-    // printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-    // printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
+    //Logging Added .13.9.1
+    //LogPrintf("CreateGenesisBlock () Start");
+    //LogPrintf("genesis.nTime = %u \n", genesis.nTime);
+    //LogPrintf("genesis.nNonce = %u \n", genesis.nNonce); 
+    //LogPrintf("genesis.GetHash = %u \n", genesis.GetHash().ToString().c_str());
+    //LogPrintf("genesis.hashMerkleRoot = %u \n", genesis.hashMerkleRoot.ToString().c_str());
+    //LogPrintf("CreateGenesisBlock () End");
+   
     return genesis;
 }
 
@@ -78,9 +82,9 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
-        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
-        consensus.nPowTargetTimespan = 8 * 60 * 60;
-        consensus.nPowTargetSpacing = 1.5 * 60;
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
+        consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
+        consensus.nPowTargetSpacing = 1.5 * 60;  // 90 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
@@ -156,38 +160,38 @@ public:
 static CMainParams mainParams;
 
 /**
- * Testnet (v4)
+ * Testnet (v1)
  */
 class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 840000;
-        consensus.nMajorityEnforceBlockUpgrade = 51;
-        consensus.nMajorityRejectBlockOutdated = 75;
-        consensus.nMajorityWindow = 100;
-        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // 3.5 days
-        consensus.nPowTargetSpacing = 2.5 * 60;
+        consensus.nMajorityEnforceBlockUpgrade = 750;
+        consensus.nMajorityRejectBlockOutdated = 950;
+        consensus.nMajorityWindow = 1000;
+        consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
+        consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
+        consensus.nPowTargetSpacing = 1.5 * 60;   // 90 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
+        consensus.nRuleChangeActivationThreshold = 6048; // 75% for testchains
+        consensus.nMinerConfirmationWindow = 8064; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1483228800; // January 1, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517356801; // January 31st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1534728467; // August 19th 2018 6:28pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1534732092; // August 19th 2018 7:28pm
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1483228800; // January 1, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1517356801; // January 31st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1534728467; // August 19th 2018 6:28pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1534732092; // August 19th 2018 7:28pm
 
-        pchMessageStart[0] = 0xfd;
+        pchMessageStart[0] = 0xf3;
         pchMessageStart[1] = 0xd2;
         pchMessageStart[2] = 0xc8;
         pchMessageStart[3] = 0xf1;
@@ -195,17 +199,16 @@ public:
         nPruneAfterHeight = 1000;
 
         // testnet
-        genesis = CreateGenesisBlock(1529920312, 293345, 0x1e0ffff0, 1, 50 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30"));
-        assert(genesis.hashMerkleRoot == uint256S("0xae1ba87578c665151696e8f8556447b0263d11c5f3f22935e76b159bca32b5a8"));
+        genesis = CreateGenesisBlock(1529920312, 293345, 0x1e0ffff0, 1, 88 * COIN);
+        consensus.hashGenesisBlock = genesis.GetHash(); 
+        assert(consensus.hashGenesisBlock == uint256S("0x79cd609708de620bed775c692dffb9e65d626acc3ada2cde65f1eee393068979"));
+        assert(genesis.hashMerkleRoot == uint256S("0b3aaaed7565d0594128fffa5f5dee01df8eb24de4245365cb8df7ad0c6e93266"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
         //  testnet dnsseeds 
         vSeeds.push_back(CDNSSeedData("testnet-seed01.moonypool.com", "testnet-seed01.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("testnet-seed02.moonypool.com", "testnet-seed02.moonypool.com", true));
-        vSeeds.push_back(CDNSSeedData("testnet-seed03.moonypool.com", "testnet-seed03.moonypool.com", true));
+        
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -224,10 +227,11 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 0, uint256S("0xf086e247d9fd0ab8b3f0ce29439f2d53e38192834d98f493c193fffaf3aefb30")),
-            1529920312,
-            0,
-            900
+            ( 0, uint256S("0x79cd609708de620bed775c692dffb9e65d626acc3ada2cde65f1eee393068979")),
+            1529920312, // * UNIX timestamp of last checkpoint block
+            0,          // * total number of transactions between genesis and last checkpoint
+                        //   (the tx=... number in the SetBestChain debug.log lines)
+            900         // * estimated number of transactions per day after checkpoint
         };
 
     }

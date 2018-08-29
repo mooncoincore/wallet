@@ -1928,10 +1928,23 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
     std::string cseed_str = prevHash.ToString().substr(7,7);
     const char* cseed = cseed_str.c_str();
     long seed = hex2long(cseed);
+    //Logging Added .13.9.1
+    if(fDebug){
+    LogPrintf("GetBlockSubsidy() Start \n");
+    LogPrintf("prevHash.ToString() = %u \n", prevHash.ToString());
+    LogPrintf("prevHash.ToString().substr(7,7) = %u \n", prevHash.ToString().substr(7,7));
+    LogPrintf("cseed_str.c_str() = %u \n", cseed_str.c_str());
+    LogPrintf("seed = %u \n", seed);
+    LogPrintf("nHeight = %u \n", nHeight);
+    }
 
 	// cases for block 1 - 384400
 	if(nHeight <= 100000) {
                 nSubsidy = (1 + generateMTRandom(seed, 1999999)) * COIN;
+                if(fDebug){
+                LogPrintf("nSubsidy = %u \n", nSubsidy);
+                LogPrintf("GetBlockSubsidy() End  \n");
+                }
         } else if(nHeight > 193076 && nHeight < 203158) {
                 nSubsidy = 2519841 * COIN; // for _roughly_ one week, the cost of the Apollo program will be paid back -- 25.4bn MOON!
         } else if(nHeight <= 203518) {
@@ -1967,7 +1980,11 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
 	// case for block 5432100000 onwards
 	if (nHeight > 2147483647) {             // 2147483647 (was 5432099999)
 				nSubsidy = 0 * COIN;
-	}	
+	}
+       // case for genesis block
+       if (nHeight == 0 ) {            
+				nSubsidy = 88 * COIN;
+	}
 	
     return nSubsidy;
 }
@@ -2757,9 +2774,23 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     {
         prevHash = pindex->pprev->GetBlockHash();
     }
-
+   
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, prevHash);
-    if (block.vtx[0].GetValueOut() > blockReward)
+    //Logging Added .13.9.1
+    if(fDebug){
+    LogPrintf("CAmount blockReward Start \n");
+    LogPrintf("blockReward = %u \n", blockReward);
+    LogPrintf("nFees = %u \n", nFees);
+    LogPrintf("pindex->nHeight = %u \n", pindex->nHeight);
+    LogPrintf("prevHash = %u \n", prevHash.ToString().c_str());
+    LogPrintf("block.vtx[0].GetValueOut() = %u \n", block.vtx[0].GetValueOut());
+    LogPrintf("block.vtx[0].ToString() = %u \n", block.vtx[0].ToString());
+    LogPrintf("CAmount blockReward End \n");
+    }
+    
+            
+   
+    if (block.vtx[0].GetValueOut() > blockReward ) 
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
                                block.vtx[0].GetValueOut(), blockReward),
