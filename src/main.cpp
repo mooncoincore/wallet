@@ -2789,8 +2789,10 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     }
     
             
-   
-    if (block.vtx[0].GetValueOut() > blockReward ) 
+
+    // && pindex->nHeight > 384400 previous blocks varied in reward
+    // altered for testnet generation of valid blocks block.vtx.GetValueOut()
+    if (block.vtx[0].GetValueOut() > blockReward && pindex->nHeight > 384400) 
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
                                block.vtx[0].GetValueOut(), blockReward),
