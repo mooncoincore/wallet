@@ -56,10 +56,12 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
                 const CBlockIndex* pindex = pindexLast;
                 while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
                     pindex = pindex->pprev;
-                return pindex->nBits;
+                return nProofOfWorkLimit; //testnet build
+                //return pindex->nBits;
             }
         }
-        return pindexLast->nBits;
+        return nProofOfWorkLimit; //testnet build
+        //return pindexLast->nBits;
     }
 
     // Go back by what we want to be DifficultyAdjustmentInterval worth of blocks
@@ -120,7 +122,8 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
 		LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString());
 	}
 	
-    return bnNew.GetCompact();
+    return nProofOfWorkLimit; //testnet build
+     //return bnNew.GetCompact();
 }
 
 unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader *pblock, uint64_t TargetBlocksSpacingSeconds, uint64_t PastBlocksMin, uint64_t PastBlocksMax, const Consensus::Params& params) {
@@ -187,8 +190,10 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader
 		LogPrintf("Before: %08x  %s\n", BlockLastSolved->nBits, CBigNum().SetCompact(BlockLastSolved->nBits).getuint256().ToString().c_str());
 		LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
     }
-	
-    return bnNew.GetCompact();
+    
+    unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit().GetCompact(); //testnet build    
+    return nProofOfWorkLimit; //testnet build
+    //return bnNew.GetCompact();
 }
 
 unsigned int GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
@@ -236,10 +241,12 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
             const CBlockIndex* pindex = pindexLast;
             while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit)
             pindex = pindex->pprev;
-        return pindex->nBits;
+         return nProofOfWorkLimit; //testnet build
+        //original return pindex->nBits;
         }
       }
-      return pindexLast->nBits;
+        return nProofOfWorkLimit; //testnet build
+       //original return pindexLast->nBits;
     }
 
     // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
@@ -276,7 +283,8 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
     if (bnNew > bnProofOfWorkLimit)
         bnNew = bnProofOfWorkLimit;
 
-    return bnNew.GetCompact();
+       return nProofOfWorkLimit; //testnet build
+      //originalreturn bnNew.GetCompact();
 }
 
 unsigned int static DUAL_KGW3(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params) {
@@ -392,8 +400,9 @@ unsigned int static DUAL_KGW3(const CBlockIndex* pindexLast, const CBlockHeader 
         LogPrintf("* We wanted to set diff to %08x but bnPowLimit is %08x \n", bnNew.GetCompact(), bnPowLimit.GetCompact());
         bnNew = bnPowLimit;
     }
-
-    return bnNew.GetCompact();
+      unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit().GetCompact(); //testnet build    
+      return nProofOfWorkLimit; //testnet build
+      //original return bnNew.GetCompact();
 }
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)

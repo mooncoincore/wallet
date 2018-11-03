@@ -199,10 +199,10 @@ public:
         nPruneAfterHeight = 1000;
 
         // testnet
-        genesis = CreateGenesisBlock(1529920312, 293345, 0x1e0ffff0, 1, 88 * COIN);
+        genesis = CreateGenesisBlock(1540452872, 1543106876, 0x1e0ffff0, 1, 88 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash(); 
-        assert(consensus.hashGenesisBlock == uint256S("0x79cd609708de620bed775c692dffb9e65d626acc3ada2cde65f1eee393068979"));
-        assert(genesis.hashMerkleRoot == uint256S("0b3aaaed7565d0594128fffa5f5dee01df8eb24de4245365cb8df7ad0c6e93266"));
+        assert(consensus.hashGenesisBlock == uint256S("0xae5047b8182d7e9c7f6cdefdb12bc08a95ca7884126e56b15b5082a5ce18e4d7"));
+        assert(genesis.hashMerkleRoot == uint256S("0xb3aaaed7565d0594128fffa5f5dee01df8eb24de4245365cb8df7ad0c6e93266"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -210,10 +210,10 @@ public:
         vSeeds.push_back(CDNSSeedData("testnet-seed01.moonypool.com", "testnet-seed01.moonypool.com", true));
         
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,113);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,58);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
+        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,241);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
@@ -227,7 +227,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 0, uint256S("0x79cd609708de620bed775c692dffb9e65d626acc3ada2cde65f1eee393068979")),
+            ( 0, uint256S("0xae5047b8182d7e9c7f6cdefdb12bc08a95ca7884126e56b15b5082a5ce18e4d7")),
             1529920312, // * UNIX timestamp of last checkpoint block
             0,          // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
