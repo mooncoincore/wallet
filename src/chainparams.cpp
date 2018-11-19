@@ -183,13 +183,13 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1534728467; // August 19th 2018 6:28pm
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1534732092; // August 19th 2018 7:28pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1542604429; // Sun Nov 18 21:13:49 PST 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout =   1543553929; // Thu Nov 29 20:58:49 PST 2018
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1534728467; // August 19th 2018 6:28pm
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1534732092; // August 19th 2018 7:28pm
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1542604429; // Sun Nov 18 21:13:49 PST 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout =   1543553929; // Thu Nov 29 20:58:49 PST 2018
 
         pchMessageStart[0] = 0xf3;
         pchMessageStart[1] = 0xd2;
@@ -221,17 +221,25 @@ public:
 
         fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
-        fRequireStandard = false;
+        fRequireStandard = true;
         fMineBlocksOnDemand = false;
-        fTestnetToBeDeprecatedFieldRPC = true;
+        fTestnetToBeDeprecatedFieldRPC = false;
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 0, uint256S("0xae5047b8182d7e9c7f6cdefdb12bc08a95ca7884126e56b15b5082a5ce18e4d7")),
-            1529920312, // * UNIX timestamp of last checkpoint block
-            0,          // * total number of transactions between genesis and last checkpoint
+            ( 0,          uint256S("0xae5047b8182d7e9c7f6cdefdb12bc08a95ca7884126e56b15b5082a5ce18e4d7"))
+            (     10983,  uint256S("0x69bc203faa0a93efa3e11c9d8b260d48ff49eb54eb877196f433642190008994"))
+            (     133658, uint256S("0xca85d40cfaa1e19ea2f2a6982a89538022c6eb58737f293fdbb6ff522b8c31b1"))
+            (     186531, uint256S("0xcd345adfaca4cf2fd067888d5392bb961697e40e7786b8e9bf9f7723320a6354"))
+            (     253366, uint256S("0xc057d1926b822b865a29a77c1c2c71dc5c9b5b35ac42d30005ed05fb8ddd2b30"))
+            (     332184, uint256S("0x2852b3d257277ee3a7045de59e69a4940a0b07aa17507088c83aa34526ede70a"))
+            (     384254, uint256S("0x561a12ecbca0592ca572089cbcd87d974a1d396d93b69fcdaf74e97d241581aa"))
+            (     384418, uint256S("0x370d144c6e265183fcab51f8b960a0ad9d87cee6b16f3bbd2c201f16edfba9ad"))
+            (     594398, uint256S("0x2629ced17214cbbee8bcdf6e764ff5d591382af7d4724e715ad073c97b648706")),
+            1541664241, // * UNIX timestamp of last checkpoint block
+            531526,          // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
-            900         // * estimated number of transactions per day after checkpoint
+            5000         // * estimated number of transactions per day after checkpoint
         };
 
     }
