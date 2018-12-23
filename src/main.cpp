@@ -1981,10 +1981,7 @@ CAmount GetBlockSubsidy(int nHeight, uint256 prevHash)
 	if (nHeight > 2147483647) {             // 2147483647 (was 5432099999)
 				nSubsidy = 0 * COIN;
 	}
-       // case for genesis block
-       if (nHeight == 0 ) {            
-				nSubsidy = 88 * COIN;
-	}
+
 	
     return nSubsidy;
 }
@@ -2790,9 +2787,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     
             
 
-    // && pindex->nHeight > 384400 previous blocks varied in reward
-    // altered for testnet generation of valid blocks block.vtx.GetValueOut()
-    if (block.vtx[0].GetValueOut() > blockReward && pindex->nHeight > 384400) 
+
+    if (block.vtx[0].GetValueOut() > blockReward ) 
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
                                block.vtx[0].GetValueOut(), blockReward),

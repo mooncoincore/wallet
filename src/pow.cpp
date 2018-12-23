@@ -18,7 +18,7 @@ typedef uint64_t uint64;
 
 unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
-
+    bool fTestNet = GetBoolArg("-testnet", false);
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
     // Genesis block
@@ -33,6 +33,10 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
 		LogPrintf("params.DifficultyAdjustmentInterval  %d \n", params.DifficultyAdjustmentInterval());
                 LogPrintf("GetNextWorkRequired_V1 End() \n");
 	       }
+    
+    if (fTestNet){
+        return nProofOfWorkLimit; //testnet build
+    }
     // Only change once per difficulty adjustment interval
     if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
     {
@@ -56,9 +60,11 @@ unsigned int GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlockH
                 const CBlockIndex* pindex = pindexLast;
                 while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
                     pindex = pindex->pprev;
+                
                 return pindex->nBits;
             }
         }
+       
         return pindexLast->nBits;
     }
 
@@ -127,7 +133,7 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader
 
     
     CBigNum bnProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
-    
+    bool fTestNet = GetBoolArg("-testnet", false);
     
 
     /* current difficulty formula, megacoin - kimoto gravity well */
@@ -187,7 +193,12 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader
 		LogPrintf("Before: %08x  %s\n", BlockLastSolved->nBits, CBigNum().SetCompact(BlockLastSolved->nBits).getuint256().ToString().c_str());
 		LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
     }
-	
+    
+        if (fTestNet){
+           const unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact(); //testnet build    
+           return nProofOfWorkLimit; //testnet build
+                      }
+
     return bnNew.GetCompact();
 }
 
@@ -213,7 +224,7 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
     const arith_uint256 bnProofOfWorkLimit = UintToArith256(params.powLimit);
     const unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
     // DigiShield difficulty retarget system
-    bool fTestNet = false;
+    bool fTestNet = GetBoolArg("-testnet", false);
     int blockstogoback = 0;
     int64 nTargetSpacing = 1 * 90;             // target 90 sec
     int64 retargetTimespan = nTargetSpacing;
@@ -222,7 +233,10 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
 	
     // Genesis block
     if (pindexLast == NULL) return nProofOfWorkLimit;
-
+    
+    if (fTestNet){
+    return nProofOfWorkLimit; //testnet build
+    }
     // Only change once per interval
     if ((pindexLast->nHeight+1) % retargetInterval != 0){
       // Special difficulty rule for testnet:
@@ -236,10 +250,11 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
             const CBlockIndex* pindex = pindexLast;
             while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit)
             pindex = pindex->pprev;
-        return pindex->nBits;
+      
+            return pindex->nBits;
         }
       }
-      return pindexLast->nBits;
+       return pindexLast->nBits;
     }
 
     // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
@@ -276,7 +291,7 @@ unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader
     if (bnNew > bnProofOfWorkLimit)
         bnNew = bnProofOfWorkLimit;
 
-    return bnNew.GetCompact();
+       return bnNew.GetCompact();
 }
 
 unsigned int static DUAL_KGW3(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params) {
@@ -392,7 +407,7 @@ unsigned int static DUAL_KGW3(const CBlockIndex* pindexLast, const CBlockHeader 
         LogPrintf("* We wanted to set diff to %08x but bnPowLimit is %08x \n", bnNew.GetCompact(), bnPowLimit.GetCompact());
         bnNew = bnPowLimit;
     }
-
+  
     return bnNew.GetCompact();
 }
 
