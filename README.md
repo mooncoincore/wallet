@@ -90,7 +90,8 @@ _____
 
 
 
-### RPC PORT 44663 / P2P PORT 44664
+### MAINNET RPC PORT 44663 / P2P PORT 44664
+### TESTNET RPC PORT 14663 / P2P PORT 14664
 
 #### Mooncoin started as an early Dogecoin fork (0.6), was upgraded over time to the Litecoin codebase (0.8), since progressing through to a much more modern Litecoin 0.10 codebase - and finally to current platform of Litecoin 0.13.9 with segwit. Built with tomorrow in mind.
 
