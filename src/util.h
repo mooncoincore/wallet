@@ -368,5 +368,5 @@ inline void insert(std::set<TsetT>& dst, const Tsrc& src) {
 }
 
 } // namespace util
-
+long hex2long(const char* hexString);
 #endif // BITCOIN_UTIL_H

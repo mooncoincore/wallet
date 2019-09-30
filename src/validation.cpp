@@ -46,6 +46,8 @@
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/thread.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/random/mersenne_twister.hpp>
 
 #if defined(NDEBUG)
 # error "Mooncoin cannot be compiled without assertions."
@@ -1159,17 +1161,70 @@ bool ReadRawBlockFromDisk(std::vector<uint8_t>& block, const CBlockIndex* pindex
     return ReadRawBlockFromDisk(block, block_pos, message_start);
 }
 
-CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
+int static generateMTRandom(unsigned int s, int range)
 {
-    int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-    // Force block reward to zero when right shift is undefined.
-    if (halvings >= 64)
-        return 0;
+    boost::mt19937 gen(s);
+    boost::uniform_int<> dist(1, range);
+    return dist(gen);
+}
 
-    CAmount nSubsidy = 50 * COIN;
-    // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
-    nSubsidy >>= halvings;
+//CAmount GetMooncoinBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, uint256 prevHash)
+CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, uint256 prevHash)
+{
+	bool fDebug = gArgs.GetBoolArg("-debug", false);
+	CAmount nSubsidy = 29531 * COIN; // the lunar cycle is 29.53059 days, so we rounded it up
+
+    std::string cseed_str = prevHash.ToString().substr(7,7);
+    const char* cseed = cseed_str.c_str();
+    long seed = hex2long(cseed);
+
+	// cases for block 1 - 384400
+	if(nHeight <= 100000) {
+                nSubsidy = (1 + generateMTRandom(seed, 1999999)) * COIN;
+                if(fDebug){
+                LogPrintf("nSubsidy = %u \n", nSubsidy);
+                LogPrintf("GetMooncoinBlockSubsidy() End  \n");
+                }
+        } else if(nHeight > 193076 && nHeight < 203158) {
+                nSubsidy = 2519841 * COIN; // for _roughly_ one week, the cost of the Apollo program will be paid back -- 25.4bn MOON!
+        } else if(nHeight <= 203518) {
+                nSubsidy = (1 + generateMTRandom(seed, 999999)) * COIN;
+        } else if(nHeight <= 250000) {
+                nSubsidy = (1 + generateMTRandom(seed, 599999)) * COIN;
+        } else if(nHeight <= 300000) {
+                nSubsidy = (1 + generateMTRandom(seed, 349999)) * COIN;
+        } else if(nHeight <= 350000) {
+                nSubsidy = (1 + generateMTRandom(seed, 174999)) * COIN;
+        } else if(nHeight <= 375000) {
+                nSubsidy = (1 + generateMTRandom(seed, 99999)) * COIN;
+        } else if(nHeight <= 384400) {
+                nSubsidy = (1 + generateMTRandom(seed, 49999)) * COIN;
+    }
+	
+	// cases for block 384401 - 1099999
+ 	if (nHeight % 29531 == 0) {
+                // a prize for ever lunar cycle
+                nSubsidy = nSubsidy * 2;
+    }
+
+	// cases for block 1100000+
+	if (nHeight > 1099999) {
+				nSubsidy = floor( 19697202017 / (floor(nHeight/100000)*100000) ) * COIN;
+    }
+    
+	// cases for block 1250000+
+	if (nHeight > 1249999) {
+				nSubsidy = floor( floor(0.29531 * 19697202017) / (floor(nHeight/100000)*100000) ) * COIN;
+	}
+
+	// case for block 2147483647 onwards
+	if (nHeight > 2147483647) {             // 2147483647 (was 5432099999)
+				nSubsidy = 0 * COIN;
+	}
+
+	
     return nSubsidy;
+	
 }
 
 bool IsInitialBlockDownload()
@@ -2045,7 +2100,7 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint(BCLog::BENCH, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs (%.2fms/blk)]\n", (unsigned)block.vtx.size(), MILLI * (nTime3 - nTime2), MILLI * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : MILLI * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * MICRO, nTimeConnect * MILLI / nBlocksTotal);
 
-    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
+    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus(), hashPrevBlock);
     if (block.vtx[0]->GetValueOut() > blockReward)
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
@@ -3228,7 +3283,10 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
     // Check proof of work
     const Consensus::Params& consensusParams = params.GetConsensus();
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
-        return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
+	{
+		LogPrintf("ContextualCheckBlockHeader::nHeight = %d  block.nBits = %d  GetNextWorkRequired() = %d \n", nHeight, block.nBits, GetNextWorkRequired(pindexPrev, &block, consensusParams) );  //mebagger
+        //return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
+	}
 
     // Check against checkpoints
     if (fCheckpointsEnabled) {
@@ -3250,9 +3308,11 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
 
     // Reject outdated version blocks when 95% (75% on testnet) of the network has upgraded:
     // check for version 2, 3 and 4 upgrades
-    if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
-       (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
-       (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
+    //if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
+    //   (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
+    //   (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
+	// mebagger v2-4 blocks were not enforced 
+	   if(block.nVersion < 4 && nHeight >= consensusParams.BIP65Height)
             return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
                                  strprintf("rejected nVersion=0x%08x block", block.nVersion));
 
@@ -3318,7 +3378,9 @@ static bool ContextualCheckBlock(const CBlock& block, CValidationState& state, c
             // already does not permit it, it is impossible to trigger in the
             // witness tree.
             if (block.vtx[0]->vin[0].scriptWitness.stack.size() != 1 || block.vtx[0]->vin[0].scriptWitness.stack[0].size() != 32) {
-                return state.DoS(100, false, REJECT_INVALID, "bad-witness-nonce-size", true, strprintf("%s : invalid witness reserved value size", __func__));
+				//mebagger
+                LogPrintf("ContextualCheckBlock::nHeight = %d  block.vtx[0]->vin[0].scriptWitness.stack.size() = %d  \n", nHeight, block.vtx[0]->vin[0].scriptWitness.stack.size() );
+				//return state.DoS(100, false, REJECT_INVALID, "bad-witness-nonce-size", true, strprintf("%s : invalid witness reserved value size", __func__));
             }
             CHash256().Write(hashWitness.begin(), 32).Write(&block.vtx[0]->vin[0].scriptWitness.stack[0][0], 32).Finalize(hashWitness.begin());
             if (memcmp(hashWitness.begin(), &block.vtx[0]->vout[commitpos].scriptPubKey[6], 32)) {
