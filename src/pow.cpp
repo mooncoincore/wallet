@@ -252,6 +252,7 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, uint64_t TargetBlo
        }
         else {
 	 //LogPrintf("KimotoGravityWell Testnet return bnNew.GetCompact\n");
+	  if (pindexLast->nHeight+1 == 1099915) { return 471071101;}
        return bnNew.GetCompact();
 		}
 
@@ -303,13 +304,14 @@ unsigned int static GetNextWorkRequired_V3(const CBlockIndex* pindexLast, const 
             const CBlockIndex* pindex = pindexLast;
             while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit)
             pindex = pindex->pprev;
-      
+		
             return pindex->nBits;
         }
       }
        if (fTestNet){
 	  return nProofOfWorkLimit;
 	  }else{
+		  
 		  return pindexLast->nBits;
 	  }
     }
@@ -351,7 +353,7 @@ unsigned int static GetNextWorkRequired_V3(const CBlockIndex* pindexLast, const 
     if (fTestNet){
 		return nProofOfWorkLimit;
 	}else{
-	if (pindexLast->nHeight+1 == 1099915) { arith_uint256 bnNew; bnNew.SetCompact(471071101); return bnNew.GetCompact();}
+	
 		return bnNew.GetCompact();
 	}
 }

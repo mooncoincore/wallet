@@ -278,7 +278,7 @@ public:
         };
 
         /* enable fallback fee on testnet */
-        m_fallback_fee_enabled = true;
+        m_fallback_fee_enabled = false;
     }
 };
 

@@ -9,6 +9,9 @@
 #include <script/interpreter.h>
 #include <consensus/validation.h>
 
+#include "utilstrencodings.h" //mebagger
+#include <util.h> //mebagger
+
 // TODO remove the following dependencies
 #include <chain.h>
 #include <coins.h>
@@ -193,7 +196,24 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state, bool fChe
     if (tx.IsCoinBase())
     {
         if (tx.vin[0].scriptSig.size() < 2 || tx.vin[0].scriptSig.size() > 100)
-            return state.DoS(100, false, REJECT_INVALID, "bad-cb-length");
+		{
+	    CMutableTransaction txGen;
+		const char* pszTimestamp = "3:56AM - MEN WALK ON MOON. ASTRONAUTS LAND ON PLAIN; COLLECT ROCKS, PLANT FLAG - July 21st, 1969";
+		const CScript genesisOutputScript = CScript() << ParseHex("047aca981aef583b72a14d79afd688c344860db3502da3cd75d3ff6d5481f47617252e38854a57d83d41a9b644e51b92f80c11bd29f4daca185ba89ae58b6da51a") << OP_CHECKSIG;
+        txGen.nVersion = 1;
+        txGen.vin.resize(1);
+        txGen.vout.resize(1);
+        txGen.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << std::vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
+        txGen.vout[0].nValue = 88 * COIN;
+        txGen.vout[0].scriptPubKey = genesisOutputScript;
+		if (!(tx.vin[0].scriptSig == txGen.vin[0].scriptSig && tx.vin[0].scriptSig.size() == 105)) {
+         // mebagger special rule for genisis block changed to 105 from 214
+	    // mooncoin had this commented out in the .13.9 main
+		LogPrintf("CheckTransaction::scriptSig::Size is: %d  \n", tx.vin[0].scriptSig.size());
+		LogPrintf("CheckTransaction::scriptSig::tx: %s  \n", tx.ToString());
+		//return state.DoS(100, false, REJECT_INVALID, "bad-cb-length"); 
+		    }
+		}
     }
     else
     {

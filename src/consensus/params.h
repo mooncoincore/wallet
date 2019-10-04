@@ -58,6 +58,16 @@ struct Params {
     int BIP65Height;
     /** Block height at which BIP66 becomes active */
     int BIP66Height;
+	/** Initial block POW diffmode */
+    int DiffMode;
+	/** Block height at which PowV2 becomes active */
+    int PowV2;
+	/** Block height at which PowV3 becomes active */
+    int PowV3;
+	/** Block height at which PowV4 becomes active after smoothing(8) */
+    int PowV4;
+	/** Block height at which PowV5 becomes active  */
+    int PowV5;
     /**
      * Minimum blocks including miner confirmation of the total of 2016 blocks in a retargeting period,
      * (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.
