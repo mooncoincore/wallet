@@ -7,6 +7,7 @@
 #include "addresstablemodel.h"
 #include "guiconstants.h"
 #include "guiutil.h"
+#include "qt/moonworddialog.h"
 #include "paymentserver.h"
 #include "recentrequeststablemodel.h"
 #include "transactiontablemodel.h"
@@ -31,6 +32,7 @@ WalletModel::WalletModel(const PlatformStyle *platformStyle, CWallet *wallet, Op
     QObject(parent), wallet(wallet), optionsModel(optionsModel), addressTableModel(0),
     transactionTableModel(0),
     recentRequestsTableModel(0),
+    moonWordPage(0),
     cachedBalance(0), cachedUnconfirmedBalance(0), cachedImmatureBalance(0),
     cachedEncryptionStatus(Unencrypted),
     cachedNumBlocks(0)
@@ -41,6 +43,7 @@ WalletModel::WalletModel(const PlatformStyle *platformStyle, CWallet *wallet, Op
     addressTableModel = new AddressTableModel(wallet, this);
     transactionTableModel = new TransactionTableModel(platformStyle, wallet, this);
     recentRequestsTableModel = new RecentRequestsTableModel(wallet, this);
+    moonWordPage = new MoonWordDialog(platformStyle, wallet, this);
 
     // This timer will be fired repeatedly to update the balance
     pollTimer = new QTimer(this);
@@ -53,6 +56,9 @@ WalletModel::WalletModel(const PlatformStyle *platformStyle, CWallet *wallet, Op
 WalletModel::~WalletModel()
 {
     unsubscribeFromCoreSignals();
+
+    delete moonWordPage;
+    moonWordPage = nullptr;
 }
 
 CAmount WalletModel::getBalance(const CCoinControl *coinControl) const
@@ -189,7 +195,7 @@ bool WalletModel::validateAddress(const QString &address)
     return addressParsed.IsValid();
 }
 
-WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransaction &transaction, const CCoinControl *coinControl)
+WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransaction &transaction, const CCoinControl *coinControl, const bool moonword)
 {
     CAmount total = 0;
     bool fSubtractFeeFromAmount = false;
@@ -251,7 +257,7 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
             total += rcp.amount;
         }
     }
-    if(setAddress.size() != nAddresses)
+    if(!moonword && setAddress.size() != nAddresses)
     {
         return DuplicateAddress;
     }
@@ -274,7 +280,7 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
 
         CWalletTx *newTx = transaction.getTransaction();
         CReserveKey *keyChange = transaction.getPossibleKeyChange();
-        bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, nChangePosRet, strFailReason, coinControl);
+        bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, nChangePosRet, strFailReason, coinControl, true, moonword);
         transaction.setTransactionFee(nFeeRequired);
         if (fSubtractFeeFromAmount && fCreated)
             transaction.reassignAmounts(nChangePosRet);
@@ -388,6 +394,11 @@ TransactionTableModel *WalletModel::getTransactionTableModel()
 RecentRequestsTableModel *WalletModel::getRecentRequestsTableModel()
 {
     return recentRequestsTableModel;
+}
+
+MoonWordDialog *WalletModel::getMoonWordDialog()
+{
+    return moonWordPage;
 }
 
 WalletModel::EncryptionStatus WalletModel::getEncryptionStatus() const
@@ -581,6 +592,85 @@ bool WalletModel::isSpent(const COutPoint& outpoint) const
 {
     LOCK2(cs_main, wallet->cs_wallet);
     return wallet->IsSpent(outpoint.hash, outpoint.n);
+}
+
+std::map<uint256, CWalletTx> WalletModel::listMoonwordTransactions() const
+{
+    std::map<uint256, CWalletTx> transactions;
+
+    {
+        LOCK2(cs_main, wallet->cs_wallet);
+        for(std::map<uint256, CWalletTx>::iterator it = wallet->mapWallet.begin(); it != wallet->mapWallet.end(); ++it)
+        {
+            const CWalletTx &wtx = it->second;
+            CAmount nCredit = wtx.GetCredit(ISMINE_ALL);
+            CAmount nDebit = wtx.GetDebit(ISMINE_ALL);
+            CAmount nNet = nCredit - nDebit;
+
+            if (wtx.GetDepthInMainChain() > 0)
+            {
+                // Incoming transaction
+                if (nNet > 0)
+                {
+                    for (const auto& txout : wtx.vout)
+                    {
+                        isminetype mine = wallet->IsMine(txout);
+
+                        // TX should belong to wallet and be less than 1 coin
+                        if (mine && txout.nValue < 100000000)
+                        {
+                            transactions.emplace(it->first, it->second);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    isminetype fAllFromMe = ISMINE_SPENDABLE;
+                    for (const CTxIn& txin : wtx.vin)
+                    {
+                        isminetype mine = wallet->IsMine(txin);
+                        if(fAllFromMe > mine)
+                            fAllFromMe = mine;
+                    }
+
+                    isminetype fAllToMe = ISMINE_SPENDABLE;
+                    for (const CTxOut& txout : wtx.vout)
+                    {
+                        isminetype mine = wallet->IsMine(txout);
+                        if(fAllToMe > mine)
+                            fAllToMe = mine;
+                    }
+
+                    // Payment to self
+                    if (fAllFromMe && fAllToMe)
+                    {
+                        for (const auto& txout : wtx.vout)
+                        {
+                            // TX should be less than 1 coin
+                            if (txout.nValue < 100000000)
+                            {
+                                transactions.emplace(it->first, it->second);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return transactions;
+}
+
+bool WalletModel::isChange(const CTxOut& txout) const
+{
+    return wallet->IsChange(txout);
+}
+
+bool WalletModel::isMine(CTxDestination& address) const
+{
+    return wallet->IsMine(address);
 }
 
 // AvailableCoins + LockedCoins grouped by wallet address (put change in one group with wallet address)

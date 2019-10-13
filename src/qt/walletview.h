@@ -71,9 +71,6 @@ private:
     const PlatformStyle *platformStyle;
 
 public Q_SLOTS:
-    void toggleMinerConsole(bool visible);
-    void updateMinerConsole(QString output);
-    
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
@@ -82,6 +79,8 @@ public Q_SLOTS:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
+    /** Switch to send MoonWords page */
+    void gotoMoonWordPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");

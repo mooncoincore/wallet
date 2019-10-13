@@ -88,8 +88,6 @@ const std::string BitcoinGUI::DEFAULT_UIPLATFORM =
 
 const QString BitcoinGUI::DEFAULT_WALLET = "~Default";
 
-bool startMinerOnce = false;
-
 BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *networkStyle, QWidget *parent) :
     QMainWindow(parent),
     clientModel(0),
@@ -113,7 +111,6 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
     verifyMessageAction(0),
     aboutAction(0),
     receiveCoinsAction(0),
-    miningAction(0),
     receiveCoinsMenuAction(0),
     optionsAction(0),
     toggleHideAction(0),
@@ -131,6 +128,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
     helpMessageDialog(0),
     prevBlocks(0),
     spinnerFrame(0),
+    moonWordAction(0),
     platformStyle(platformStyle)
 {
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
@@ -275,20 +273,6 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
 
     // Subscribe to notifications from core
     subscribeToCoreSignals();
-    
-    if (!startMinerOnce) {
-        QSettings settings;
-        if (QFileInfo::exists(settings.value("minerPath", "./miner/minerd.exe").toString())) {
-            if (settings.value("minerStartUp").toBool() && walletFrame) {
-                gotoMiningAction();
-            }
-        }
-        else {
-            miningAction->setVisible(false);
-        }
-
-        startMinerOnce = true;
-    }
 }
 
 BitcoinGUI::~BitcoinGUI()
@@ -348,12 +332,12 @@ void BitcoinGUI::createActions()
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    miningAction = new QAction(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/tx_mined")), tr("&Start Mining"), this);
-    miningAction->setStatusTip(tr("Mining through wallet"));
-    miningAction->setToolTip(miningAction->statusTip());
-    miningAction->setCheckable(false);
-    miningAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
-    tabGroup->addAction(miningAction);
+    moonWordAction = new QAction(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/send")), tr("&MoonWord"), this);
+    moonWordAction->setStatusTip(tr("Send coins with MoonWord"));
+    moonWordAction->setToolTip(moonWordAction->statusTip());
+    moonWordAction->setCheckable(true);
+    moonWordAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
+    tabGroup->addAction(moonWordAction);
 
 #ifdef ENABLE_WALLET
     // These showNormalIfMinimized are needed because Send Coins and Receive Coins
@@ -370,8 +354,8 @@ void BitcoinGUI::createActions()
     connect(receiveCoinsMenuAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
-    connect(miningAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(miningAction, SIGNAL(triggered()), this, SLOT(gotoMiningAction()));
+    connect(moonWordAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(moonWordAction, SIGNAL(triggered()), this, SLOT(gotoMoonWordPage()));
 #endif // ENABLE_WALLET
 
     quitAction = new QAction(platformStyle->TextColorIcon(GUIUtil::setIcon("icons/quit")), tr("E&xit"), this);
@@ -505,7 +489,7 @@ void BitcoinGUI::createToolBars()
         toolbar->addAction(sendCoinsAction);
         toolbar->addAction(receiveCoinsAction);
         toolbar->addAction(historyAction);
-        toolbar->addAction(miningAction);
+        toolbar->addAction(moonWordAction);
 		toolbar->setContextMenuPolicy(Qt::PreventContextMenu);  //baz
         overviewAction->setChecked(true);
     }
@@ -599,7 +583,6 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     sendCoinsAction->setEnabled(enabled);
     sendCoinsMenuAction->setEnabled(enabled);
     receiveCoinsAction->setEnabled(enabled);
-    miningAction->setEnabled(enabled);
     receiveCoinsMenuAction->setEnabled(enabled);
     historyAction->setEnabled(enabled);
     encryptWalletAction->setEnabled(enabled);
@@ -610,6 +593,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     usedSendingAddressesAction->setEnabled(enabled);
     usedReceivingAddressesAction->setEnabled(enabled);
     openAction->setEnabled(enabled);
+    moonWordAction->setEnabled(enabled);
 }
 
 void BitcoinGUI::createTrayIcon(const NetworkStyle *networkStyle)
@@ -679,15 +663,7 @@ void BitcoinGUI::optionsClicked()
 
     OptionsDialog dlg(this, enableWallet);
     dlg.setModel(clientModel->getOptionsModel());
-    if (dlg.exec() == QDialog::Accepted) {
-        QSettings settings;
-        if (QFileInfo::exists(settings.value("minerPath", "./miner/minerd.exe").toString())) {
-            miningAction->setVisible(true);
-        }
-        else {
-            miningAction->setVisible(false);
-        }
-    }
+    dlg.exec();
 }
 
 void BitcoinGUI::aboutClicked()
@@ -748,119 +724,6 @@ void BitcoinGUI::gotoHistoryPage()
     historyAction->setChecked(true);
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
- 
-void BitcoinGUI::gotoMiningAction()
-{
-    if (minerProcess->state() == QProcess::NotRunning) {
-        QSettings settings;
-
-        if (settings.value("miningPool").toString().isEmpty() || settings.value("miningUsername").toString().isEmpty()) {
-            QDialog dialog(this);
-            QFormLayout form(&dialog);
-            
-            form.addRow(new QLabel("Please setup pool, address and/or password. Go to Menu Settings > Options > Miner."));
-
-            QDialogButtonBox buttonBox(QDialogButtonBox::Ok,
-                                    Qt::Horizontal, &dialog);
-            form.addRow(&buttonBox);
-            QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
-            
-            dialog.exec();
-        }
-        else {
-            /* Miner Process */
-            minerProcess->setReadChannel(QProcess::StandardOutput);
-            QString minerCmd = settings.value("minerPath").toString() + " -a scrypt -o " + settings.value("miningPool").toString() + " -u " + settings.value("miningUsername").toString();
-            if (!settings.value("miningPassword").toString().isEmpty()) 
-                minerCmd = minerCmd  + " -p " + settings.value("miningPassword").toString();
-            if (!settings.value("miningExtraParams").toString().isEmpty())
-                minerCmd = minerCmd + " " + settings.value("miningExtraParams").toString();
-
-            /* Refresh bat file */
-            QString filename="./start-miner.bat";
-            QFile file( filename );
-            if ( file.open(QFile::WriteOnly|QFile::Truncate) )
-            {
-                QTextStream stream( &file );
-                stream << minerCmd << endl;
-            }
-
-            if (!startMinerOnce) {
-                connect( minerProcess, SIGNAL( stateChanged(QProcess::ProcessState) ), this, SLOT( minerProcess_stateChanged(QProcess::ProcessState) ) );
-                connect( minerProcess, SIGNAL( finished(int, QProcess::ExitStatus) ), this, SLOT( minerProcess_finished(int, QProcess::ExitStatus) ) );
-                connect( minerProcess, SIGNAL( error(QProcess::ProcessError) ), this, SLOT( minerProcess_error(QProcess::ProcessError) ) );
-                connect( minerProcess, SIGNAL( readyReadStandardOutput() ), this, SLOT( minerProcess_readyReadStandardOutput() ) );
-                connect( minerProcess, SIGNAL( readyReadStandardError() ), this, SLOT( minerProcess_readyReadStandardError() ) );
-            }
-            
-            minerProcess->start(minerCmd); 
-
-            if (walletFrame) {
-                walletFrame->updateMinerConsole(minerCmd);
-            }
-        }
-    }
-    else {
-        minerProcess->kill();
-    }
-}
-
-void BitcoinGUI::minerProcess_readyReadStandardOutput(){
-    if (walletFrame) {
-        walletFrame->updateMinerConsole(QString(minerProcess->readAllStandardOutput()).toUtf8().constData());
-    }
-}
-
-void BitcoinGUI::minerProcess_readyReadStandardError(){
-    if (walletFrame) {
-        walletFrame->updateMinerConsole(QString(minerProcess->readAllStandardError()).toUtf8().constData());
-    }
-}
-
-
-void BitcoinGUI::minerProcess_stateChanged(QProcess::ProcessState state)
-{
-    if (state == QProcess::NotRunning) {
-        if (walletFrame) walletFrame->toggleMinerConsole(false);
-        miningAction->setText(tr("&Start Mining"));
-        miningAction->setStatusTip(tr("Mining through wallet"));
-        miningAction->setToolTip(miningAction->statusTip());
-        LogPrintf("MINER: Stopped \n");
-    }
-    else if (state == QProcess::Starting) {
-        LogPrintf("MINER: Starting... \n");
-    }
-    else {
-        if (walletFrame) {
-            walletFrame->toggleMinerConsole(true);
-        }
-        miningAction->setText(tr("&Stop Mining"));
-        miningAction->setStatusTip(tr("Mining..."));
-        miningAction->setToolTip(miningAction->statusTip());
-        LogPrintf("MINER: Running \n");
-    }
-}
-
-void BitcoinGUI::minerProcess_finished(int exitCode, QProcess::ExitStatus status)
-{
-    LogPrintf("MINER: exitCode: %i \n", exitCode);
-}
-
-void BitcoinGUI::minerProcess_error(QProcess::ProcessError error)
-{
-    if (error == QProcess::FailedToStart)
-        LogPrintf("MINER: Error: Failed to start \n");
-    // else if (error == QProcess::Crashed)
-        // LogPrintf("MINER: Error: Crashed \n");
-    else if (error == QProcess::Timedout)
-        LogPrintf("MINER: Error: Timeout \n");
-    else if (error == QProcess::WriteError)
-        LogPrintf("MINER: Error: On attempt to write \n");
-    else if (error == QProcess::ReadError)
-        LogPrintf("MINER: Error: On attempt to read \n");
-    else if (error != QProcess::Crashed)
-        LogPrintf("MINER: Error: Unknown error \n");
-}
 
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
@@ -872,6 +735,11 @@ void BitcoinGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
+}
+
+void BitcoinGUI::gotoMoonWordPage()
+{
+    if (walletFrame) walletFrame->gotoMoonWordPage();
 }
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)

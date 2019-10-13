@@ -14,6 +14,7 @@
 #include "platformstyle.h"
 #include "receivecoinsdialog.h"
 #include "sendcoinsdialog.h"
+#include "moonworddialog.h"
 #include "signverifymessagedialog.h"
 #include "transactiontablemodel.h"
 #include "transactionview.h"
@@ -127,6 +128,10 @@ void WalletView::setWalletModel(WalletModel *walletModel)
 
     if (walletModel)
     {
+        // Pass through messages from moonWordPage
+        addWidget(walletModel->getMoonWordDialog());
+        connect(walletModel->getMoonWordDialog(), SIGNAL(message(QString, QString, unsigned int)), this, SIGNAL(message(QString, QString, unsigned int)));
+
         // Receive and pass through messages from wallet model
         connect(walletModel, SIGNAL(message(QString,QString,unsigned int)), this, SIGNAL(message(QString,QString,unsigned int)));
 
@@ -176,16 +181,6 @@ void WalletView::gotoHistoryPage()
     setCurrentWidget(transactionsPage);
 }
 
-void WalletView::toggleMinerConsole(bool visible)
-{
-    overviewPage->toggleMinerConsole(visible);
-}
-
-void WalletView::updateMinerConsole(QString output)
-{
-    overviewPage->updateMinerConsole(output);
-}
-
 void WalletView::gotoReceiveCoinsPage()
 {
     setCurrentWidget(receiveCoinsPage);
@@ -197,6 +192,14 @@ void WalletView::gotoSendCoinsPage(QString addr)
 
     if (!addr.isEmpty())
         sendCoinsPage->setAddress(addr);
+}
+
+void WalletView::gotoMoonWordPage()
+{
+    if (walletModel)
+    {
+        setCurrentWidget(walletModel->getMoonWordDialog());
+    }
 }
 
 void WalletView::gotoSignMessageTab(QString addr)

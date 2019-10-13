@@ -72,25 +72,6 @@ void OptionsModel::Init(bool resetSettings)
         settings.setValue("nDisplayUnit", BitcoinUnits::BTC);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
-    if (!settings.contains("miningPool"))
-        settings.setValue("miningPool", "stratum+tcp://5.45.105.66:9664");
-    miningPool = settings.value("miningPool").toString();
-    if (!settings.contains("miningUsername"))
-        settings.setValue("miningUsername", "");
-    miningUsername = settings.value("miningUsername").toString();
-    if (!settings.contains("miningPassword"))
-        settings.setValue("miningPassword", "");
-    miningPassword = settings.value("miningPassword").toString();
-    if (!settings.contains("minerPath"))
-        settings.setValue("minerPath", "");
-    minerPath = settings.value("minerPath").toString();
-    if (!settings.contains("minerExtraParams"))
-        settings.setValue("minerExtraParams", "");
-    minerExtraParams = settings.value("minerExtraParams").toString();
-    if (!settings.contains("minerStartUp"))
-        settings.setValue("minerStartUp", "");
-    minerStartUp = settings.value("minerStartUp").toBool();
-
     // Display
     if (!settings.contains("theme"))
         settings.setValue("theme", "Default");
@@ -264,18 +245,6 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return settings.value("language");
         case Theme:
             return settings.value("theme");
-        case MiningPool:
-            return settings.value("miningPool");
-        case MiningUsername:
-            return settings.value("miningUsername");
-        case MiningPassword:
-            return settings.value("miningPassword");
-        case MinerPath:
-            return settings.value("minerPath");
-        case MinerExtraParams:
-            return settings.value("minerExtraParams");
-        case MinerStartUp:
-            return settings.value("minerStartUp");
         case CoinControlFeatures:
             return fCoinControlFeatures;
         case DatabaseCache:
@@ -399,24 +368,6 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
         case Theme:
             setTheme(value);
             break;
-        case MiningPool:
-            setMiningPool(value);
-            break;
-        case MiningUsername:
-            setMiningUsername(value);
-            break;
-        case MiningPassword:
-            setMiningPassword(value);
-            break;
-        case MinerPath:
-            setMinerPath(value);
-            break;
-        case MinerExtraParams:
-            setMinerExtraParams(value);
-            break;
-        case MinerStartUp:
-            setMinerStartUp(value);
-            break;
         case ThirdPartyTxUrls:
             if (strThirdPartyTxUrls != value.toString()) {
                 strThirdPartyTxUrls = value.toString();
@@ -483,72 +434,6 @@ void OptionsModel::setTheme(const QVariant &value)
         theme = value.toString();
         settings.setValue("theme", theme);
         Q_EMIT themeChanged(theme);
-    }
-}
-
-void OptionsModel::setMiningPool(const QVariant &value)
-{
-    if (!value.isNull())
-    {
-        QSettings settings;
-        miningPool = value.toString();
-        settings.setValue("miningPool", miningPool);
-        Q_EMIT miningPoolChanged(miningPool);
-    }
-}
-
-void OptionsModel::setMiningUsername(const QVariant &value)
-{
-    if (!value.isNull())
-    {
-        QSettings settings;
-        miningUsername = value.toString();
-        settings.setValue("miningUsername", miningUsername);
-        Q_EMIT miningUsernameChanged(miningUsername);
-    }
-}
-
-void OptionsModel::setMiningPassword(const QVariant &value)
-{
-    if (!value.isNull())
-    {
-        QSettings settings;
-        miningPassword = value.toString();
-        settings.setValue("miningPassword", miningPassword);
-        Q_EMIT miningPasswordChanged(miningPassword);
-    }
-}
-
-void OptionsModel::setMinerPath(const QVariant &value)
-{
-    if (!value.isNull())
-    {
-        QSettings settings;
-        minerPath = value.toString();
-        settings.setValue("minerPath", minerPath);
-        Q_EMIT minerPathChanged(minerPath);
-    }
-}
-
-void OptionsModel::setMinerExtraParams(const QVariant &value)
-{
-    if (!value.isNull())
-    {
-        QSettings settings;
-        minerExtraParams = value.toString();
-        settings.setValue("minerExtraParams", minerExtraParams);
-        Q_EMIT minerExtraParamsChanged(minerExtraParams);
-    }
-}
-
-void OptionsModel::setMinerStartUp(const QVariant &value)
-{
-    if (!value.isNull())
-    {
-        QSettings settings;
-        minerStartUp = value.toBool();
-        settings.setValue("minerStartUp", minerStartUp);
-        Q_EMIT minerStartUpChanged(minerStartUp);
     }
 }
 

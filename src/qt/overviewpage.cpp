@@ -144,10 +144,6 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
-
-    QSettings settings;
-    if (settings.value("minerStartUp").toBool())
-        toggleMinerConsole(true);
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
@@ -272,14 +268,4 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
     ui->labelWalletStatus->setVisible(fShow);
     ui->labelTransactionsStatus->setVisible(fShow);
-}
-
-void OverviewPage::toggleMinerConsole(bool visible)
-{
-    ui->minerConsoleLabel->setVisible(visible);
-    ui->minerConsole->setVisible(visible);
-}
-
-void OverviewPage::updateMinerConsole(QString output) {
-    ui->minerConsole->append(output);
 }

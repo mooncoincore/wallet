@@ -21,6 +21,7 @@ class PlatformStyle;
 class RecentRequestsTableModel;
 class TransactionTableModel;
 class WalletModelTransaction;
+class MoonWordDialog;
 
 class CCoinControl;
 class CKeyID;
@@ -28,6 +29,7 @@ class COutPoint;
 class COutput;
 class CPubKey;
 class CWallet;
+class CWalletTx;
 class uint256;
 
 QT_BEGIN_NAMESPACE
@@ -129,6 +131,7 @@ public:
     AddressTableModel *getAddressTableModel();
     TransactionTableModel *getTransactionTableModel();
     RecentRequestsTableModel *getRecentRequestsTableModel();
+    MoonWordDialog *getMoonWordDialog();
 
     CAmount getBalance(const CCoinControl *coinControl = NULL) const;
     CAmount getUnconfirmedBalance() const;
@@ -151,7 +154,7 @@ public:
     };
 
     // prepare transaction for getting txfee before sending coins
-    SendCoinsReturn prepareTransaction(WalletModelTransaction &transaction, const CCoinControl *coinControl = NULL);
+    SendCoinsReturn prepareTransaction(WalletModelTransaction &transaction, const CCoinControl *coinControl = NULL, const bool moonword = false);
 
     // Send coins to a list of recipients
     SendCoinsReturn sendCoins(WalletModelTransaction &transaction);
@@ -190,6 +193,9 @@ public:
     bool havePrivKey(const CKeyID &address) const;
     void getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs);
     bool isSpent(const COutPoint& outpoint) const;
+    std::map<uint256, CWalletTx> listMoonwordTransactions() const;
+    bool isChange(const CTxOut& txout) const;
+    bool isMine(CTxDestination& address) const;
     void listCoins(std::map<QString, std::vector<COutput> >& mapCoins) const;
 
     bool isLockedCoin(uint256 hash, unsigned int n) const;
@@ -215,6 +221,7 @@ private:
     AddressTableModel *addressTableModel;
     TransactionTableModel *transactionTableModel;
     RecentRequestsTableModel *recentRequestsTableModel;
+    MoonWordDialog *moonWordPage;
 
     // Cache some values to be able to detect changes
     CAmount cachedBalance;

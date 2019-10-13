@@ -42,12 +42,6 @@ public:
         ThirdPartyTxUrls,       // QString
         Language,               // QString
         Theme,                  // QString
-        MiningPool,             // QString
-        MinerPath,              // QString
-        MinerExtraParams,       // QString
-        MinerStartUp,           // bool
-        MiningUsername,         // QString
-        MiningPassword,         // QString
         CoinControlFeatures,    // bool
         ThreadsScriptVerif,     // int
         DatabaseCache,          // int
@@ -65,12 +59,6 @@ public:
     /** Updates current unit in memory, settings and emits displayUnitChanged(newUnit) signal */
     void setDisplayUnit(const QVariant &value);
     void setTheme(const QVariant &value);
-    void setMiningPool(const QVariant &value);
-    void setMiningUsername(const QVariant &value);
-    void setMiningPassword(const QVariant &value);
-    void setMinerPath(const QVariant &value);
-    void setMinerExtraParams(const QVariant &value);
-    void setMinerStartUp(const QVariant &value);
 
     /* Explicit getters */
     bool getHideTrayIcon() { return fHideTrayIcon; }
@@ -83,14 +71,6 @@ public:
     bool getCoinControlFeatures() { return fCoinControlFeatures; }
     const QString& getOverriddenByCommandLine() { return strOverriddenByCommandLine; }
 
-    /* Miner */
-    QString getMiningPool() { return miningPool; }
-    QString getMiningUsername() { return miningUsername; }
-    QString getMiningPassword() { return miningPassword; }
-    QString getMinerPath() { return minerPath; }
-    QString getMinerExtraParams() { return minerExtraParams; }
-    bool getMinerStartUp() { return minerStartUp; }
-
     /* Restart flag helper */
     void setRestartRequired(bool fRequired);
     bool isRestartRequired();
@@ -102,12 +82,6 @@ private:
     bool fMinimizeOnClose;
     QString language;
     QString theme;
-    QString miningPool;
-    QString minerPath;
-    QString miningUsername;
-    QString miningPassword;
-    QString minerExtraParams;
-    bool minerStartUp;
     int nDisplayUnit;
     QString strThirdPartyTxUrls;
     bool fCoinControlFeatures;
@@ -122,12 +96,6 @@ private:
 Q_SIGNALS:
     void displayUnitChanged(int unit);
     void themeChanged(QString theme);
-    void miningPoolChanged(QString miningPool);
-    void miningUsernameChanged(QString miningUsername);
-    void miningPasswordChanged(QString miningPassword);
-    void minerPathChanged(QString minerPath);
-    void minerExtraParamsChanged(QString minerExtraParams);
-    void minerStartUpChanged(bool minerStartUp);
     void coinControlFeaturesChanged(bool);
     void hideTrayIconChanged(bool);
 };

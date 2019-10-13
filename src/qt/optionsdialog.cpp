@@ -211,14 +211,6 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->minimizeOnClose, OptionsModel::MinimizeOnClose);
 #endif
 
-    /* Miner */
-    mapper->addMapping(ui->miningPool, OptionsModel::MiningPool);
-    mapper->addMapping(ui->miningUsername, OptionsModel::MiningUsername);
-    mapper->addMapping(ui->miningPassword, OptionsModel::MiningPassword);
-    mapper->addMapping(ui->minerPath, OptionsModel::MinerPath);
-    mapper->addMapping(ui->minerExtraParams, OptionsModel::MinerExtraParams);
-    mapper->addMapping(ui->minerStartUp, OptionsModel::MinerStartUp);
-
     /* Display */
     mapper->addMapping(ui->theme, OptionsModel::Theme);
     mapper->addMapping(ui->lang, OptionsModel::Language);
@@ -229,20 +221,6 @@ void OptionsDialog::setMapper()
 void OptionsDialog::setOkButtonState(bool fState)
 {
     ui->okButton->setEnabled(fState);
-}
-
-void OptionsDialog::on_minerPathBtn_clicked()
-{
-    QString filename = QFileDialog::getOpenFileName(
-          this,
-          "Select Miner",
-          QDir::currentPath(),
-          "Executable Files (*.exe)");
- 
-    if( !filename.isNull() )
-    {
-        ui->minerPath->setText(filename);
-    }
 }
 
 void OptionsDialog::on_resetButton_clicked()
