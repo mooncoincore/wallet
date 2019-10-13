@@ -484,37 +484,38 @@ am__qt_libbitcoinqt_a_SOURCES_DIST = qt/bantablemodel.cpp \
 	qt/transactionrecord.cpp qt/transactiontablemodel.cpp \
 	qt/transactionview.cpp qt/walletframe.cpp qt/walletmodel.cpp \
 	qt/walletmodeltransaction.cpp qt/walletview.cpp \
-	qt/addressbookpage.h qt/addresstablemodel.h \
-	qt/askpassphrasedialog.h qt/bantablemodel.h \
-	qt/bitcoinaddressvalidator.h qt/bitcoinamountfield.h \
-	qt/bitcoingui.h qt/bitcoinunits.h qt/clientmodel.h \
-	qt/coincontroldialog.h qt/coincontroltreewidget.h \
-	qt/csvmodelwriter.h qt/editaddressdialog.h qt/guiconstants.h \
-	qt/guiutil.h qt/intro.h qt/macdockiconhandler.h \
-	qt/macnotificationhandler.h qt/networkstyle.h qt/notificator.h \
-	qt/openuridialog.h qt/optionsdialog.h qt/optionsmodel.h \
-	qt/overviewpage.h qt/paymentrequestplus.h qt/paymentserver.h \
-	qt/peertablemodel.h qt/platformstyle.h qt/qvalidatedlineedit.h \
-	qt/qvaluecombobox.h qt/receivecoinsdialog.h \
-	qt/receiverequestdialog.h qt/recentrequeststablemodel.h \
-	qt/rpcconsole.h qt/sendcoinsdialog.h qt/sendcoinsentry.h \
+	qt/moonworddialog.cpp qt/addressbookpage.h \
+	qt/addresstablemodel.h qt/askpassphrasedialog.h \
+	qt/bantablemodel.h qt/bitcoinaddressvalidator.h \
+	qt/bitcoinamountfield.h qt/bitcoingui.h qt/bitcoinunits.h \
+	qt/clientmodel.h qt/coincontroldialog.h \
+	qt/coincontroltreewidget.h qt/csvmodelwriter.h \
+	qt/editaddressdialog.h qt/guiconstants.h qt/guiutil.h \
+	qt/intro.h qt/macdockiconhandler.h qt/macnotificationhandler.h \
+	qt/networkstyle.h qt/notificator.h qt/openuridialog.h \
+	qt/optionsdialog.h qt/optionsmodel.h qt/overviewpage.h \
+	qt/paymentrequestplus.h qt/paymentserver.h qt/peertablemodel.h \
+	qt/platformstyle.h qt/qvalidatedlineedit.h qt/qvaluecombobox.h \
+	qt/receivecoinsdialog.h qt/receiverequestdialog.h \
+	qt/recentrequeststablemodel.h qt/rpcconsole.h \
+	qt/sendcoinsdialog.h qt/sendcoinsentry.h \
 	qt/signverifymessagedialog.h qt/splashscreen.h \
 	qt/trafficgraphwidget.h qt/transactiondesc.h \
 	qt/transactiondescdialog.h qt/transactionfilterproxy.h \
 	qt/transactionrecord.h qt/transactiontablemodel.h \
 	qt/transactionview.h qt/utilitydialog.h qt/walletframe.h \
 	qt/walletmodel.h qt/walletmodeltransaction.h qt/walletview.h \
-	qt/winshutdownmonitor.h qt/forms/addressbookpage.ui \
-	qt/forms/askpassphrasedialog.ui qt/forms/coincontroldialog.ui \
-	qt/forms/editaddressdialog.ui qt/forms/helpmessagedialog.ui \
-	qt/forms/intro.ui qt/forms/openuridialog.ui \
-	qt/forms/optionsdialog.ui qt/forms/overviewpage.ui \
-	qt/forms/receivecoinsdialog.ui \
+	qt/winshutdownmonitor.h qt/moonworddialog.h \
+	qt/forms/addressbookpage.ui qt/forms/askpassphrasedialog.ui \
+	qt/forms/coincontroldialog.ui qt/forms/editaddressdialog.ui \
+	qt/forms/helpmessagedialog.ui qt/forms/intro.ui \
+	qt/forms/openuridialog.ui qt/forms/optionsdialog.ui \
+	qt/forms/overviewpage.ui qt/forms/receivecoinsdialog.ui \
 	qt/forms/receiverequestdialog.ui qt/forms/debugwindow.ui \
 	qt/forms/sendcoinsdialog.ui qt/forms/sendcoinsentry.ui \
 	qt/forms/signverifymessagedialog.ui \
-	qt/forms/transactiondescdialog.ui qt/bitcoin.qrc \
-	qt/bitcoin_locale.qrc qt/locale/bitcoin_af.ts \
+	qt/forms/transactiondescdialog.ui qt/forms/moonworddialog.ui \
+	qt/bitcoin.qrc qt/bitcoin_locale.qrc qt/locale/bitcoin_af.ts \
 	qt/locale/bitcoin_af_ZA.ts qt/locale/bitcoin_ar.ts \
 	qt/locale/bitcoin_be_BY.ts qt/locale/bitcoin_bg_BG.ts \
 	qt/locale/bitcoin_bg.ts qt/locale/bitcoin_ca_ES.ts \
@@ -636,7 +637,8 @@ am__qt_libbitcoinqt_a_SOURCES_DIST = qt/bantablemodel.cpp \
 @ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-walletframe.$(OBJEXT) \
 @ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-walletmodel.$(OBJEXT) \
 @ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-walletmodeltransaction.$(OBJEXT) \
-@ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-walletview.$(OBJEXT)
+@ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-walletview.$(OBJEXT) \
+@ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-moonworddialog.$(OBJEXT)
 @ENABLE_QT_TRUE@@ENABLE_WALLET_TRUE@am__objects_9 = $(am__objects_8)
 @ENABLE_QT_TRUE@am__objects_10 = $(am__objects_5) $(am__objects_7) \
 @ENABLE_QT_TRUE@	$(am__objects_9)
@@ -689,7 +691,8 @@ am__qt_libbitcoinqt_a_SOURCES_DIST = qt/bantablemodel.cpp \
 @ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-moc_utilitydialog.$(OBJEXT) \
 @ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-moc_walletframe.$(OBJEXT) \
 @ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-moc_walletmodel.$(OBJEXT) \
-@ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-moc_walletview.$(OBJEXT)
+@ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-moc_walletview.$(OBJEXT) \
+@ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-moc_moonworddialog.$(OBJEXT)
 @ENABLE_QT_TRUE@am__objects_12 = qt/qt_libbitcoinqt_a-paymentrequest.pb.$(OBJEXT)
 @ENABLE_QT_TRUE@am__objects_13 =  \
 @ENABLE_QT_TRUE@	qt/qt_libbitcoinqt_a-qrc_bitcoin.$(OBJEXT)
@@ -1541,6 +1544,7 @@ pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -2136,7 +2140,8 @@ EXTRA_DIST = $(CTAES_DIST)
 @ENABLE_QT_TRUE@  qt/forms/sendcoinsdialog.ui \
 @ENABLE_QT_TRUE@  qt/forms/sendcoinsentry.ui \
 @ENABLE_QT_TRUE@  qt/forms/signverifymessagedialog.ui \
-@ENABLE_QT_TRUE@  qt/forms/transactiondescdialog.ui
+@ENABLE_QT_TRUE@  qt/forms/transactiondescdialog.ui \
+@ENABLE_QT_TRUE@  qt/forms/moonworddialog.ui
 
 @ENABLE_QT_TRUE@QT_MOC_CPP = \
 @ENABLE_QT_TRUE@  qt/moc_addressbookpage.cpp \
@@ -2182,7 +2187,8 @@ EXTRA_DIST = $(CTAES_DIST)
 @ENABLE_QT_TRUE@  qt/moc_utilitydialog.cpp \
 @ENABLE_QT_TRUE@  qt/moc_walletframe.cpp \
 @ENABLE_QT_TRUE@  qt/moc_walletmodel.cpp \
-@ENABLE_QT_TRUE@  qt/moc_walletview.cpp
+@ENABLE_QT_TRUE@  qt/moc_walletview.cpp \
+@ENABLE_QT_TRUE@  qt/moc_moonworddialog.cpp
 
 @ENABLE_QT_TRUE@BITCOIN_MM = \
 @ENABLE_QT_TRUE@  qt/macdockiconhandler.mm \
@@ -2253,7 +2259,8 @@ EXTRA_DIST = $(CTAES_DIST)
 @ENABLE_QT_TRUE@  qt/walletmodel.h \
 @ENABLE_QT_TRUE@  qt/walletmodeltransaction.h \
 @ENABLE_QT_TRUE@  qt/walletview.h \
-@ENABLE_QT_TRUE@  qt/winshutdownmonitor.h
+@ENABLE_QT_TRUE@  qt/winshutdownmonitor.h \
+@ENABLE_QT_TRUE@  qt/moonworddialog.h
 
 @ENABLE_QT_TRUE@RES_ICONS = \
 @ENABLE_QT_TRUE@  qt/res/icons/add.png \
@@ -2359,7 +2366,8 @@ EXTRA_DIST = $(CTAES_DIST)
 @ENABLE_QT_TRUE@  qt/walletframe.cpp \
 @ENABLE_QT_TRUE@  qt/walletmodel.cpp \
 @ENABLE_QT_TRUE@  qt/walletmodeltransaction.cpp \
-@ENABLE_QT_TRUE@  qt/walletview.cpp
+@ENABLE_QT_TRUE@  qt/walletview.cpp \
+@ENABLE_QT_TRUE@  qt/moonworddialog.cpp
 
 @ENABLE_QT_TRUE@BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP) \
 @ENABLE_QT_TRUE@	$(am__append_22) $(am__append_23)
@@ -2966,6 +2974,8 @@ qt/qt_libbitcoinqt_a-walletmodeltransaction.$(OBJEXT):  \
 	qt/$(am__dirstamp) qt/$(DEPDIR)/$(am__dirstamp)
 qt/qt_libbitcoinqt_a-walletview.$(OBJEXT): qt/$(am__dirstamp) \
 	qt/$(DEPDIR)/$(am__dirstamp)
+qt/qt_libbitcoinqt_a-moonworddialog.$(OBJEXT): qt/$(am__dirstamp) \
+	qt/$(DEPDIR)/$(am__dirstamp)
 qt/qt_libbitcoinqt_a-moc_addressbookpage.$(OBJEXT):  \
 	qt/$(am__dirstamp) qt/$(DEPDIR)/$(am__dirstamp)
 qt/qt_libbitcoinqt_a-moc_addresstablemodel.$(OBJEXT):  \
@@ -3053,6 +3063,8 @@ qt/qt_libbitcoinqt_a-moc_walletframe.$(OBJEXT): qt/$(am__dirstamp) \
 qt/qt_libbitcoinqt_a-moc_walletmodel.$(OBJEXT): qt/$(am__dirstamp) \
 	qt/$(DEPDIR)/$(am__dirstamp)
 qt/qt_libbitcoinqt_a-moc_walletview.$(OBJEXT): qt/$(am__dirstamp) \
+	qt/$(DEPDIR)/$(am__dirstamp)
+qt/qt_libbitcoinqt_a-moc_moonworddialog.$(OBJEXT): qt/$(am__dirstamp) \
 	qt/$(DEPDIR)/$(am__dirstamp)
 qt/qt_libbitcoinqt_a-paymentrequest.pb.$(OBJEXT): qt/$(am__dirstamp) \
 	qt/$(DEPDIR)/$(am__dirstamp)
@@ -3491,6 +3503,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_intro.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_macdockiconhandler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_macnotificationhandler.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_moonworddialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_notificator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_openuridialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_optionsdialog.Po@am__quote@
@@ -3518,6 +3531,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_walletframe.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_walletmodel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_walletview.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-moonworddialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-networkstyle.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-notificator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@qt/$(DEPDIR)/qt_libbitcoinqt_a-openuridialog.Po@am__quote@
@@ -6353,6 +6367,20 @@ qt/qt_libbitcoinqt_a-walletview.obj: qt/walletview.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_libbitcoinqt_a-walletview.obj `if test -f 'qt/walletview.cpp'; then $(CYGPATH_W) 'qt/walletview.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/walletview.cpp'; fi`
 
+qt/qt_libbitcoinqt_a-moonworddialog.o: qt/moonworddialog.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_libbitcoinqt_a-moonworddialog.o -MD -MP -MF qt/$(DEPDIR)/qt_libbitcoinqt_a-moonworddialog.Tpo -c -o qt/qt_libbitcoinqt_a-moonworddialog.o `test -f 'qt/moonworddialog.cpp' || echo '$(srcdir)/'`qt/moonworddialog.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_libbitcoinqt_a-moonworddialog.Tpo qt/$(DEPDIR)/qt_libbitcoinqt_a-moonworddialog.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='qt/moonworddialog.cpp' object='qt/qt_libbitcoinqt_a-moonworddialog.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_libbitcoinqt_a-moonworddialog.o `test -f 'qt/moonworddialog.cpp' || echo '$(srcdir)/'`qt/moonworddialog.cpp
+
+qt/qt_libbitcoinqt_a-moonworddialog.obj: qt/moonworddialog.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_libbitcoinqt_a-moonworddialog.obj -MD -MP -MF qt/$(DEPDIR)/qt_libbitcoinqt_a-moonworddialog.Tpo -c -o qt/qt_libbitcoinqt_a-moonworddialog.obj `if test -f 'qt/moonworddialog.cpp'; then $(CYGPATH_W) 'qt/moonworddialog.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/moonworddialog.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_libbitcoinqt_a-moonworddialog.Tpo qt/$(DEPDIR)/qt_libbitcoinqt_a-moonworddialog.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='qt/moonworddialog.cpp' object='qt/qt_libbitcoinqt_a-moonworddialog.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_libbitcoinqt_a-moonworddialog.obj `if test -f 'qt/moonworddialog.cpp'; then $(CYGPATH_W) 'qt/moonworddialog.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/moonworddialog.cpp'; fi`
+
 qt/qt_libbitcoinqt_a-moc_addressbookpage.o: qt/moc_addressbookpage.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_libbitcoinqt_a-moc_addressbookpage.o -MD -MP -MF qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_addressbookpage.Tpo -c -o qt/qt_libbitcoinqt_a-moc_addressbookpage.o `test -f 'qt/moc_addressbookpage.cpp' || echo '$(srcdir)/'`qt/moc_addressbookpage.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_addressbookpage.Tpo qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_addressbookpage.Po
@@ -6968,6 +6996,20 @@ qt/qt_libbitcoinqt_a-moc_walletview.obj: qt/moc_walletview.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='qt/moc_walletview.cpp' object='qt/qt_libbitcoinqt_a-moc_walletview.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_libbitcoinqt_a-moc_walletview.obj `if test -f 'qt/moc_walletview.cpp'; then $(CYGPATH_W) 'qt/moc_walletview.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/moc_walletview.cpp'; fi`
+
+qt/qt_libbitcoinqt_a-moc_moonworddialog.o: qt/moc_moonworddialog.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_libbitcoinqt_a-moc_moonworddialog.o -MD -MP -MF qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_moonworddialog.Tpo -c -o qt/qt_libbitcoinqt_a-moc_moonworddialog.o `test -f 'qt/moc_moonworddialog.cpp' || echo '$(srcdir)/'`qt/moc_moonworddialog.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_moonworddialog.Tpo qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_moonworddialog.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='qt/moc_moonworddialog.cpp' object='qt/qt_libbitcoinqt_a-moc_moonworddialog.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_libbitcoinqt_a-moc_moonworddialog.o `test -f 'qt/moc_moonworddialog.cpp' || echo '$(srcdir)/'`qt/moc_moonworddialog.cpp
+
+qt/qt_libbitcoinqt_a-moc_moonworddialog.obj: qt/moc_moonworddialog.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_libbitcoinqt_a-moc_moonworddialog.obj -MD -MP -MF qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_moonworddialog.Tpo -c -o qt/qt_libbitcoinqt_a-moc_moonworddialog.obj `if test -f 'qt/moc_moonworddialog.cpp'; then $(CYGPATH_W) 'qt/moc_moonworddialog.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/moc_moonworddialog.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_moonworddialog.Tpo qt/$(DEPDIR)/qt_libbitcoinqt_a-moc_moonworddialog.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='qt/moc_moonworddialog.cpp' object='qt/qt_libbitcoinqt_a-moc_moonworddialog.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_libbitcoinqt_a-moc_moonworddialog.obj `if test -f 'qt/moc_moonworddialog.cpp'; then $(CYGPATH_W) 'qt/moc_moonworddialog.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/moc_moonworddialog.cpp'; fi`
 
 qt/qt_libbitcoinqt_a-paymentrequest.pb.o: qt/paymentrequest.pb.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_libbitcoinqt_a_CPPFLAGS) $(CPPFLAGS) $(qt_libbitcoinqt_a_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_libbitcoinqt_a-paymentrequest.pb.o -MD -MP -MF qt/$(DEPDIR)/qt_libbitcoinqt_a-paymentrequest.pb.Tpo -c -o qt/qt_libbitcoinqt_a-paymentrequest.pb.o `test -f 'qt/paymentrequest.pb.cc' || echo '$(srcdir)/'`qt/paymentrequest.pb.cc
