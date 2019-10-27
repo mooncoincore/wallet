@@ -4,7 +4,7 @@
 
 #include <qt/overviewpage.h>
 #include <qt/forms/ui_overviewpage.h>
-
+ 
 #include <qt/bitcoinunits.h>
 #include <qt/clientmodel.h>
 #include <qt/guiconstants.h>
@@ -14,6 +14,12 @@
 #include <qt/transactionfilterproxy.h>
 #include <qt/transactiontablemodel.h>
 #include <qt/walletmodel.h>
+
+        // for version icon
+        #include <qt/networkstyle.h>
+		#include <clientversion.h>
+		#include <util.h>
+		#include <version.h>
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
@@ -118,11 +124,86 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     txdelegate(new TxViewDelegate(platformStyle, this))
 {
     ui->setupUi(this);
+	
+	if (!platformStyle->getImagesOnButtons()) {
+	   QImage myImage;
+       myImage.load(":/default/icons/wallet_bgcoin.png");
+       ui->walletBGcoin->show();
+    } else {
+
+       QImage myImage;
+	   myImage.load(GUIUtil::setIcon("icons/wallet_bgcoin"));
+
+    // set reference point, paddings
+    int paddingRight            = 120;
+    int paddingTop              = 25;
+    int titleVersionVSpace      = 12;
+    int titleCopyrightVSpace    = 25;
+
+    float fontFactor            = 1.2;
+    float devicePixelRatio      = 1.0;
+#if QT_VERSION > 0x050100
+    devicePixelRatio = static_cast<QGuiApplication*>(QCoreApplication::instance())->devicePixelRatio();
+#endif
+    // define text to place
+    QString titleText       = tr(PACKAGE_NAME);
+    QString versionText     = QString("Version %1").arg(QString::fromStdString(FormatFullVersion()));
+    QString copyrightText   = QString::fromUtf8(CopyrightHolders(strprintf("\xc2\xA9 %u-%u ", 2013, COPYRIGHT_YEAR)).c_str());
+
+    QString font            = QApplication::font().toString();
+	
+QSize splashSize(300,300);	
+QPixmap pixmap;
+pixmap = QPixmap(splashSize);	
+
+// draw the bitcoin icon, expected size of PNG: 1024x1024
+    QRect rectIcon(QPoint(15,0), QSize(300,300));
+    QPixmap icon(QPixmap::fromImage(myImage));
+	QPainter pixPaint(&icon);
+
+
+    // check font size and drawing with
+    pixPaint.setFont(QFont(font, 33*fontFactor));
+    QFontMetrics fm = pixPaint.fontMetrics();
+    int titleTextWidth = fm.width(titleText);
+    if (titleTextWidth > 176) {
+        fontFactor = fontFactor * 176 / titleTextWidth;
+    }
+
+    pixPaint.setFont(QFont(font, 33*fontFactor));
+    fm = pixPaint.fontMetrics();
+    titleTextWidth  = fm.width(titleText);
+    pixPaint.drawText(pixmap.width()/devicePixelRatio-titleTextWidth-paddingRight,paddingTop,titleText);
+
+    pixPaint.setFont(QFont(font, 15*fontFactor));
+
+    // if the version string is too long, reduce size
+    fm = pixPaint.fontMetrics();
+    int versionTextWidth  = fm.width(versionText);
+    if(versionTextWidth > titleTextWidth+paddingRight-10) {
+        pixPaint.setFont(QFont(font, 19*fontFactor));
+        titleVersionVSpace -= 5;
+    }
+    pixPaint.drawText(pixmap.width()/devicePixelRatio-titleTextWidth-paddingRight+2,paddingTop+titleVersionVSpace,versionText);
+	
+// draw copyright stuff
+    {
+        pixPaint.setFont(QFont(font, 15*fontFactor));
+        const int x = pixmap.width()/devicePixelRatio-titleTextWidth-paddingRight;
+        const int y = paddingTop+titleCopyrightVSpace;
+        QRect copyrightRect(x, y, pixmap.width() - x, pixmap.height() - y);
+        pixPaint.drawText(copyrightRect, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, copyrightText);
+    }
+
+       ui->walletBGcoin->setPixmap(icon);
+	   pixPaint.end();
+       ui->walletBGcoin->show();
+    }
 
     m_balances.balance = -1;
 
     // use a SingleColorIcon for the "out of sync warning" icon
-    QIcon icon = platformStyle->SingleColorIcon(":/icons/warning");
+    QIcon icon = platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/warning"));
     icon.addPixmap(icon.pixmap(QSize(64,64), QIcon::Normal), QIcon::Disabled); // also set the disabled icon because we are using a disabled QPushButton to work around missing HiDPI support of QLabel (https://bugreports.qt.io/browse/QTBUG-42503)
     ui->labelTransactionsStatus->setIcon(icon);
     ui->labelWalletStatus->setIcon(icon);

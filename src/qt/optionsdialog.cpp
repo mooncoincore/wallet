@@ -8,7 +8,7 @@
 
 #include <qt/optionsdialog.h>
 #include <qt/forms/ui_optionsdialog.h>
-
+ 
 #include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
@@ -87,6 +87,11 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     ui->bitcoinAtStartup->setText(ui->bitcoinAtStartup->text().arg(tr(PACKAGE_NAME)));
 
     ui->openBitcoinConfButton->setToolTip(ui->openBitcoinConfButton->toolTip().arg(tr(PACKAGE_NAME)));
+
+    ui->theme->addItem("Default", QVariant("default"));
+    ui->theme->addItem("Blue-Moon", QVariant("blue-moon"));
+    ui->theme->addItem("Discord", QVariant("discord"));
+    ui->theme->addItem("Original-Yellow", QVariant("original-yellow"));
 
     ui->lang->setToolTip(ui->lang->toolTip().arg(tr(PACKAGE_NAME)));
     ui->lang->addItem(QString("(") + tr("default") + QString(")"), QVariant(""));
@@ -171,6 +176,7 @@ void OptionsDialog::setModel(OptionsModel *_model)
     connect(ui->connectSocksTor, SIGNAL(clicked(bool)), this, SLOT(showRestartWarning()));
     /* Display */
     connect(ui->lang, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
+	connect(ui->theme, SIGNAL(currentIndexChanged(int)), this, SLOT(showRestartWarning()));
     connect(ui->thirdPartyTxUrls, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
 }
 
@@ -207,6 +213,7 @@ void OptionsDialog::setMapper()
 #endif
 
     /* Display */
+	mapper->addMapping(ui->theme, OptionsModel::Theme);
     mapper->addMapping(ui->lang, OptionsModel::Language);
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
     mapper->addMapping(ui->thirdPartyTxUrls, OptionsModel::ThirdPartyTxUrls);

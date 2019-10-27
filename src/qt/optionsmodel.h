@@ -48,6 +48,7 @@ public:
         DisplayUnit,            // BitcoinUnits::Unit
         ThirdPartyTxUrls,       // QString
         Language,               // QString
+		Theme,                  // QString
         CoinControlFeatures,    // bool
         ThreadsScriptVerif,     // int
         Prune,                  // bool
@@ -66,12 +67,14 @@ public:
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
     /** Updates current unit in memory, settings and emits displayUnitChanged(newUnit) signal */
     void setDisplayUnit(const QVariant &value);
+	void setTheme(const QVariant &value);
 
     /* Explicit getters */
     bool getHideTrayIcon() const { return fHideTrayIcon; }
     bool getMinimizeToTray() const { return fMinimizeToTray; }
     bool getMinimizeOnClose() const { return fMinimizeOnClose; }
     int getDisplayUnit() const { return nDisplayUnit; }
+	QString getTheme() { return theme; }
     QString getThirdPartyTxUrls() const { return strThirdPartyTxUrls; }
     bool getProxySettings(QNetworkProxy& proxy) const;
     bool getCoinControlFeatures() const { return fCoinControlFeatures; }
@@ -90,6 +93,7 @@ private:
     bool fMinimizeToTray;
     bool fMinimizeOnClose;
     QString language;
+	QString theme;
     int nDisplayUnit;
     QString strThirdPartyTxUrls;
     bool fCoinControlFeatures;
@@ -103,6 +107,7 @@ private:
     void checkAndMigrate();
 Q_SIGNALS:
     void displayUnitChanged(int unit);
+	void themeChanged(QString theme);
     void coinControlFeaturesChanged(bool);
     void hideTrayIconChanged(bool);
 };

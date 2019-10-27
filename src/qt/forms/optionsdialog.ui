@@ -617,6 +617,23 @@
        <string>&amp;Display</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_Display">
+	   <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Theme:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="theme"/>
+         </item>
+        </layout>
+       </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_1_Display">
          <item>

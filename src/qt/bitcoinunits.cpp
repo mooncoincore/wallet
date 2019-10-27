@@ -42,10 +42,10 @@ QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("LTC");
-    case mBTC: return QString("lites");
-    case uBTC: return QString("photons");
-    case SAT: return QString("liteoshi");
+    case BTC: return QString("MOON");
+    case mBTC: return QString("mMOON");
+    case uBTC: return QString("uMOON");
+    case SAT: return QString("MUN");
     default: return QString("???");
     }
 }
@@ -54,8 +54,8 @@ QString BitcoinUnits::shortName(int unit)
 {
     switch(unit)
     {
-    case uBTC: return QString::fromUtf8("bits");
-    case SAT: return QString("sat");
+    case uBTC: return QString::fromUtf8("uMoon");
+    case SAT: return QString("mun");
     default: return longName(unit);
     }
 }
@@ -65,9 +65,9 @@ QString BitcoinUnits::description(int unit)
     switch(unit)
     {
     case BTC: return QString("Mooncoins");
-    case mBTC: return QString("Lites (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Photons (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-    case SAT: return QString("Liteoshis (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case mBTC: return QString("mMoon (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("uMoon (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case SAT: return QString("Mun  (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }

@@ -39,6 +39,9 @@ QT_END_NAMESPACE
  */
 namespace GUIUtil
 {
+	
+	QString setIcon(const QString &suffix);
+	
     // Create human-readable string from date
     QString dateTimeStr(const QDateTime &datetime);
     QString dateTimeStr(qint64 nTime);

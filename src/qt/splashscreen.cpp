@@ -23,13 +23,15 @@
 #include <QDesktopWidget>
 #include <QPainter>
 #include <QRadialGradient>
+#include <QSettings>
 
 SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const NetworkStyle *networkStyle) :
-    QWidget(0, f), curAlignment(0), m_node(node)
+    QWidget(0, Qt::FramelessWindowHint), curAlignment(0), m_node(node)
 {
+	
     // set reference point, paddings
-    int paddingRight            = 75;
-    int paddingTop              = 110;
+    int paddingRight            = 65;
+    int paddingTop              = 40;
     int titleVersionVSpace      = 17;
     int titleCopyrightVSpace    = 40;
 
@@ -42,13 +44,13 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
     // define text to place
     QString titleText       = tr(PACKAGE_NAME);
     QString versionText     = QString("Version %1").arg(QString::fromStdString(FormatFullVersion()));
-    QString copyrightText   = QString::fromUtf8(CopyrightHolders(strprintf("\xc2\xA9 %u-%u ", 2011, COPYRIGHT_YEAR)).c_str());
+    QString copyrightText   = QString::fromUtf8(CopyrightHolders(strprintf("\xc2\xA9 %u-%u ", 2013, COPYRIGHT_YEAR)).c_str());
     QString titleAddText    = networkStyle->getTitleAddText();
 
     QString font            = QApplication::font().toString();
 
     // create a bitmap according to device pixelratio
-    QSize splashSize(480*devicePixelRatio,320*devicePixelRatio);
+    QSize splashSize(960*devicePixelRatio,540*devicePixelRatio);
     pixmap = QPixmap(splashSize);
 
 #if QT_VERSION > 0x050100
@@ -57,7 +59,13 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
 #endif
 
     QPainter pixPaint(&pixmap);
-    pixPaint.setPen(QColor(100,100,100));
+	QSettings settings; 
+	if (settings.value("theme").toString() == "Discord" || settings.value("theme").toString() == "Original-Yellow")
+	{
+    pixPaint.setPen(QColor(0,0,0));
+	}else{
+    pixPaint.setPen(QColor(245,245,245));
+	}
 
     // draw a slightly radial gradient
     QRadialGradient gradient(QPoint(0,0), splashSize.width()/devicePixelRatio);
@@ -67,10 +75,10 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
     pixPaint.fillRect(rGradient, gradient);
 
     // draw the bitcoin icon, expected size of PNG: 1024x1024
-    QRect rectIcon(QPoint(-70,-30), QSize(300,300));
+    QRect rectIcon(QPoint(15,0), QSize(960,540));
 
-    const QSize requiredSize(1024,1024);
-    QPixmap icon(networkStyle->getAppIcon().pixmap(requiredSize));
+    const QSize requiredSize(960,540);
+    QPixmap icon(networkStyle->getSplashImage());
 
     pixPaint.drawPixmap(rectIcon, icon);
 
@@ -87,7 +95,7 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
     titleTextWidth  = fm.width(titleText);
     pixPaint.drawText(pixmap.width()/devicePixelRatio-titleTextWidth-paddingRight,paddingTop,titleText);
 
-    pixPaint.setFont(QFont(font, 13*fontFactor));
+    pixPaint.setFont(QFont(font, 15*fontFactor));
 
     // if the version string is too long, reduce size
     fm = pixPaint.fontMetrics();
@@ -100,7 +108,7 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
 
     // draw copyright stuff
     {
-        pixPaint.setFont(QFont(font, 13*fontFactor));
+        pixPaint.setFont(QFont(font, 15*fontFactor));
         const int x = pixmap.width()/devicePixelRatio-titleTextWidth-paddingRight;
         const int y = paddingTop+titleCopyrightVSpace;
         QRect copyrightRect(x, y, pixmap.width() - x, pixmap.height() - y);
@@ -109,7 +117,7 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
 
     // draw additional text if special network
     if(!titleAddText.isEmpty()) {
-        QFont boldFont = QFont(font, 13*fontFactor);
+        QFont boldFont = QFont(font, 15*fontFactor);
         boldFont.setWeight(QFont::Bold);
         pixPaint.setFont(boldFont);
         fm = pixPaint.fontMetrics();

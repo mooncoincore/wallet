@@ -71,6 +71,10 @@ void OptionsModel::Init(bool resetSettings)
         settings.setValue("nDisplayUnit", BitcoinUnits::BTC);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
+	if (!settings.contains("theme"))
+        settings.setValue("theme", "Default");
+    theme = settings.value("theme").toString();
+	
     if (!settings.contains("strThirdPartyTxUrls"))
         settings.setValue("strThirdPartyTxUrls", "");
     strThirdPartyTxUrls = settings.value("strThirdPartyTxUrls", "").toString();
@@ -289,6 +293,8 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return strThirdPartyTxUrls;
         case Language:
             return settings.value("language");
+		case Theme:
+            return settings.value("theme");
         case CoinControlFeatures:
             return fCoinControlFeatures;
         case Prune:
@@ -401,6 +407,9 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
         case DisplayUnit:
             setDisplayUnit(value);
             break;
+		case Theme:
+            setTheme(value);
+            break;
         case ThirdPartyTxUrls:
             if (strThirdPartyTxUrls != value.toString()) {
                 strThirdPartyTxUrls = value.toString();
@@ -468,6 +477,17 @@ void OptionsModel::setDisplayUnit(const QVariant &value)
         nDisplayUnit = value.toInt();
         settings.setValue("nDisplayUnit", nDisplayUnit);
         Q_EMIT displayUnitChanged(nDisplayUnit);
+    }
+}
+
+void OptionsModel::setTheme(const QVariant &value)
+{
+    if (!value.isNull())
+    {
+        QSettings settings;
+        theme = value.toString();
+        settings.setValue("theme", theme);
+        Q_EMIT themeChanged(theme);
     }
 }
 

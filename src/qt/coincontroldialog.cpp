@@ -4,7 +4,7 @@
 
 #include <qt/coincontroldialog.h>
 #include <qt/forms/ui_coincontroldialog.h>
-
+ 
 #include <qt/addresstablemodel.h>
 #include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
@@ -263,7 +263,7 @@ void CoinControlDialog::lockCoin()
     COutPoint outpt(uint256S(contextMenuItem->text(COLUMN_TXHASH).toStdString()), contextMenuItem->text(COLUMN_VOUT_INDEX).toUInt());
     model->wallet().lockCoin(outpt);
     contextMenuItem->setDisabled(true);
-    contextMenuItem->setIcon(COLUMN_CHECKBOX, platformStyle->SingleColorIcon(":/icons/lock_closed"));
+    contextMenuItem->setIcon(COLUMN_CHECKBOX, platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/lock_closed")));
     updateLabelLocked();
 }
 
@@ -698,7 +698,7 @@ void CoinControlDialog::updateView()
             {
                 coinControl()->UnSelect(output); // just to be sure
                 itemOutput->setDisabled(true);
-                itemOutput->setIcon(COLUMN_CHECKBOX, platformStyle->SingleColorIcon(":/icons/lock_closed"));
+                itemOutput->setIcon(COLUMN_CHECKBOX, platformStyle->SingleColorIcon("icons/lock_closed"));
             }
 
             // set checkbox

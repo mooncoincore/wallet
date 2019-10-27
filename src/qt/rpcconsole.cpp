@@ -5,7 +5,7 @@
 #if defined(HAVE_CONFIG_H)
 #include <config/bitcoin-config.h>
 #endif
-
+ 
 #include <qt/rpcconsole.h>
 #include <qt/forms/ui_debugwindow.h>
 
@@ -53,10 +53,10 @@ const struct {
     const char *url;
     const char *source;
 } ICON_MAPPING[] = {
-    {"cmd-request", ":/icons/tx_input"},
-    {"cmd-reply", ":/icons/tx_output"},
-    {"cmd-error", ":/icons/tx_output"},
-    {"misc", ":/icons/tx_inout"},
+    {"cmd-request", GUIUtil::setIcon("icons/tx_input").toUtf8().constData()},
+    {"cmd-reply", GUIUtil::setIcon("icons/tx_output").toUtf8().constData()},
+    {"cmd-error", GUIUtil::setIcon("icons/tx_output").toUtf8().constData()},
+    {"misc", GUIUtil::setIcon("icons/tx_inout").toUtf8().constData()},
     {nullptr, nullptr}
 };
 
@@ -464,11 +464,11 @@ RPCConsole::RPCConsole(interfaces::Node& node, const PlatformStyle *_platformSty
     ui->openDebugLogfileButton->setToolTip(ui->openDebugLogfileButton->toolTip().arg(tr(PACKAGE_NAME)));
 
     if (platformStyle->getImagesOnButtons()) {
-        ui->openDebugLogfileButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
+        ui->openDebugLogfileButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/export")));
     }
-    ui->clearButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
-    ui->fontBiggerButton->setIcon(platformStyle->SingleColorIcon(":/icons/fontbigger"));
-    ui->fontSmallerButton->setIcon(platformStyle->SingleColorIcon(":/icons/fontsmaller"));
+    ui->clearButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/remove")));
+    ui->fontBiggerButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/fontbigger")));
+    ui->fontSmallerButton->setIcon(platformStyle->SingleColorIcon(GUIUtil::setIcon("icons/fontsmaller")));
 
     // Install event filter for up and down arrow
     ui->lineEdit->installEventFilter(this);

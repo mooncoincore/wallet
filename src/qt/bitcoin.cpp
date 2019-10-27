@@ -357,6 +357,7 @@ void BitcoinApplication::createWindow(const NetworkStyle *networkStyle)
 
 void BitcoinApplication::createSplashScreen(const NetworkStyle *networkStyle)
 {
+
     SplashScreen *splash = new SplashScreen(m_node, 0, networkStyle);
     // We don't hold a direct pointer to the splash screen after creation, but the splash
     // screen will take care of deleting itself when slotFinish happens.
@@ -658,7 +659,10 @@ int main(int argc, char *argv[])
     PaymentServer::ipcParseCommandLine(*node, argc, argv);
 #endif
 
-    QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(QString::fromStdString(Params().NetworkIDString())));
+    QSettings settings;
+
+	QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(settings.value("theme","Default").toString()));
+    //QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(QString::fromStdString(Params().NetworkIDString())));
     assert(!networkStyle.isNull());
     // Allow for separate UI settings for testnets
     QApplication::setApplicationName(networkStyle->getAppName());
@@ -699,6 +703,7 @@ int main(int argc, char *argv[])
 
     if (gArgs.GetBoolArg("-splash", DEFAULT_SPLASHSCREEN) && !gArgs.GetBoolArg("-min", false))
         app.createSplashScreen(networkStyle.data());
+
 
     int rv = EXIT_SUCCESS;
     try

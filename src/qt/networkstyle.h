@@ -4,7 +4,7 @@
 
 #ifndef BITCOIN_QT_NETWORKSTYLE_H
 #define BITCOIN_QT_NETWORKSTYLE_H
-
+ 
 #include <QIcon>
 #include <QPixmap>
 #include <QString>
@@ -18,16 +18,16 @@ public:
 
     const QString &getAppName() const { return appName; }
     const QIcon &getAppIcon() const { return appIcon; }
-    const QIcon &getTrayAndWindowIcon() const { return trayAndWindowIcon; }
     const QString &getTitleAddText() const { return titleAddText; }
+	const QPixmap &getSplashImage() const { return splashImage; }
 
 private:
-    NetworkStyle(const QString &appName, const int iconColorHueShift, const int iconColorSaturationReduction, const char *titleAddText);
+NetworkStyle(const QString &appName, const QString &appIcon , const char *titleAddText, const QString &splashImage);
 
     QString appName;
     QIcon appIcon;
-    QIcon trayAndWindowIcon;
     QString titleAddText;
+    QPixmap splashImage;
 };
 
 #endif // BITCOIN_QT_NETWORKSTYLE_H
