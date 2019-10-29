@@ -4,7 +4,7 @@
 
 #include <qt/overviewpage.h>
 #include <qt/forms/ui_overviewpage.h>
- 
+
 #include <qt/bitcoinunits.h>
 #include <qt/clientmodel.h>
 #include <qt/guiconstants.h>
@@ -20,6 +20,7 @@
 		#include <clientversion.h>
 		#include <util.h>
 		#include <version.h>
+		#include <chainparams.h> //params
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
@@ -132,7 +133,17 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     } else {
 
        QImage myImage;
-	   myImage.load(GUIUtil::setIcon("icons/wallet_bgcoin"));
+	   
+		if(Params().NetworkIDString() == "test"){
+			myImage.load(":/Testnet/icons/wallet_bgcoin");
+		}
+		if(Params().NetworkIDString() == "regtest"){
+			myImage.load(":/Regtest/icons/wallet_bgcoin");
+		}
+		if(!(Params().NetworkIDString() == "regtest" || Params().NetworkIDString() == "test")){
+			 myImage.load(GUIUtil::setIcon("icons/wallet_bgcoin"));
+		}
+	  //myImage.load(GUIUtil::setIcon("icons/wallet_bgcoin"));
 
     // set reference point, paddings
     int paddingRight            = 120;

@@ -11,6 +11,7 @@
 #include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
 
+
 #include <interfaces/node.h>
 #include <validation.h> // For DEFAULT_SCRIPTCHECK_THREADS
 #include <net.h>
@@ -408,7 +409,7 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             setDisplayUnit(value);
             break;
 		case Theme:
-            setTheme(value);
+		    setTheme(value);
             break;
         case ThirdPartyTxUrls:
             if (strThirdPartyTxUrls != value.toString()) {

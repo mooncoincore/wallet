@@ -663,6 +663,7 @@ int main(int argc, char *argv[])
 
 	QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(settings.value("theme","Default").toString()));
     //QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(QString::fromStdString(Params().NetworkIDString())));
+	
     assert(!networkStyle.isNull());
     // Allow for separate UI settings for testnets
     QApplication::setApplicationName(networkStyle->getAppName());
