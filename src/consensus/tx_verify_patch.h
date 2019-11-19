@@ -9,7 +9,29 @@
 
 #include <stdint.h>
 #include <vector>
+#include <clientversion.h>
+#include <checkqueue.h>
+#include <consensus/tx_verify.h>
+#include <consensus/validation.h>
+#include <core_io.h>
+#include <key.h>
+#include <keystore.h>
+#include <validation.h>
+#include <policy/policy.h>
+#include <script/script.h>
+#include <script/sign.h>
+#include <script/script_error.h>
+#include <script/standard.h>
+#include <utilstrencodings.h>
 
+#include <map>
+#include <string>
+
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
+
+
+#include <univalue.h>
 
 /** Transaction validation functions */
 
@@ -19,3 +41,4 @@ bool CheckCoinbaseLength(const CTransaction& tx);
 /** Context-dependent validity checks */
 bool ContextualWitnessNonceSize(const CBlock& block, const CBlockIndex* pindexPrev);
 
+#endif

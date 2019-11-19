@@ -111,6 +111,7 @@ BITCOIN_CORE_H = \
   compressor.h \
   consensus/consensus.h \
   consensus/tx_verify.h \
+  consensus/tx_verify_patch.h \
   core_io.h \
   core_memusage.h \
   cuckoocache.h \
@@ -222,6 +223,7 @@ libbitcoin_server_a_SOURCES = \
   chain.cpp \
   checkpoints.cpp \
   consensus/tx_verify.cpp \
+  consensus/tx_verify_patch.cpp \
   httprpc.cpp \
   httpserver.cpp \
   index/base.cpp \

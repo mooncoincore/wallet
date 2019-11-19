@@ -13,6 +13,7 @@
 #include <consensus/consensus.h>
 #include <consensus/merkle.h>
 #include <consensus/tx_verify.h>
+#include <consensus/tx_verify_patch.h>  //mebagger
 #include <consensus/validation.h>
 #include <cuckoocache.h>
 #include <hash.h>
@@ -3383,8 +3384,10 @@ static bool ContextualCheckBlock(const CBlock& block, CValidationState& state, c
             if (block.vtx[0]->vin[0].scriptWitness.stack.size() != 1 || block.vtx[0]->vin[0].scriptWitness.stack[0].size() != 32) {
 				//mebagger
                 //LogPrintf("ContextualCheckBlock::nHeight = %d  block.vtx[0]->vin[0].scriptWitness.stack.size() = %d  \n", nHeight, block.vtx[0]->vin[0].scriptWitness.stack.size() );
+				if(!(ContextualWitnessNonceSize(block, pindexPrev))){
 				LogPrintf("ContextualCheckBlock::FAIL::nHeight = %d  block.vtx[0]->vin[0].scriptWitness.stack.size() = %d block.vtx[0]->vin[0].scriptWitness.stack[0].size() = %d \n", nHeight, block.vtx[0]->vin[0].scriptWitness.stack.size(), block.vtx[0]->vin[0].scriptWitness.stack[0].size() );
 				//return state.DoS(100, false, REJECT_INVALID, "bad-witness-nonce-size", true, strprintf("%s : invalid witness reserved value size", __func__));
+				}
             }
 			
             CHash256().Write(hashWitness.begin(), 32).Write(&block.vtx[0]->vin[0].scriptWitness.stack[0][0], 32).Finalize(hashWitness.begin());
@@ -3394,10 +3397,13 @@ static bool ContextualCheckBlock(const CBlock& block, CValidationState& state, c
             fHaveWitness = true;
 			}else
 			{
-		    LogPrintf("ContextualCheckBlock::NULL::START  nHeight = %d \n", nHeight);
-			LogPrintf("ContextualCheckBlock::NULL::nHeight = %d  block.vtx[0]->vin[0].scriptWitness.stack.size() = %d  \n", nHeight, block.vtx[0]->vin[0].scriptWitness.stack.size() );
-		    LogPrintf("ContextualCheckBlock::NULL:: tx: %s \n", block.ToString());
-			LogPrintf("ContextualCheckBlock::NULL::END  nHeight = %d \n" , nHeight);
+				if(!(ContextualWitnessNonceSize(block, pindexPrev))){
+		        LogPrintf("ContextualCheckBlock::NULL::START  nHeight = %d \n", nHeight);
+			    LogPrintf("ContextualCheckBlock::NULL::nHeight = %d  block.vtx[0]->vin[0].scriptWitness.stack.size() = %d  \n", nHeight, block.vtx[0]->vin[0].scriptWitness.stack.size() );
+		        LogPrintf("ContextualCheckBlock::NULL:: tx: %s \n", block.ToString());
+			    LogPrintf("ContextualCheckBlock::NULL::END  nHeight = %d \n" , nHeight);
+			    //return state.DoS(100, false, REJECT_INVALID, "bad-witness-nonce-size", true, strprintf("%s : invalid witness reserved value size", __func__));
+				}
 			}
         }
     }
