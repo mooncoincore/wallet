@@ -41,4 +41,4 @@ bool CheckCoinbaseLength(const CTransaction& tx);
 /** Context-dependent validity checks */
 bool ContextualWitnessNonceSize(const CBlock& block, const CBlockIndex* pindexPrev);
 
-#endif
+#endif // BITCOIN_CONSENSUS_TX_VERIFY_PATCH_H
