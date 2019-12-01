@@ -85,6 +85,7 @@ public:
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
 		consensus.PowV5 = 8250000; //set to future
+		consensus.WarpTo = 1712500; // Last Checkpoint block
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 3.5 days
         consensus.nPowTargetSpacing = 1.5 * 60;
@@ -107,10 +108,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1553990400; // March 31st, 2019
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000001a3db8a1d5afd879");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000001b4e64c4d144645e"); 
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0xe78124b931c6628967b756a1200bf9b5917693536eaac520f876dfe2b35e6637"); //1112500
+        consensus.defaultAssumeValid = uint256S("0xb87d10af80ab9e966fcb1c0c95cac25c3c74a22e7f9fd04606e992741dfaa38b"); //1712500
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -163,13 +164,20 @@ public:
                 { 1100000, uint256S("0x6988ca75c6bcba6253f4f775788785e71e1efae72c05d678386c3053b2c15863")},
                 { 1110000, uint256S("0x084bb5c11d303ad2e061c81921fbde3f07197898e63a59836399218bf97eabc1")},
 				{ 1112500, uint256S("0xe78124b931c6628967b756a1200bf9b5917693536eaac520f876dfe2b35e6637")},
+				{ 1112513, uint256S("0x5f4fdf9124764fa74652d0e2cbdc170b407c5c96e93d9b78626eaea98c496601")},
+				{ 1212505, uint256S("0xe45b3ba0d0f98922fa848d277917833071629523a10ce72ef5db7884f39c78c3")},
+				{ 1312500, uint256S("0xef1b810abf761cc054d89a1d1191b73d29d898abb62f72a57c3caf6cbf9547d8")},
+				{ 1412503, uint256S("0x7965ed48962d2959ce054970c4ea64094ebc9e0af42dca14a77157e33f04179c")},
+				{ 1512502, uint256S("0x93bcbe8ff0f938628b5fdd29b46c6d7d859d440bba175e8118a4377be5e67897")},
+				{ 1612501, uint256S("0x6e3713dea2fa389ded6e9140068874d49131440147a6385eb4ffcc00595a52af")},
+				{ 1712500, uint256S("0xb87d10af80ab9e966fcb1c0c95cac25c3c74a22e7f9fd04606e992741dfaa38b")},
             }
         };
 
         chainTxData = ChainTxData{
             // Data from rpc: getchaintxstats 4096 a601455787cb65ffc325dda4751a99cf01d1567799ec4b04f45bb05f9ef0cbde
-            /* nTime    */ 1495626117,
-            /* nTxCount */ 1893671,
+            /* nTime    */ 1573748022,
+            /* nTxCount */ 2816499,
             /* dTxRate  */ 0.3125
         };
 
@@ -196,6 +204,7 @@ public:
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
 		consensus.PowV5 = 8250000; //set to future
+		consensus.WarpTo = 1524769; // Last Checkpoint block
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
         consensus.nPowTargetSpacing = 1.5 * 60;
@@ -218,10 +227,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1543553929; // Thu Nov 29 20:58:49 PST 2018
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000178a434a5be26");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000001967ee66a8b28"); 
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0xf0698ccdf35d22e95faf5f1a949be143fa2b02f0bdce6f8995b222780eba56f8"); // 1250010
+        consensus.defaultAssumeValid = uint256S("0x4f870d3dd78b80aebcddd4b35551f28105cd51ccea1d0cec10290b24f5f60907"); // 1524769
 
         pchMessageStart[0] = 0xf3;
         pchMessageStart[1] = 0xd2;
@@ -267,13 +276,24 @@ public:
 				{384254, uint256S("0x561a12ecbca0592ca572089cbcd87d974a1d396d93b69fcdaf74e97d241581aa")},
 				{384418, uint256S("0x370d144c6e265183fcab51f8b960a0ad9d87cee6b16f3bbd2c201f16edfba9ad")},
 				{594398, uint256S("0x2629ced17214cbbee8bcdf6e764ff5d591382af7d4724e715ad073c97b648706")},
+				{650504, uint256S("0xc28ae82187062144ee8ff547269f4349459ea43e5c9acfa4e4f1d710a725da00")},
+				{700501, uint256S("0x0dee1b499737d8a4bbff808fd8c4b8db4884029fbec7cc5608cffbe4d14b28ca")},
+				{800504, uint256S("0x6afc0c1a69f1163eb31317c0e804bb1b74ffe07a1cfe19e85c204b6a0943ee3c")},
+				{900504, uint256S("0x7fd5a418500928cf3efc777d830b1c332375f1916f37d4324f0db0faedd5d3b5")},
+				{1000502, uint256S("0x336b7db51e049057a8d93d5bec666fad502026e5f2e8c4e67265a3e8c6f6fa8b")},
+				{1100547, uint256S("0xad475bf4449d7b2294d37374bdcec5f70b972ae188abc1ba480518c92a2e01b9")},
+				{1200506, uint256S("0x6dd82e370ff21c503cd67606eacf2d318942d9e9c708fde45bd74a0b86ff5d84")},
+				{1300501, uint256S("0x2b2c1b41b7068f231306c5983f31d6e5c0b86920028d416f1bf8c52c173869fc")},
+				{1400501, uint256S("0x5d86152c570a575b53bf552d573dcfa66ff721dba37ba06b8dc1e08e762d0089")},
+				{1500502, uint256S("0x5ac72cb8cfbb1b13e862a7368ce599fc502768c79278b758f17d9825c134c9d3")},
+				{1524769, uint256S("0x4f870d3dd78b80aebcddd4b35551f28105cd51ccea1d0cec10290b24f5f60907")},
             }
         };
 
         chainTxData = ChainTxData{
             // Data from rpc: getchaintxstats 4096 438b7e1c86f58b4e62e8cf2d0f9f256e3dddaebc5d1cc568e633a38e0db6c025
-            /* nTime    */ 1541664241,
-            /* nTxCount */ 531526,
+            /* nTime    */ 1570367303,
+            /* nTxCount */ 1527970,
             /* dTxRate  */ 1.907
         };
 
@@ -300,6 +320,7 @@ public:
         consensus.PowV3 = 320; //after this block
         consensus.PowV4 = 640; //after this block
 		consensus.PowV5 = 960; //set to future
+		consensus.WarpTo = 1; // Last Checkpoint block - set to one to turn off
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // pre-digishield: 8 hours
         consensus.nPowTargetSpacing = 1;
