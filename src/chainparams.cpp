@@ -203,7 +203,7 @@ public:
         consensus.PowV2 = 50;   //after this block
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
-		consensus.PowV5 = 8250000; //set to future
+		consensus.PowV5 = 1588695; //approximately December 15th 2019
 		consensus.WarpTo = 1524769; // Last Checkpoint block
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
@@ -248,6 +248,7 @@ public:
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
         vSeeds.emplace_back("testnet-seed01.moonypool.com");
+		vSeeds.emplace_back("testnet-seed02.moonypool.com");
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,113);

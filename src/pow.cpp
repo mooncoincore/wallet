@@ -537,15 +537,11 @@ unsigned int static GetNextWorkRequired_V5(const CBlockIndex* pindexLast, const 
 	    
 unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
-    // Genesis block
-    if (pindexLast == NULL)
-        return nProofOfWorkLimit;
 
-    // Special rules for minimum difficulty blocks with Digishield
-    if (params.fPowAllowMinDifficultyBlocks && (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2))
+    // Special rules for Digishield
+    if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*4)
     {
-        // Special difficulty rule for testnet:
-        // If the new block's timestamp is more than 2* nTargetSpacing minutes
+        // If the new block's timestamp is more than 4* nTargetSpacing(90s) = minutes(6m)
         // then allow mining of a min-difficulty block.
         return nProofOfWorkLimit;
     }
