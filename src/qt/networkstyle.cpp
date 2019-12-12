@@ -21,8 +21,8 @@ static const struct {
     {"Discord", QAPP_APP_NAME_DEFAULT,  ":/Discord/icons/bitcoin", "", ":/Discord/images/splash"},
     {"Blue-Moon", QAPP_APP_NAME_DEFAULT,  ":/Blue-Moon/icons/bitcoin", "", ":/Blue-Moon/images/splash"},
     {"Original-Yellow", QAPP_APP_NAME_DEFAULT,  ":/Original-Yellow/icons/bitcoin", "", ":/Original-Yellow/images/splash"},
-    {"test", QAPP_APP_NAME_TESTNET, ":/icons/bitcoin_testnet", QT_TRANSLATE_NOOP("SplashScreen", "[testnet]"), ":/Testnet/images/splash"},
-    {"regtest", QAPP_APP_NAME_TESTNET,  ":/icons/bitcoin_testnet", "[regtest]", ":/Regtest/images/splash"}
+    {"test", QAPP_APP_NAME_TESTNET, ":/Testnet/icons/bitcoin", QT_TRANSLATE_NOOP("SplashScreen", "[testnet]"), ":/Testnet/images/splash"},
+    {"regtest", QAPP_APP_NAME_TESTNET,  ":/Restnet/icons/bitcoin_testnet", "[regtest]", ":/Regtest/images/splash"}
 };
 static const unsigned network_styles_count = sizeof(network_styles)/sizeof(*network_styles);
 
