@@ -85,7 +85,6 @@ public:
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
 		consensus.PowV5 = 8250000; //set to future
-		consensus.WarpTo = 1712500; // Last Checkpoint block
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 3.5 days
         consensus.nPowTargetSpacing = 1.5 * 60;
@@ -157,6 +156,7 @@ public:
 
         checkpointData = {
             {
+				{      0, uint256S("0xbd687cbbac4842724d4b1dfd2e1a6ce35d765db05635b3ebd3810ba66ac5aee9")},
                 {  26700, uint256S("0x513f2d61fc89206109d4547b100e0e4ac0a12339957c1ccd8b927a0ff641cdfe")},
                 {  66600, uint256S("0x881a7edf40cb76722a89abe3a9b32b5af59928b48d178c1e52dd888a69d289c9")},
                 {  66618, uint256S("0x1bf88ab406ff6ea9f43d8fff61ada69189443de12d143f2ebb7ddb019b54dee2")},
@@ -203,8 +203,7 @@ public:
         consensus.PowV2 = 50;   //after this block
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
-		consensus.PowV5 = 1588695; //approximately December 15th 2019
-		consensus.WarpTo = 1524769; // Last Checkpoint block
+		consensus.PowV5 = 2588750; //set to future
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
         consensus.nPowTargetSpacing = 1.5 * 60;
@@ -241,6 +240,7 @@ public:
 
         genesis = CreateGenesisBlock(1540452872, 1543106876, 0x1e0ffff0, 1, 88 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
+		
         assert(consensus.hashGenesisBlock == uint256S("0xae5047b8182d7e9c7f6cdefdb12bc08a95ca7884126e56b15b5082a5ce18e4d7"));
         assert(genesis.hashMerkleRoot == uint256S("0xb3aaaed7565d0594128fffa5f5dee01df8eb24de4245365cb8df7ad0c6e93266"));
 
@@ -321,7 +321,6 @@ public:
         consensus.PowV3 = 320; //after this block
         consensus.PowV4 = 640; //after this block
 		consensus.PowV5 = 960; //set to future
-		consensus.WarpTo = 1; // Last Checkpoint block - set to one to turn off
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // pre-digishield: 8 hours
         consensus.nPowTargetSpacing = 1;
@@ -418,3 +417,4 @@ void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime,
 {
     globalChainParams->UpdateVersionBitsParameters(d, nStartTime, nTimeout);
 }
+

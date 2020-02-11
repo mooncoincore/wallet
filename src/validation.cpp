@@ -944,7 +944,7 @@ static bool AcceptToMemoryPoolWorker(const CChainParams& chainparams, CTxMemPool
         // Remove conflicting transactions from the mempool
         for (CTxMemPool::txiter it : allConflicting)
         {
-            LogPrint(BCLog::MEMPOOL, "replacing tx %s with %s for %s LTC additional fees, %d delta bytes\n",
+            LogPrint(BCLog::MEMPOOL, "replacing tx %s with %s for %s MOON additional fees, %d delta bytes\n",
                     it->GetTx().GetHash().ToString(),
                     hash.ToString(),
                     FormatMoney(nModifiedFees - nConflictingFees),
@@ -3295,8 +3295,8 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
     const Consensus::Params& consensusParams = params.GetConsensus();
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
 	{
-		LogPrintf("ContextualCheckBlockHeader::nHeight = %d  block.nBits = %d  GetNextWorkRequired() = %d \n", nHeight, block.nBits, GetNextWorkRequired(pindexPrev, &block, consensusParams) );  //mebagger
-        //return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
+		//LogPrintf("ContextualCheckBlockHeader::nHeight = %d  block.nBits = %d  GetNextWorkRequired() = %d \n", nHeight, block.nBits, GetNextWorkRequired(pindexPrev, &block, consensusParams) );  //mebagger
+        return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 	}
 
     // Check against checkpoints

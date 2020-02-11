@@ -68,8 +68,6 @@ struct Params {
     int PowV4;
 	/** Block height at which PowV5 becomes active  */
     int PowV5;
-	/** Block height to warp to no warping after this block  */
-    int WarpTo;
     /**
      * Minimum blocks including miner confirmation of the total of 2016 blocks in a retargeting period,
      * (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.
