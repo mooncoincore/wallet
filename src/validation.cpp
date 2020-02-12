@@ -1099,14 +1099,10 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
         return error("%s: Deserialize or I/O error - %s at %s", __func__, e.what(), pos.ToString());
     }
 
-    // WarpSync check every 1/64th blocks pow hash (baz)
-    int syncheight = GetHeight(); int WarpSync = 64;
-    if (syncheight > consensusParams.WarpTo) { WarpSync = 1; }
-    if (syncheight % WarpSync == 0) {
     // Check the header
     if (!CheckProofOfWork(block.GetPoWHash(), block.nBits, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
-	}
+	
     return true;
 }
 
