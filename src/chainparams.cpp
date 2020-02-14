@@ -78,8 +78,8 @@ public:
         consensus.BIP16Height = 0; // 
         consensus.BIP34Height = 710000;
         consensus.BIP34Hash = uint256S("0x638aa7bcca0f85e05cbf639b37b0b979e9878a67b79408937f900e11865ef88e");
-        consensus.BIP65Height = 1801000; // 1188350 mooncoin-0.13.9 height set to ChekaZ validation block for compatibility 
-        consensus.BIP66Height = 1801000; // 1184549 mooncoin-0.13.9 height set to ChekaZ validation block for compatibility 
+        consensus.BIP65Height = 1793913; // 1188350 mooncoin-0.13.9 height set to 1793913 as it was never enforced before
+        consensus.BIP66Height = 1793913; // 1184549 mooncoin-0.13.9 height set to 1793913 as it was never enforced before
 		consensus.DiffMode = 1;    // initial block diffmode
         consensus.PowV2 = 26850;   //after this block
         consensus.PowV3 = 1100000; //after this block
@@ -203,7 +203,7 @@ public:
         consensus.PowV2 = 50;   //after this block
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
-		consensus.PowV5 = 2588750; //set to future
+		consensus.PowV5 = 8588750; //set to future
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
         consensus.nPowTargetSpacing = 1.5 * 60;

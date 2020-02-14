@@ -1,21 +1,34 @@
-Mooncoin Core integration/staging tree
+## Mooncoin Core 0.17.1.0
+
+
+* Hotfix applied to enable - Whole chain ProofOfWork validation
+* Hotfix applied to enable - Whole chain transactions validation
+* Warpsync removed
+
+* BIP heights correctly identified and updated
+* pow.cpp updated and corrected from version .13.9
+* DNS seeders added
+* checkpoints updated
+* themes now correctly display, testnet them clearly recognizable as not mainnet
+* version added to main gui, and splash screens for clarity
+* miner menus which cause virus scan alerts removed
+* miner activation window on the mainnet in .13.9 was not calculated correctly so that was updated
+* testnet and regtest networks were created
+* Controlled lowering of coin emission via dynamic nSubsidy (schedule available at https://github.com/mooncoincore/rewardSchedule).
+
+
+Mooncoin Core 
 =====================================
 
-[![Build Status](https://travis-ci.org/mooncoin-project/mooncoin.svg?branch=master)](https://travis-ci.org/mooncoin-project/mooncoin)
-
-https://mooncoin.org
+https://mooncoin.eco
 
 What is Mooncoin?
 ----------------
 
-Mooncoin is an experimental digital currency that enables instant payments to
-anyone, anywhere in the world. Mooncoin uses peer-to-peer technology to operate
-with no central authority: managing transactions and issuing money are carried
-out collectively by the network. Mooncoin Core is the name of open source
-software which enables the use of this currency.
+Our vision is to innovate and expand a tried and tested Blockchain, to create an ecosystem that enables social interactions and initiatives in science and education. The Moon ecosystem aims to serve as a platform for fast, secure monetary transactions, upon which innovative, game-changing initiatives can be implemented and executed.
 
-For more information, as well as an immediately useable, binary version of
-the Mooncoin Core software, see [https://mooncoin.org](https://mooncoin.org).
+For more information, as well as an immediately usable, binary version of
+the Mooncoin Core software, see [https://github.com/mooncoincore/wallet/releases](https://github.com/mooncoincore/wallet/releases).
 
 License
 -------
@@ -27,53 +40,19 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/mooncoin-project/mooncoin/tags) are created
+completely stable. [Tags](https://github.com/mooncoincore/wallet/tags) are created
 regularly to indicate new official, stable release versions of Mooncoin Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The developer [mailing list](https://groups.google.com/forum/#!forum/mooncoin-dev)
-should be used to discuss complicated or controversial changes before working
+The developers can be found in the [mooncoin community](https://t.me/MoonCoinEco)
+and should be contacted directly to discuss complicated or controversial changes before working
 on a patch set.
 
-Developer IRC can be found on Freenode at #mooncoin-dev.
+Developers can be found on telegram at https://t.me/MoonCoinEco
 
-Testing
--------
 
-Testing and code review is the bottleneck for development; we get more pull
-requests than we can review and test on short notice. Please be patient and help out by testing
-other people's pull requests, and remember this is a security-critical project where any mistake might cost people
-lots of money.
+### RPC PORT 44663 / P2P PORT 44664 mainnet
+### RPC PORT 14663 / P2P PORT 14664 testnet
 
-### Automated Testing
-
-Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
-submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`. Further details on running
-and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
-
-There are also [regression and integration tests](/test), written
-in Python, that are run automatically on the build server.
-These tests can be run (if the [test dependencies](/test) are installed) with: `test/functional/test_runner.py`
-
-The Travis CI system makes sure that every pull request is built for Windows, Linux, and macOS, and that unit/sanity tests are run automatically.
-
-### Manual Quality Assurance (QA) Testing
-
-Changes should be tested by somebody other than the developer who wrote the
-code. This is especially important for large or high-risk changes. It is useful
-to add a test plan to the pull request description if testing the changes is
-not straightforward.
-
-Translations
-------------
-
-We only accept translation fixes that are submitted through [Bitcoin Core's Transifex page](https://www.transifex.com/projects/p/bitcoin/).
-Translations are converted to Mooncoin periodically.
-
-Translations are periodically pulled from Transifex and merged into the git repository. See the
-[translation process](doc/translation_process.md) for details on how this works.
-
-**Important**: We do not accept translation changes as GitHub pull requests because the next
-pull from Transifex would automatically overwrite them again.
+#### Mooncoin started as an early Dogecoin fork (0.6), was upgraded over time to the Litecoin codebase (0.8), since progressing through to a much more modern Litecoin 0.10 codebase - and finally to current platform of Litecoin 0.17.1 with segwit. Built with tomorrow in mind.
