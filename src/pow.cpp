@@ -451,15 +451,15 @@ unsigned int static GetNextWorkRequired_V4(const CBlockIndex* pindexLast, const 
     if(kgwdebug){ LogPrintf("START::kgwdebug::BLOCK %d nActualTimespanshort = %d Blocktime/6 = %d \n" , pindexLast->nHeight+1, nActualTimespanshort, Blocktime/6 ); }
     if(nActualTimespanshort < Blocktime/6){  
         if(kgwdebug){ LogPrintf("ISSHORT::kgwdebug::BLOCK %d PREDIFF: bnNew.GetCompact() %I %08x %s bnNew first  \n", pindexLast->nHeight+1, bnNew.GetCompact(), bnNew.GetCompact(), bnNew.ToString().c_str() ); }
-	    const int nLongShortNew1 = 85;  
-        const int nLongShortNew2 = 100; 
+	    const int64_t nLongShortNew1 = 85;  
+        const int64_t nLongShortNew2 = 100; 
         bnNew = bnNew * nLongShortNew1;	
         bnNew = bnNew / nLongShortNew2;	
 	if(kgwdebug){ LogPrintf("ISSHORT::kgwdebug::BLOCK %d POSTDIFF: bnNew.GetCompact() %I %08x %s bnNew second \n" , pindexLast->nHeight+1 , bnNew.GetCompact(), bnNew.GetCompact(), bnNew.ToString().c_str() ); }
     }
 
     //BitBreak BitSend
-    const int nLongTimeLimit = 60 * 60; //mooncoin: 60 minutes
+    const int64_t nLongTimeLimit = 60 * 60; //mooncoin: 60 minutes
     if(kgwdebug){
 	LogPrintf("kgwdebug::BLOCK %d (pblock->nTime - pindexLast->GetBlockTime()) = %d (max: %d) PREDIFF bnNew.GetCompact() %I %08x %s \n", pindexLast->nHeight+1,(pblock->nTime - pindexLast->GetBlockTime()), nLongTimeLimit, bnNew.GetCompact(), bnNew.GetCompact(), bnNew.ToString().c_str());
     }
@@ -499,6 +499,7 @@ if (fTestNet){
 
 unsigned int CalculateNextWorkRequired_v5(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
 {
+	// Place-holder for new digishield
     
     const int64_t retargetTimespan = params.nPowTargetTimespan;
     const int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
@@ -532,7 +533,8 @@ unsigned int CalculateNextWorkRequired_v5(const CBlockIndex* pindexLast, int64_t
 }
 
 unsigned int static GetNextWorkRequired_V5(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params) {
-	    
+	    // Place-holder for new digishield
+		
 arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);
 
 arith_uint256 nSecondDiff; nSecondDiff.SetCompact(0);

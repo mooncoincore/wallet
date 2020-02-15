@@ -3,7 +3,7 @@
 
 * Hotfix applied to enable - Whole chain ProofOfWork validation
 * Hotfix applied to enable - Whole chain transactions validation
-* Warpsync removed
+* Warpsync removed (speed increases were achieved by removing ProofOfWork checks)
 
 * BIP heights correctly identified and updated
 * pow.cpp updated and corrected from version .13.9
