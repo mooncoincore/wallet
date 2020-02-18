@@ -1,9 +1,0 @@
-prefix=/run/media/billos/burstcoin/mooncoin/mooncoincore/wallet/depends/x86_64-w64-mingw32
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
-
-Name: libunivalue
-Description: libunivalue, C++ universal value object and JSON library
-Version: 1.0.2
-Libs: ${pc_top_builddir}/${pcfiledir}/libunivalue.la
