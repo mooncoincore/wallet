@@ -1,7 +1,0 @@
-rm -rf datadir
-sleep 1
-mkdir datadir
-sleep 1 
-./mooncoind -server -daemon -rpcuser=baz -rpcpassword=uIFHWEIuIWEFHEWFIUWEhIWEFE -rpcbind=127.0.0.1 -rpcallowip=127.0.0.1 -datadir=datadir -addnode=moonrush.org -addnode=bazco.in
-sleep 1
-tail -f datadir/debug.log
