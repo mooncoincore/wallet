@@ -484,6 +484,8 @@ unsigned int static GetNextWorkRequired_V4(const CBlockIndex* pindexLast, const 
   
   
 if (fTestNet){
+  if (pindexLast->nHeight+1 == 1588695) { return 471861378; }
+  if (pindexLast->nHeight+1 == 1588696) { return 471830252; }
   return bnNew.GetCompact();
 }else{
   if (pindexLast->nHeight+1 == 1349150) { return 454022324; }
