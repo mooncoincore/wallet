@@ -84,7 +84,6 @@ public:
         consensus.PowV2 = 26850;   //after this block
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
-		consensus.PowV5 = 8250000; //set to future plans for digishield
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 3.5 days
         consensus.nPowTargetSpacing = 1.5 * 60;
@@ -203,7 +202,6 @@ public:
         consensus.PowV2 = 50;   //after this block
         consensus.PowV3 = 1100000; //after this block
         consensus.PowV4 = 1250000; //after this block
-		consensus.PowV5 = 8588750; //set to future
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // 8 hours
         consensus.nPowTargetSpacing = 1.5 * 60;
@@ -320,7 +318,6 @@ public:
         consensus.PowV2 = 20;   //after this block
         consensus.PowV3 = 320; //after this block
         consensus.PowV4 = 640; //after this block
-		consensus.PowV5 = 960; //set to future
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60 * 60; // pre-digishield: 8 hours
         consensus.nPowTargetSpacing = 1;
