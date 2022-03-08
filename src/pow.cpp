@@ -483,226 +483,22 @@ unsigned int static GetNextWorkRequired_V4(const CBlockIndex* pindexLast, const 
 			}
   
   
-if (fTestNet){
-  return bnNew.GetCompact();
-}else{
-  if (pindexLast->nHeight+1 == 1349150) { return 454022324; }
-  if (pindexLast->nHeight+1 == 1500773) { return 469796712; }
-  if (pindexLast->nHeight+1 == 1511216) { return 453654908; }
-  if (pindexLast->nHeight+1 == 1527334) { return 455454971; }
-  if (pindexLast->nHeight+1 == 1585972) { return 469833684; }
-  return bnNew.GetCompact();
-}
-
-
-}
-
-unsigned int CalculateNextWorkRequired_v5(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
-{
-	// Place-holder for new digishield
-    
-    const int64_t retargetTimespan = params.nPowTargetTimespan;
-    const int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
-    int64_t nModulatedTimespan = nActualTimespan;
-    int64_t nMaxTimespan;
-    int64_t nMinTimespan;
-
-    // amplitude filter - thanks to daft27 for this code
-    nModulatedTimespan = retargetTimespan + (nModulatedTimespan - retargetTimespan) / 8;
-
-    nMinTimespan = retargetTimespan - (retargetTimespan / 4);
-    nMaxTimespan = retargetTimespan + (retargetTimespan / 2);
-
-    // Limit adjustment step
-    if (nModulatedTimespan < nMinTimespan)
-        nModulatedTimespan = nMinTimespan;
-    else if (nModulatedTimespan > nMaxTimespan)
-        nModulatedTimespan = nMaxTimespan;
-
-    // Retarget
-    const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
-    arith_uint256 bnNew;
-    bnNew.SetCompact(pindexLast->nBits);
-    bnNew *= nModulatedTimespan;
-    bnNew /= retargetTimespan;
-
-    if (bnNew > bnPowLimit)
-        bnNew = bnPowLimit;
-
-    return bnNew.GetCompact();
-}
-
-unsigned int static GetNextWorkRequired_V5(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params) {
-	    // Place-holder for new digishield
-		
-arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);
-
-arith_uint256 nSecondDiff; nSecondDiff.SetCompact(0);
-arith_uint256 nAverageDiff; nAverageDiff.SetCompact(0);
-arith_uint256 nCurrentDiff; nCurrentDiff.SetCompact(0);
-int64_t PastBlocksMax = 14;
-int64_t BlockFoundinSec = 0;
-int64_t BlockFoundCount = 0;
-int64_t TargetSpacing = 90;
-
-const CBlockIndex *BlockReadingFirst = pindexLast;
-const CBlockIndex *BlockReadingSecond = pindexLast->pprev;
-
-// 1) search for a recent(last 14 blocks) diff that is a success (success = hash found in +-20% of 90s )
-//  1a) set an average success diff or set to last diff
-    for (unsigned int i = 1; PastBlocksMax >= i ; i++) {    
-	BlockFoundinSec = BlockReadingFirst->GetBlockTime() - BlockReadingSecond->GetBlockTime();
-		
-		if (BlockFoundinSec > 72 && BlockFoundinSec < 108)
-		{
-			BlockFoundCount++;
-			nSecondDiff.SetCompact(BlockReadingSecond->nBits);
-			if (BlockFoundCount > 1) {
-				if(nSecondDiff >= nAverageDiff)
-					nSecondDiff = ((nSecondDiff - nAverageDiff) / BlockFoundCount) + nAverageDiff;
-				else
-					nSecondDiff = nAverageDiff - ((nAverageDiff - nSecondDiff) / BlockFoundCount);
-				}
-			
-		}
-		nAverageDiff = nSecondDiff;
-		
-        if (BlockReadingFirst->pprev == NULL) { assert(BlockReadingFirst); break; }
-		if (BlockReadingSecond->pprev == NULL) { assert(BlockReadingSecond); break; }
-        BlockReadingFirst = BlockReadingFirst->pprev;
-		BlockReadingSecond = BlockReadingSecond->pprev;
+  if (fTestNet){
+        if (pindexLast->nHeight+1 == 1588695) { return 471861378; }
+        if (pindexLast->nHeight+1 == 1588696) { return 471830252; }
+        return bnNew.GetCompact();
+    }else{
+        if (pindexLast->nHeight+1 == 1349150) { return 454022324; }
+        if (pindexLast->nHeight+1 == 1500773) { return 469796712; }
+        if (pindexLast->nHeight+1 == 1511216) { return 453654908; }
+        if (pindexLast->nHeight+1 == 1527334) { return 455454971; }
+        if (pindexLast->nHeight+1 == 1585972) { return 469833684; }
+        return bnNew.GetCompact();
     }
 
-//2) set Current diff to result from 1
-    int nModHeight = pindexLast->nHeight - 1;
-	const CBlockIndex *pindexNxLast = pindexLast->GetAncestor(nModHeight);
-    assert(pindexNxLast);
-	arith_uint256 pindexLastDiff; pindexLastDiff.SetCompact(pindexLast->nBits);
-	arith_uint256 LowNxLastDiff; LowNxLastDiff.SetCompact(pindexNxLast->nBits);
-	arith_uint256 HighNxLastDiff; HighNxLastDiff.SetCompact(pindexNxLast->nBits);
-	int64_t LowModulation = 63; //90 * .7 = 30% smaller
-	int64_t HighModulation = 117; //90 * 1.3 = 30% larger
-	LowNxLastDiff *= LowModulation;
-	LowNxLastDiff /= TargetSpacing;
-	HighNxLastDiff *= HighModulation;
-	HighNxLastDiff /= TargetSpacing;
-	
-    if(BlockFoundCount == 0 ){
-		nCurrentDiff.SetCompact(pindexLast->nBits);
-	}else if (pindexLastDiff < LowNxLastDiff && (pindexLast->GetBlockTime() - pindexNxLast->GetBlockTime()) < 108){
-		nCurrentDiff.SetCompact(pindexLast->nBits);
-	}else if (pindexLastDiff > HighNxLastDiff && (pindexLast->GetBlockTime() - pindexNxLast->GetBlockTime()) < 108){
-		nCurrentDiff.SetCompact(pindexLast->nBits);
-	}else{
-		nCurrentDiff = nAverageDiff;
-	}
 
-
-
-//3) Check for edge cases and handle
-    //hash time too short
-    if (pblock->GetBlockTime() < pindexLast->GetBlockTime() + 45)
-    {
-	    arith_uint256 shNew;
-		int64_t shModulation = 54; //90 * .6 = 40% smaller
-		shNew = nCurrentDiff;
-		shNew *= shModulation;
-		shNew /= TargetSpacing;
-
-		return shNew.GetCompact();
-	}
-    // Special rules for Digishield edge cases
-	arith_uint256 rcNew;
-	int64_t rcModulation = 90; 
-    if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*14)
-    {
-        // If the new block's timestamp is more than 14* nTargetSpacing(90s) = minutes(21m)
-        // then allow mining of a low-difficulty block.
-		nProofOfWorkLimit =  nProofOfWorkLimit / 15;
-        return nProofOfWorkLimit.GetCompact();
-    }else if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*7){
-		// If the new block's timestamp is more than 7* nTargetSpacing(90s) = minutes(10.5m)
-        // then reduce difficulty block by 65%.
-		rcModulation = 149; //90(TargetSpacing) * 1.655 = 65% larger
-		rcNew = nCurrentDiff;
-		rcNew *= rcModulation;
-		rcNew /= TargetSpacing;
-
-		if (rcNew > nProofOfWorkLimit){rcNew = nProofOfWorkLimit;}
-		return rcNew.GetCompact();
-		
-	}
-	else if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*5){
-		// If the new block's timestamp is more than 5* nTargetSpacing(90s) = minutes(7.5m)
-        // then reduce difficulty block by 45%.
-		rcModulation = 131; //90(TargetSpacing) * 1.455 = 45% larger
-		rcNew = nCurrentDiff;
-		rcNew *= rcModulation;
-		rcNew /= TargetSpacing;
-
-		if (rcNew > nProofOfWorkLimit){rcNew = nProofOfWorkLimit;}
-		return rcNew.GetCompact();
-		
-	}else if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*4){
-		// If the new block's timestamp is more than 4* nTargetSpacing(90s) = minutes(6m)
-        // then reduce difficulty block by 30%.
-		
-        rcModulation = 117; //90(TargetSpacing) * 1.3 = 30% larger
-		rcNew = nCurrentDiff;
-		rcNew *= rcModulation;
-		rcNew /= TargetSpacing;
-
-		if (rcNew > nProofOfWorkLimit){rcNew = nProofOfWorkLimit;}
-		return rcNew.GetCompact();
-		
-	}else if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*3){
-		// If the new block's timestamp is more than 3* nTargetSpacing(90s) = minutes(4.5m)
-        // then reduce difficulty block by 15%.
-		
-		rcModulation = 104; //90(TargetSpacing) * 1.155 = 15.5% larger
-		rcNew = nCurrentDiff;
-		rcNew *= rcModulation;
-		rcNew /= TargetSpacing;
-
-		if (rcNew > nProofOfWorkLimit){rcNew = nProofOfWorkLimit;}
-		return rcNew.GetCompact();
-	}
-
-    
-	int nHeightFirst = pindexLast->nHeight - 90;
-	const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
-    assert(pindexFirst);
-    const int64_t retargetTimespan = params.nPowTargetTimespan;
-    const int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
-    int64_t nModulatedTimespan = nActualTimespan;
-
-
-
-    // amplitude filter - thanks to daft27 for this code
-    nModulatedTimespan = retargetTimespan + (nModulatedTimespan - (retargetTimespan * 90)) / 90;
-
-	
-    // Limit adjustment step
-	if (nModulatedTimespan > 45 )
-        nModulatedTimespan = 81;
-    else if (nModulatedTimespan >= 45 && nModulatedTimespan < 90)
-        nModulatedTimespan = 87;
-    else if (nModulatedTimespan >= 90 && nModulatedTimespan <= 180)
-        nModulatedTimespan = 93;
-	else if (nModulatedTimespan < 180)
-		nModulatedTimespan = 96;
-
-    // Retarget
-    arith_uint256 bnNew;
-    bnNew = nCurrentDiff;
-    bnNew *= nModulatedTimespan;
-    bnNew /= retargetTimespan;
-
-    if (bnNew > nProofOfWorkLimit)
-        bnNew = nProofOfWorkLimit;
-
-    return bnNew.GetCompact();
 }
+
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params)
 {
@@ -745,7 +541,6 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
    if ((pindexLast->nHeight+1 >= params.PowV4) && 
        (pindexLast->nHeight+1 < params.PowV4 + 8)) { DiffMode = 4; } // 8 was the smoothing period
    if (pindexLast->nHeight+1 >= params.PowV4 + 8)  { DiffMode = 5; }
-   if (pindexLast->nHeight+1 >= params.PowV5 )  { DiffMode = 6; }
    //actions
 
    if (DiffMode == 1) { return GetNextWorkRequired_V1(pindexLast, pblock, params); }
@@ -753,6 +548,5 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
    if (DiffMode == 3) { return GetNextWorkRequired_V3(pindexLast, pblock, params); }
    if (DiffMode == 4) { return 0x1e0fffff; }
    if (DiffMode == 5) { return GetNextWorkRequired_V4(pindexLast, pblock, params); }
-   if (DiffMode == 6) { return GetNextWorkRequired_V5(pindexLast, pblock, params); }
    return GetNextWorkRequired_V4(pindexLast, pblock, params); 
 }
